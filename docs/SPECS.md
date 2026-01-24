@@ -23,6 +23,7 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 | **Galleria (Gallery)** | Photo galleries and video embeds |
 | **Tesseramento (Membership)** | Annual club membership registration |
 | **Contatti (Contact)** | Contact information and WhatsApp |
+| **Blog/News** | News archive, announcements, club updates |
 
 ### Language
 - **Italian only** - single language implementation
@@ -126,6 +127,50 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 
 ---
 
+## Blog / News
+
+### Purpose
+- Club announcements and updates
+- Event recaps and reports
+- Community news
+- Migration of historical posts from the old website (2013-2018)
+
+### Content Structure
+Each blog post is a markdown file with frontmatter:
+
+```yaml
+---
+title: "Post Title"
+date: 2026-01-15
+author: "admin"
+category: "Comunicato del direttivo"
+tags: ["tesseramento", "divise"]
+image: "/images/blog/post-image.jpg"  # optional
+excerpt: "Brief summary for listings"  # optional, auto-generated if missing
+---
+
+Post content in markdown...
+```
+
+### Categories (from legacy site)
+- Comunicato del direttivo
+- News
+- Coppa Colli Euganei
+- Convenzioni
+
+### Display
+- **Homepage:** Latest 3-5 posts as cards with date, title, excerpt
+- **Blog archive page:** Paginated list of all posts (10 per page)
+- **Individual post page:** Full content with metadata, previous/next navigation
+
+### Authoring Workflow
+- Create new `.md` file in `/src/content/blog/`
+- Filename format: `YYYY-MM-DD-slug.md` (e.g., `2026-01-15-tesseramento-2026.md`)
+- Push to GitHub → automatic rebuild and deploy
+- Quick posts: minimal frontmatter (just title and date) for fast announcements
+
+---
+
 ## Sponsors Section
 
 ### Display
@@ -158,9 +203,11 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
    - Event name and date
    - CTA button to registration
 
-2. **Announcements**
-   - Simple pinned updates (2-3 items)
-   - Managed via markdown file
+2. **Blog/News Section**
+   - Full blog entries with title, date, content, and optional image
+   - Displays latest posts (3-5 items) on homepage
+   - Link to dedicated blog archive page
+   - Managed via markdown files in `/src/content/blog/`
 
 3. **Event Highlight**
    - Magna & Pedala preview
@@ -204,10 +251,16 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 - Keyboard navigation
 - Alt text on images
 
-### Mobile
-- Mobile-first responsive design
-- Touch-friendly navigation
-- Fast load on 3G
+### Mobile-First (PRIMARY REQUIREMENT)
+**The site MUST be designed mobile-first.** Mobile is the primary design target, not an afterthought.
+
+- **Design for mobile screens first**, then progressively enhance for larger screens
+- All layouts, components, and interactions must work perfectly on mobile before considering desktop
+- Touch-friendly navigation with appropriately sized tap targets (minimum 44x44px)
+- Fast load on 3G connections
+- No horizontal scrolling on any screen size
+- Forms optimized for mobile input (appropriate keyboard types, large fields)
+- Images must be responsive and not cause layout shifts
 
 ---
 

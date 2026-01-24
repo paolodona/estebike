@@ -1,11 +1,69 @@
 # EsteBike Website Design System
 
+## Brand Identity
+
+### Heritage & Theme
+EsteBike's visual identity is rooted in the **civic heraldry of Este** (Padova, Veneto). The club's colors directly reference the **Stemma di Este** (Este coat of arms) - a yellow/gold cross on a red field, featuring the iconic castle tower silhouette.
+
+**Brand Story:**
+- Founded in **1996** - nearly 30 years of cycling tradition
+- Colors represent **local pride** and deep connection to Este's history
+- The yellow/red combination is instantly recognizable in the local cycling community
+- The jersey design (yellow with red cross) maximizes visibility while honoring tradition
+
+**Brand Personality:**
+- **Local & Proud:** Strong connection to Este and the Colli Euganei
+- **Community-focused:** Welcoming to all skill levels
+- **Energetic:** Vibrant colors reflect enthusiasm for cycling
+- **Authentic:** No-frills, genuine cycling culture since 1996
+
+---
+
+## Logo Usage
+
+### Primary Logo
+The main logo features "ESTE BIKE" text flanking the Este coat of arms emblem, with "1996" and "zordan" below.
+
+### Logo Versions Needed
+
+**1. Full Color on Red (Primary):**
+- For use on red backgrounds (navigation, hero sections)
+- Text in white with subtle shadow
+- Emblem: yellow cross with castle on lighter background
+- File: `estebike-logo-white.svg`
+
+**2. Full Color on White/Light:**
+- For use on white or cream backgrounds
+- Text in charcoal (--color-charcoal)
+- Emblem: full color (yellow and red)
+- File: `estebike-logo.svg` (current)
+
+**3. Monochrome White:**
+- For footer and dark backgrounds
+- All-white version
+- File: `estebike-logo-mono-white.svg`
+
+**4. Favicon/Icon:**
+- Just the Este coat of arms emblem
+- Works at small sizes
+- File: `estebike-icon.svg`
+
+### Clear Space
+Maintain minimum clear space around logo equal to the height of the "E" in "ESTE".
+
+### Minimum Size
+- Web: 120px width minimum for full logo
+- Favicon: 32x32px minimum for icon version
+
+---
+
 ## Design Philosophy
 
-Inspired by **Jesolo Gravel** - a clean, friendly, community-focused aesthetic that emphasizes the joy of cycling and local community. The design should feel welcoming and approachable, not intimidating or overly competitive.
+A modern, mobile-first design that honors EsteBike's heritage while feeling fresh and contemporary. The design should feel welcoming and approachable, not intimidating or overly competitive.
 
 **Key Principles:**
-- **Warmth:** Inviting colors that reflect the cycling community spirit
+- **Mobile-first:** Design for phones first, enhance for larger screens. The mobile experience IS the experience.
+- **On-brand:** Colors and visual language reflect the Este civic identity
 - **Clarity:** Easy-to-scan information hierarchy
 - **Photography-driven:** Let beautiful cycling imagery tell the story
 - **Simplicity:** Minimalist UI that doesn't compete with content
@@ -14,37 +72,125 @@ Inspired by **Jesolo Gravel** - a clean, friendly, community-focused aesthetic t
 
 ## Color Palette
 
-### Primary Colors
+### Primary Colors - Este Red
+The signature red from the Este coat of arms. Used as the primary brand color for headers, CTAs, and key UI elements.
 ```css
---color-primary: #1E3A5F;      /* Deep Navy - trust, stability */
---color-primary-light: #2D5A8A; /* Lighter navy for hover states */
---color-primary-dark: #0F1F33;  /* Dark navy for text */
+--color-primary: #C41E3A;       /* Este Red - heritage, energy, passion */
+--color-primary-light: #E63950; /* Lighter red for hover states */
+--color-primary-dark: #9A1830;  /* Darker red for active states */
+--color-primary-900: #5C0F1E;   /* Very dark red for text on light backgrounds */
 ```
 
-### Accent Colors
+### Accent Colors - Este Gold/Yellow
+The vibrant yellow from the Este coat of arms. Used sparingly for highlights, badges, and accent elements.
 ```css
---color-accent: #E07B39;        /* Warm Orange - energy, enthusiasm */
---color-accent-light: #F4A261;  /* Light orange for highlights */
---color-accent-dark: #C45D1A;   /* Dark orange for hover */
+--color-accent: #F7D000;        /* Este Gold - energy, visibility, optimism */
+--color-accent-light: #FFE44D;  /* Light gold for backgrounds */
+--color-accent-dark: #D4B000;   /* Darker gold for hover states */
+--color-accent-muted: #FFF8CC;  /* Very light gold for subtle highlights */
 ```
 
-### Neutral Colors
+### Neutral Colors - Charcoal & Grays
+The dark charcoal from the logo text, extended into a full neutral palette for readability.
 ```css
+--color-charcoal: #2D2D2D;      /* Primary text, from logo */
+--color-charcoal-light: #4A4A4A; /* Secondary headings */
 --color-white: #FFFFFF;
---color-off-white: #F8F9FA;     /* Background sections */
---color-gray-100: #E9ECEF;      /* Borders, dividers */
---color-gray-300: #ADB5BD;      /* Muted text */
---color-gray-600: #6C757D;      /* Secondary text */
---color-gray-900: #212529;      /* Body text */
---color-black: #000000;
+--color-off-white: #FAFAFA;     /* Background sections */
+--color-cream: #FDF9F3;         /* Warm off-white, pairs with yellow */
+--color-gray-100: #F0F0F0;      /* Light backgrounds */
+--color-gray-200: #E0E0E0;      /* Borders, dividers */
+--color-gray-400: #9E9E9E;      /* Muted text, placeholders */
+--color-gray-600: #616161;      /* Secondary text */
+--color-gray-800: #424242;      /* Body text alternative */
 ```
 
 ### Semantic Colors
 ```css
---color-success: #28A745;       /* Confirmation, available */
---color-warning: #FFC107;       /* Alerts, deadlines */
---color-error: #DC3545;         /* Errors, sold out */
---color-info: #17A2B8;          /* Information */
+--color-success: #2E7D32;       /* Confirmation, available - green that works with red */
+--color-warning: #F9A825;       /* Alerts, deadlines - uses accent gold family */
+--color-error: #C62828;         /* Errors, sold out - darker than primary red */
+--color-info: #1565C0;          /* Information - blue for contrast */
+```
+
+### Color Usage Guidelines
+
+**Primary (Red) - 60%:**
+- Navigation bar background
+- Primary buttons and CTAs
+- Hero overlays
+- Section headers
+- Footer background
+
+**Accent (Yellow) - 10%:**
+- Highlight badges ("Novità", "Iscrizioni Aperte")
+- Icon accents
+- Hover states on dark backgrounds
+- Price callouts
+- Secondary buttons on red backgrounds
+
+**Neutrals - 30%:**
+- Body text (charcoal)
+- Card backgrounds (white/off-white)
+- Content sections
+- Form inputs
+
+**Contrast Considerations:**
+- Yellow text should NEVER appear on white backgrounds (poor contrast)
+- Yellow works well as badges/pills on red or dark backgrounds
+- Red text on white: use --color-primary-900 for body text
+- White text on red: excellent contrast, use for CTAs and headers
+
+### Sample Color Combinations
+
+**Navigation Bar:**
+```
+Background: --color-primary (#C41E3A)
+Text: white
+CTA Button: --color-accent (#F7D000) with --color-charcoal text
+```
+
+**Hero Section:**
+```
+Overlay: linear-gradient(rgba(196, 30, 58, 0.8), rgba(154, 24, 48, 0.9))
+Headline: white
+Subheadline: white (80% opacity)
+CTA: --color-accent button with --color-charcoal text
+```
+
+**Content Section (Light):**
+```
+Background: --color-off-white (#FAFAFA)
+Headline: --color-charcoal (#2D2D2D)
+Body text: --color-gray-800 (#424242)
+Links: --color-primary (#C41E3A)
+Accent badges: --color-accent on red, or red on light
+```
+
+**Feature Section (Red):**
+```
+Background: --color-primary (#C41E3A)
+Text: white
+Accent elements: --color-accent (#F7D000)
+Buttons: white outline or yellow fill
+```
+
+**Card Component:**
+```
+Background: white
+Border: 1px solid --color-gray-200
+Title: --color-charcoal
+Meta text: --color-gray-600
+CTA link: --color-primary
+Hover: subtle shadow + optional red left border
+```
+
+**Footer:**
+```
+Background: --color-primary-dark (#9A1830)
+Text: white
+Muted text: white (60% opacity)
+Links hover: --color-accent
 ```
 
 ---
@@ -139,74 +285,97 @@ Inspired by **Jesolo Gravel** - a clean, friendly, community-focused aesthetic t
 ### Navigation
 
 **Desktop:**
-- Fixed header with transparent-to-solid on scroll
-- Logo left, menu items center/right
-- CTA button highlighted (e.g., "Iscriviti")
+- Fixed header with red background (--color-primary)
+- Logo left (white version on red), menu items center/right in white
+- CTA button in yellow accent (--color-accent) with dark text
 - Height: 80px
+- On scroll: subtle shadow added
 
 **Mobile:**
-- Hamburger menu
-- Full-screen overlay navigation
-- Logo centered
+- Red hamburger menu icon on red header
+- Full-screen red overlay navigation
+- Logo centered (white version)
 - Height: 60px
+- Menu items in white, large touch targets
 
 ```
 [Logo]     [Chi Siamo] [Magna & Pedala] [Galleria] [Contatti]  [ISCRIVITI]
+  white         white text links                              yellow button
 ```
 
 ### Hero Section
 
 **Layout:**
 - Full viewport height (100vh) or 80vh
-- Large background image with dark overlay
-- Centered content
+- Large background image with **red gradient overlay** (--color-primary at 70% opacity)
+- Centered content in white
 - Event name in display font
 - Date prominently displayed
-- Primary CTA button
+- Yellow accent CTA button for maximum contrast
 
 **Example:**
 ```
 ┌─────────────────────────────────────────────┐
+│           Red gradient overlay              │
 │                                             │
-│              [ESTEBIKE LOGO]                │
+│         [ESTEBIKE LOGO - white]             │
 │                                             │
 │            MAGNA & PEDALA                   │
 │               2026                          │
+│           (white display text)              │
 │                                             │
 │          15 Maggio 2026 • Este              │
 │                                             │
-│           [ ISCRIVITI ORA ]                 │
+│         [ ISCRIVITI ORA ]                   │
+│          (yellow button)                    │
 │                                             │
 └─────────────────────────────────────────────┘
 ```
 
 ### Buttons
 
-**Primary Button:**
+**Primary Button (Red):**
 ```css
-background: var(--color-accent);
+background: var(--color-primary);
 color: white;
 padding: var(--space-3) var(--space-6);
 border-radius: 4px;
 font-weight: var(--font-semibold);
-transition: background 0.2s;
-/* Hover: var(--color-accent-dark) */
+transition: all 0.2s ease;
+/* Hover: var(--color-primary-dark), slight lift shadow */
 ```
 
-**Secondary Button:**
+**Secondary Button (Outlined):**
 ```css
 background: transparent;
 border: 2px solid var(--color-primary);
 color: var(--color-primary);
-/* Hover: filled with primary */
+/* Hover: filled with primary, white text */
 ```
 
-**Ghost Button (on dark backgrounds):**
+**Accent Button (Yellow on Red backgrounds):**
+```css
+background: var(--color-accent);
+color: var(--color-charcoal);
+font-weight: var(--font-bold);
+/* Use only on red/dark backgrounds for contrast */
+/* Hover: var(--color-accent-dark) */
+```
+
+**Ghost Button (on dark/red backgrounds):**
 ```css
 background: transparent;
 border: 2px solid white;
 color: white;
-/* Hover: white background, dark text */
+/* Hover: white background, red text */
+```
+
+**Ghost Button (on yellow backgrounds):**
+```css
+background: transparent;
+border: 2px solid var(--color-charcoal);
+color: var(--color-charcoal);
+/* Hover: charcoal background, white text */
 ```
 
 ### Cards
@@ -215,27 +384,56 @@ color: white;
 ```
 ┌─────────────────────────────┐
 │         [IMAGE]             │
-│                             │
+│    (red overlay on hover)   │
 ├─────────────────────────────┤
+│  [Yellow badge: "65km"]     │
 │  Route Name                 │
-│  65km • 800m D+             │
+│  800m D+ • Gravel           │
 │  ─────────────────          │
 │  Brief description...       │
 │                             │
 │  [Scarica GPX] [Vedi Mappa] │
+│   (red links)               │
 └─────────────────────────────┘
 ```
+- White background, subtle shadow
+- Red accent bar on left edge (optional)
+- Yellow badges for key stats
+- Red text links for actions
+
+**Blog Post Card:**
+```
+┌─────────────────────────────┐
+│         [IMAGE]             │
+│        (optional)           │
+├─────────────────────────────┤
+│  [Red tag: Categoria]       │
+│  Post Title Here            │
+│  (charcoal, bold)           │
+│  ─────────────────          │
+│  15 Gen 2026 (gray)         │
+│  Brief excerpt text that    │
+│  summarizes the post...     │
+│                             │
+│  [Leggi tutto →] (red)      │
+└─────────────────────────────┘
+```
+- Date in muted gray
+- Category tag in red with light red background
+- "Read more" link in primary red
+- Hover: subtle lift and shadow
 
 **Sponsor Card:**
 ```
 ┌───────────────┐
 │               │
 │    [LOGO]     │
-│               │
+│ (grayscale)   │
 └───────────────┘
 ```
-- Grayscale by default, color on hover
+- Grayscale by default, full color on hover
 - Uniform height, logos centered
+- Optional: subtle red border on hover
 
 ### Gallery
 
@@ -263,19 +461,27 @@ font-size: var(--text-base);
 
 ### Footer
 
+**Design:**
+- Background: --color-primary-dark (dark red)
+- Text: white and --color-gray-400 for secondary
+- Links: white, hover to --color-accent (yellow)
+- Social icons: white, hover to yellow
+- Divider: --color-primary-light
+
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  [LOGO]                                                 │
+│  [LOGO - white version]              (dark red bg)      │
 │                                                         │
 │  EsteBike ASD                 Link Utili    Seguici     │
 │  Via Example 123              Chi Siamo     [IG] [FB]   │
 │  35042 Este (PD)              Magna&Pedala  [Strava]    │
 │  info@estebike.it             Galleria                  │
-│                               Tesseramento              │
+│    (white text)               Tesseramento              │
+│                               (white links → yellow)    │
 │                                                         │
 │  ───────────────────────────────────────────────────── │
-│  © 2026 EsteBike ASD • P.IVA: XXXXXXXXXXX              │
-│  [Sponsors logos strip]                                 │
+│  © 2026 EsteBike ASD • Dal 1996                        │
+│  [Sponsors logos strip - grayscale/white]              │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -288,7 +494,7 @@ font-size: var(--text-base);
 ```
 1. [Navigation - fixed]
 2. [Hero - full height]
-3. [Announcements - if any]
+3. [Latest News - 3-5 blog post cards]
 4. [Event Highlight Section]
 5. [About Club Teaser]
 6. [Routes Preview - 3 cards]
@@ -326,6 +532,32 @@ font-size: var(--text-base);
 4. [Price Display]
 5. [Stripe Checkout Button]
 6. [Footer]
+```
+
+### Blog Archive Page Structure
+
+```
+1. [Navigation]
+2. [Page Header - "News & Aggiornamenti"]
+3. [Blog Post List - cards or list view]
+   - Paginated (10 per page)
+   - Each entry: date, title, excerpt, category
+4. [Pagination controls]
+5. [Footer]
+```
+
+### Single Blog Post Structure
+
+```
+1. [Navigation]
+2. [Featured Image - if present]
+3. [Post Header]
+   - Title
+   - Date, Author, Category
+4. [Post Content - markdown rendered]
+5. [Tags]
+6. [Previous/Next Navigation]
+7. [Footer]
 ```
 
 ---
@@ -372,37 +604,52 @@ font-size: var(--text-base);
 
 ---
 
-## Responsive Behavior
+## Responsive Behavior (MOBILE-FIRST)
 
-### Mobile (< 768px)
+**CRITICAL: This site is mobile-first.** All CSS and components must be written for mobile screens as the baseline, with `min-width` media queries to enhance for larger screens. Never write desktop-first CSS that gets overridden for mobile.
+
+### Mobile - THE DEFAULT (< 768px)
+This is the PRIMARY design. All styles without media queries target mobile.
 - Single column layout
-- Hamburger navigation
-- Stacked cards
-- Reduced padding (--space-4)
-- Hero text smaller (--text-4xl)
+- Hamburger navigation with full-screen overlay
+- Stacked cards, full-width
+- Comfortable padding (--space-4)
+- Readable text sizes (--text-base minimum for body)
+- Large touch targets (44x44px minimum)
+- Hero text sized for mobile (--text-4xl)
+- No hover-dependent interactions
 
-### Tablet (768px - 1024px)
-- Two column grids
-- Navigation visible but condensed
+### Tablet (min-width: 768px)
+Progressive enhancement from mobile:
+- Two column grids where appropriate
+- Navigation can expand (optional)
 - Hero at 80vh
+- Slightly increased spacing
 
-### Desktop (> 1024px)
-- Full layout as designed
-- Hover states active
+### Desktop (min-width: 1024px)
+Further enhancement:
+- Multi-column layouts (3-4 columns for galleries)
+- Full navigation visible
+- Hover states enabled
 - Maximum container width applied
+- Increased whitespace and padding
 
 ---
 
 ## Dark Mode (Optional/Future)
 
-If implemented later:
+If implemented later, maintain brand recognition:
 ```css
 /* Dark mode overrides */
---color-background: #121212;
---color-surface: #1E1E1E;
---color-text: #E0E0E0;
+--color-background: #1A1A1A;
+--color-surface: #252525;
+--color-text: #F0F0F0;
 --color-text-muted: #A0A0A0;
-/* Keep accent colors vibrant */
+/* Keep brand colors vibrant */
+--color-primary: #E63950;        /* Slightly lighter red for dark bg */
+--color-accent: #FFD633;         /* Slightly lighter yellow */
+/* Red surfaces become darker but stay red */
+--color-primary-surface: #3D1520; /* Dark red for sections */
 ```
 
 ---
@@ -444,6 +691,9 @@ If implemented later:
   /pages
     index.astro
     chi-siamo.astro
+    blog/
+      index.astro           # Blog archive with pagination
+      [...slug].astro       # Dynamic blog post pages
     magna-e-pedala/
       index.astro
       percorsi.astro
@@ -453,7 +703,7 @@ If implemented later:
     tesseramento.astro
     contatti.astro
   /content
-    /announcements
+    /blog          # Blog posts (markdown files)
     /routes
     /gallery
   /styles

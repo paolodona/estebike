@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.estebike.it)",
+      "WebFetch(domain:jesologravel.com)",
+      "WebFetch(domain:www.tuscanytrail.it)",
+      "WebFetch(domain:jecogravel.com)",
+      "WebFetch(domain:www.terrefiumidavivere.it)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(powershell -Command \"Get-ChildItem -Recurse -Filter ''*.html'' | ForEach-Object { \\(Get-Content $_FullName -Raw\\) -replace ''<script>if \\\\\\(document\\\\.location\\\\.protocol != \"\"https:\"\"\\\\\\) \\\\{document\\\\.location = document\\\\.URL\\\\.replace\\\\\\(/\\\\^http:/i, \"\"https:\"\"\\\\\\);\\\\}</script>'', '''' | Set-Content $_FullName -NoNewline }\")",
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\fix-redirect.ps1\")",
+      "Bash(if not exist \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\" mkdir \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\")",
+      "Bash(move \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\fix-redirect.ps1\" \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\")",
+      "Bash(cmd /c \"if not exist \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\" mkdir \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")",
+      "Bash(cmd /c \"move \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\fix-redirect.ps1\"\" \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")",
+      "Bash(cmd /c \"dir \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")"
+    ]
+  }
+}
