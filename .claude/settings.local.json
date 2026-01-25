@@ -21,7 +21,20 @@
       "Bash(move \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\fix-redirect.ps1\" \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\")",
       "Bash(cmd /c \"if not exist \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\" mkdir \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")",
       "Bash(cmd /c \"move \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\fix-redirect.ps1\"\" \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")",
-      "Bash(cmd /c \"dir \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")"
+      "Bash(cmd /c \"dir \"\"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\scripts\"\"\")",
+      "Bash(git -C \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\" log --oneline -20)",
+      "Bash(git -C \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\" status)",
+      "Bash(git -C \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\" remote -v)",
+      "Bash(git -C \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\" log --pretty=format:\"%h %s %b\" -n 20)",
+      "Bash(git -C \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\" show --stat HEAD)",
+      "Bash(git rev-parse:*)",
+      "Bash(if not exist \".agent_session\" mkdir .agent_session)",
+      "WebSearch",
+      "Bash(dir \"C:\\\\Users\\\\PaoloDona\\\\prj\\\\Other\\\\estebike\\\\crawled-site\" /s /b)",
+      "WebFetch(domain:docs.astro.build)",
+      "WebFetch(domain:zellwk.com)",
+      "WebFetch(domain:marcandreuf.com)",
+      "WebFetch(domain:mihai-andrei.com)"
     ]
   }
 }
