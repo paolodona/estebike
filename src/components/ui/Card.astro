@@ -1,0 +1,125 @@
+---
+export interface Props {
+  variant?: 'default' | 'event' | 'blog' | 'sponsor';
+  href?: string;
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  href,
+  class: className = '',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'article';
+const classes = [
+  'card',
+  `card--${variant}`,
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <article class={classes}>
+    <slot />
+  </article>
+)}
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Default card */
+  .card--default {
+    border: 1px solid var(--color-gray-200);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card--default:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  /* Event card (route cards) */
+  .card--event {
+    border: 1px solid var(--color-gray-200);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+
+  .card--event::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--color-primary);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .card--event:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card--event:hover::before {
+    opacity: 1;
+  }
+
+  /* Blog card */
+  .card--blog {
+    border: 1px solid var(--color-gray-200);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card--blog:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  /* Sponsor card */
+  .card--sponsor {
+    padding: var(--space-6);
+    border: 1px solid var(--color-gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+  }
+
+  .card--sponsor :global(img) {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all var(--transition-base);
+    max-height: 60px;
+    width: auto;
+  }
+
+  .card--sponsor:hover :global(img) {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  .card--sponsor:hover {
+    border-color: var(--color-primary-light);
+  }
+
+  /* Focus state for link cards */
+  a.card:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+</style>

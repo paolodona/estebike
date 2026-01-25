@@ -35,7 +35,11 @@
       "WebFetch(domain:zellwk.com)",
       "WebFetch(domain:marcandreuf.com)",
       "WebFetch(domain:mihai-andrei.com)",
-      "Bash(git rev-list:*)"
+      "Bash(git rev-list:*)",
+      "Bash(copy:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

@@ -1,0 +1,206 @@
+---
+export interface Option {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
+export interface Props {
+  name: string;
+  legend: string;
+  options: Option[];
+  required?: boolean;
+  value?: string;
+  error?: string;
+  inline?: boolean;
+  class?: string;
+}
+
+const {
+  name,
+  legend,
+  options,
+  required = false,
+  value = '',
+  error,
+  inline = false,
+  class: className = '',
+} = Astro.props;
+
+const groupId = `radio-group-${name}`;
+const errorId = error ? `${groupId}-error` : undefined;
+---
+
+<fieldset class:list={['radio-group', error && 'radio-group--error', className]} aria-describedby={errorId}>
+  <legend class="radio-legend">
+    {legend}
+    {required && <span class="radio-required" aria-hidden="true">*</span>}
+  </legend>
+
+  <div class:list={['radio-options', inline && 'radio-options--inline']}>
+    {options.map((option, index) => {
+      const inputId = `${groupId}-${index}`;
+      return (
+        <label class="radio-label">
+          <input
+            type="radio"
+            id={inputId}
+            name={name}
+            value={option.value}
+            required={required && index === 0}
+            disabled={option.disabled}
+            checked={value === option.value}
+            aria-invalid={error ? 'true' : undefined}
+            class="radio-input"
+          />
+          <span class="radio-circle" aria-hidden="true">
+            <span class="radio-dot"></span>
+          </span>
+          <span class="radio-text">{option.label}</span>
+        </label>
+      );
+    })}
+  </div>
+
+  {error && (
+    <p id={errorId} class="radio-error" role="alert">{error}</p>
+  )}
+</fieldset>
+
+<style>
+  .radio-group {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .radio-legend {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-charcoal);
+    margin-bottom: var(--space-2);
+  }
+
+  .radio-required {
+    color: var(--color-error);
+    margin-left: var(--space-1);
+  }
+
+  .radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .radio-options--inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    /* Minimum touch target */
+    min-height: var(--touch-target-min);
+    padding: var(--space-2) 0;
+  }
+
+  .radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .radio-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-300);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+  }
+
+  .radio-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-full);
+    transform: scale(0);
+    transition: transform var(--transition-fast);
+  }
+
+  .radio-input:checked + .radio-circle {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+  }
+
+  .radio-input:checked + .radio-circle .radio-dot {
+    transform: scale(1);
+  }
+
+  .radio-input:hover:not(:disabled) + .radio-circle {
+    border-color: var(--color-primary);
+  }
+
+  .radio-input:focus-visible + .radio-circle {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .radio-input:disabled + .radio-circle {
+    background-color: var(--color-gray-100);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .radio-input:disabled ~ .radio-text {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .radio-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-charcoal);
+  }
+
+  /* Error state */
+  .radio-group--error .radio-circle {
+    border-color: var(--color-error);
+  }
+
+  .radio-error {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .radio-error::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: var(--font-bold);
+    background-color: var(--color-error);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+  }
+</style>

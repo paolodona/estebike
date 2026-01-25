@@ -1,0 +1,165 @@
+---
+/**
+ * Sponsors Section Component
+ *
+ * Displays sponsor logos in a tiered grid.
+ */
+
+import Card from '../ui/Card.astro';
+
+export interface Sponsor {
+  name: string;
+  logo: string;
+  url?: string;
+  tier?: 'gold' | 'silver' | 'bronze';
+}
+
+export interface Props {
+  title?: string;
+  sponsors?: Sponsor[];
+}
+
+const {
+  title = 'I nostri sponsor',
+  sponsors = [],
+} = Astro.props;
+
+// Group sponsors by tier
+const goldSponsors = sponsors.filter((s) => s.tier === 'gold');
+const silverSponsors = sponsors.filter((s) => s.tier === 'silver');
+const bronzeSponsors = sponsors.filter((s) => s.tier === 'bronze');
+const otherSponsors = sponsors.filter((s) => !s.tier);
+---
+
+<section class="sponsors-section">
+  <h2 class="sponsors-title">{title}</h2>
+
+  {goldSponsors.length > 0 && (
+    <div class="sponsors-tier sponsors-tier--gold">
+      <span class="sponsors-tier__label">Gold Sponsor</span>
+      <div class="sponsors-grid sponsors-grid--gold">
+        {goldSponsors.map((sponsor) => (
+          <Card variant="sponsor" href={sponsor.url}>
+            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+          </Card>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {silverSponsors.length > 0 && (
+    <div class="sponsors-tier sponsors-tier--silver">
+      <span class="sponsors-tier__label">Silver Sponsor</span>
+      <div class="sponsors-grid sponsors-grid--silver">
+        {silverSponsors.map((sponsor) => (
+          <Card variant="sponsor" href={sponsor.url}>
+            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+          </Card>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {bronzeSponsors.length > 0 && (
+    <div class="sponsors-tier sponsors-tier--bronze">
+      <span class="sponsors-tier__label">Bronze Sponsor</span>
+      <div class="sponsors-grid sponsors-grid--bronze">
+        {bronzeSponsors.map((sponsor) => (
+          <Card variant="sponsor" href={sponsor.url}>
+            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+          </Card>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {otherSponsors.length > 0 && (
+    <div class="sponsors-tier">
+      <div class="sponsors-grid">
+        {otherSponsors.map((sponsor) => (
+          <Card variant="sponsor" href={sponsor.url}>
+            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+          </Card>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {sponsors.length === 0 && (
+    <p class="sponsors-empty">
+      Interessato a diventare sponsor? <a href="/contatti">Contattaci</a>
+    </p>
+  )}
+</section>
+
+<style>
+  .sponsors-section {
+    text-align: center;
+  }
+
+  .sponsors-title {
+    margin-bottom: var(--space-8);
+  }
+
+  .sponsors-tier {
+    margin-bottom: var(--space-8);
+  }
+
+  .sponsors-tier:last-child {
+    margin-bottom: 0;
+  }
+
+  .sponsors-tier__label {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+
+  .sponsors-tier--gold .sponsors-tier__label {
+    background-color: var(--color-accent);
+    color: var(--color-charcoal);
+  }
+
+  .sponsors-tier--silver .sponsors-tier__label {
+    background-color: var(--color-gray-400);
+    color: var(--color-white);
+  }
+
+  .sponsors-tier--bronze .sponsors-tier__label {
+    background-color: #CD7F32;
+    color: var(--color-white);
+  }
+
+  .sponsors-grid {
+    display: grid;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  .sponsors-grid--gold {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  }
+
+  .sponsors-grid--silver {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 200px));
+  }
+
+  .sponsors-grid--bronze,
+  .sponsors-grid:not([class*="--"]) {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 160px));
+  }
+
+  .sponsors-empty {
+    color: var(--color-gray-600);
+  }
+
+  .sponsors-empty a {
+    color: var(--color-primary);
+  }
+</style>

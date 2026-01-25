@@ -1,0 +1,401 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import Input from '../components/ui/Input.astro';
+import Checkbox from '../components/ui/Checkbox.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import Badge from '../components/ui/Badge.astro';
+
+const membershipPrice = 50; // EUR
+const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.estebike.it';
+
+const benefits = [
+  'Partecipazione alle uscite settimanali',
+  'Copertura assicurativa durante le attività',
+  'Sconti presso i nostri partner',
+  'Accesso agli eventi riservati ai soci',
+  'Supporto nella scelta dell\'attrezzatura',
+];
+---
+
+<BaseLayout
+  title="Tesseramento"
+  description="Diventa socio EsteBike! Iscriviti al club e partecipa alle nostre uscite, eventi e goditi i vantaggi riservati ai tesserati."
+>
+  <PageHeader
+    title="Tesseramento"
+    subtitle="Diventa socio EsteBike"
+    breadcrumbs={[{ label: 'Tesseramento' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="membership-grid">
+        <!-- Info Section -->
+        <div class="membership-info">
+          <Badge variant="accent">Anno 2026</Badge>
+          <h2>Entra a far parte della famiglia EsteBike</h2>
+          <p>
+            Il tesseramento annuale ti dà accesso a tutte le attività del club,
+            dalla partecipazione alle uscite settimanali agli eventi esclusivi
+            riservati ai soci.
+          </p>
+
+          <h3>Cosa include il tesseramento</h3>
+          <ul class="benefits-list">
+            {benefits.map((benefit) => (
+              <li>
+                <Icon name="chevron-right" size={18} />
+                <span>{benefit}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="membership-price">
+            <span class="membership-price__amount">&euro;{membershipPrice}</span>
+            <span class="membership-price__label">quota annuale</span>
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-container">
+          <h2>Compila il modulo</h2>
+
+          <form id="membership-form" novalidate>
+            <div class="form-section">
+              <h3>Dati personali</h3>
+              <div class="form-row">
+                <Input
+                  name="nome"
+                  label="Nome"
+                  required
+                  autocomplete="given-name"
+                />
+                <Input
+                  name="cognome"
+                  label="Cognome"
+                  required
+                  autocomplete="family-name"
+                />
+              </div>
+              <Input
+                type="email"
+                name="email"
+                label="Email"
+                required
+                autocomplete="email"
+              />
+              <Input
+                type="tel"
+                name="telefono"
+                label="Telefono"
+                required
+                autocomplete="tel"
+                placeholder="Es. 333 1234567"
+              />
+            </div>
+
+            <div class="form-section">
+              <h3>Indirizzo di residenza</h3>
+              <Input
+                name="indirizzo"
+                label="Indirizzo"
+                required
+                autocomplete="street-address"
+                placeholder="Via/Piazza e numero civico"
+              />
+              <div class="form-row">
+                <Input
+                  name="cap"
+                  label="CAP"
+                  required
+                  autocomplete="postal-code"
+                  maxlength={5}
+                />
+                <Input
+                  name="citta"
+                  label="Città"
+                  required
+                  autocomplete="address-level2"
+                />
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Codice Fiscale</h3>
+              <Input
+                name="codiceFiscale"
+                label="Codice Fiscale"
+                required
+                maxlength={16}
+                placeholder="RSSMRA85M01H501Z"
+                hint="Necessario per la tessera assicurativa"
+              />
+            </div>
+
+            <div class="form-section">
+              <h3>Privacy</h3>
+              <Checkbox
+                name="consensoPrivacy"
+                label="Ho letto e accetto l'informativa sulla privacy"
+                required
+              />
+              <p class="form-section__hint">
+                <a href="/privacy">Leggi l'informativa completa</a>
+              </p>
+            </div>
+
+            <div class="form-error" id="form-error" hidden>
+              <Icon name="x" size={20} />
+              <span></span>
+            </div>
+
+            <Button type="submit" variant="primary" size="lg" fullWidth>
+              Procedi al pagamento
+            </Button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section section--light">
+    <div class="container">
+      <h2 class="text-center">Domande frequenti</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>Quando scade il tesseramento?</h3>
+          <p>
+            Il tesseramento ha validità annuale e segue l'anno solare
+            (1 gennaio - 31 dicembre).
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Posso partecipare al Magna & Pedala senza essere tesserato?</h3>
+          <p>
+            Sì, l'iscrizione al Magna & Pedala è aperta a tutti.
+            Il tesseramento è richiesto solo per le attività regolari del club.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Come funziona la copertura assicurativa?</h3>
+          <p>
+            La tessera include una polizza assicurativa che ti copre durante
+            tutte le attività ufficiali del club.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Posso tesserarmi in qualsiasi momento dell'anno?</h3>
+          <p>
+            Sì, puoi tesserarti quando vuoi. La tessera sarà valida fino al
+            31 dicembre dell'anno in corso.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .membership-grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  @media (min-width: 1024px) {
+    .membership-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: start;
+    }
+  }
+
+  /* Info Section */
+  .membership-info h2 {
+    font-size: var(--text-3xl);
+    margin: var(--space-4) 0 var(--space-4);
+    line-height: var(--leading-tight);
+  }
+
+  .membership-info > p {
+    color: var(--color-gray-600);
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-6);
+  }
+
+  .membership-info h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  .benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-8);
+  }
+
+  .benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .benefits-list :global(.icon) {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .membership-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-6);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+  }
+
+  .membership-price__amount {
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .membership-price__label {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin-top: var(--space-1);
+  }
+
+  /* Form Section */
+  .form-container {
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  @media (min-width: 768px) {
+    .form-container {
+      padding: var(--space-8);
+    }
+  }
+
+  .form-container h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .form-section {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: var(--space-4);
+  }
+
+  .form-section h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .form-row {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-section :global(.input-group),
+  .form-section :global(.checkbox-group) {
+    margin-bottom: var(--space-4);
+  }
+
+  .form-section__hint {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin-top: var(--space-2);
+  }
+
+  .form-section__hint a {
+    color: var(--color-primary);
+  }
+
+  .form-error {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background-color: rgba(198, 40, 40, 0.1);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-sm);
+    color: var(--color-error);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .form-error[hidden] {
+    display: none;
+  }
+
+  /* FAQ Grid */
+  .faq-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .faq-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .faq-item {
+    padding: var(--space-6);
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-item p {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+</style>
+
+<script define:vars={{ apiUrl }}>
+  // Form handling would be similar to registration form
+  // For now, just show a message
+  const form = document.getElementById('membership-form');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Il sistema di tesseramento online sarà disponibile presto. Per ora, contattaci via email per tesserarti.');
+  });
+</script>

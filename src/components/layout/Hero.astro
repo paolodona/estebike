@@ -1,0 +1,242 @@
+---
+import Button from '../ui/Button.astro';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  date?: string;
+  location?: string;
+  image?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
+  size?: 'full' | 'large' | 'medium';
+  overlay?: 'dark' | 'gradient' | 'none';
+}
+
+const {
+  title,
+  subtitle,
+  date,
+  location,
+  image = '/images/hero-default.jpg',
+  ctaText,
+  ctaHref,
+  secondaryCtaText,
+  secondaryCtaHref,
+  size = 'full',
+  overlay = 'gradient',
+} = Astro.props;
+
+const sizeClasses = {
+  full: 'hero--full',
+  large: 'hero--large',
+  medium: 'hero--medium',
+};
+
+const overlayClasses = {
+  dark: 'hero--overlay-dark',
+  gradient: 'hero--overlay-gradient',
+  none: '',
+};
+---
+
+<section class:list={['hero', sizeClasses[size], overlayClasses[overlay]]}>
+  <div class="hero__background">
+    <img
+      src={image}
+      alt=""
+      loading="eager"
+      decoding="async"
+      class="hero__image"
+    />
+  </div>
+
+  <div class="hero__content container">
+    <div class="hero__text">
+      {subtitle && <p class="hero__subtitle">{subtitle}</p>}
+      <h1 class="hero__title">{title}</h1>
+
+      {(date || location) && (
+        <div class="hero__meta">
+          {date && <span class="hero__date">{date}</span>}
+          {date && location && <span class="hero__separator" aria-hidden="true">•</span>}
+          {location && <span class="hero__location">{location}</span>}
+        </div>
+      )}
+
+      {(ctaText || secondaryCtaText) && (
+        <div class="hero__actions">
+          {ctaText && ctaHref && (
+            <Button href={ctaHref} variant="accent" size="lg">
+              {ctaText}
+            </Button>
+          )}
+          {secondaryCtaText && secondaryCtaHref && (
+            <Button href={secondaryCtaHref} variant="ghost" size="lg">
+              {secondaryCtaText}
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+
+  <slot />
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--color-white);
+  }
+
+  /* Sizes */
+  .hero--full {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .hero--large {
+    min-height: 80vh;
+    min-height: 80dvh;
+  }
+
+  .hero--medium {
+    min-height: 50vh;
+    min-height: 50dvh;
+  }
+
+  /* Background */
+  .hero__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Overlays */
+  .hero--overlay-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(196, 30, 58, 0.7) 0%,
+      rgba(154, 24, 48, 0.85) 100%
+    );
+  }
+
+  .hero--overlay-dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  /* Content */
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-top: calc(var(--header-height-mobile) + var(--space-8));
+    padding-bottom: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__content {
+      padding-top: calc(var(--header-height-desktop) + var(--space-12));
+      padding-bottom: var(--space-12);
+    }
+  }
+
+  .hero__text {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-4);
+    opacity: 0.9;
+  }
+
+  @media (min-width: 768px) {
+    .hero__subtitle {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-none);
+    color: var(--color-white);
+    margin-bottom: var(--space-4);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero__title {
+      font-size: var(--text-6xl);
+    }
+  }
+
+  .hero__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-8);
+    opacity: 0.9;
+  }
+
+  @media (min-width: 768px) {
+    .hero__meta {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .hero__date,
+  .hero__location {
+    font-weight: var(--font-medium);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  @media (min-width: 640px) {
+    .hero__actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+</style>

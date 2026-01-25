@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
+
+const socialLinks = [
+  {
+    name: 'Instagram',
+    icon: 'instagram' as const,
+    url: 'https://www.instagram.com/team_estebike/',
+    handle: '@team_estebike',
+  },
+  {
+    name: 'Facebook',
+    icon: 'facebook' as const,
+    url: 'https://www.facebook.com/estebike/',
+    handle: 'estebike',
+  },
+];
+---
+
+<BaseLayout
+  title="Contatti"
+  description="Contatta EsteBike per informazioni su eventi, iscrizioni e attività. Scrivici via email, WhatsApp o seguici sui social."
+>
+  <PageHeader
+    title="Contatti"
+    subtitle="Siamo sempre felici di sentirti!"
+    breadcrumbs={[{ label: 'Contatti' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h2>Come raggiungerci</h2>
+          <p>
+            Hai domande sul Magna & Pedala, sul tesseramento o vuoi semplicemente
+            saperne di più su di noi? Non esitare a contattarci!
+          </p>
+
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="contact-method__icon">
+                <Icon name="mail" size={24} />
+              </div>
+              <div class="contact-method__content">
+                <h3>Email</h3>
+                <a href="mailto:info@estebike.it">info@estebike.it</a>
+                <p>Rispondiamo entro 24-48 ore</p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-method__icon">
+                <Icon name="whatsapp" size={24} />
+              </div>
+              <div class="contact-method__content">
+                <h3>WhatsApp</h3>
+                <a href="https://wa.me/39XXXXXXXXXX" target="_blank" rel="noopener">
+                  Scrivici su WhatsApp
+                </a>
+                <p>Per risposte rapide</p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-method__icon">
+                <Icon name="map-pin" size={24} />
+              </div>
+              <div class="contact-method__content">
+                <h3>Sede</h3>
+                <address>
+                  Este (PD)<br />
+                  Veneto, Italia
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-section">
+          <h2>Seguici sui social</h2>
+          <p>
+            Resta aggiornato sulle nostre attività, le uscite settimanali
+            e le ultime news dal mondo EsteBike.
+          </p>
+
+          <div class="social-links">
+            {socialLinks.map((link) => (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+              >
+                <Icon name={link.icon} size={28} />
+                <div class="social-link__content">
+                  <span class="social-link__name">{link.name}</span>
+                  <span class="social-link__handle">{link.handle}</span>
+                </div>
+                <Icon name="external-link" size={16} class="social-link__arrow" />
+              </a>
+            ))}
+
+            <a
+              href="https://www.strava.com/clubs/Team-Estebike-Zordan"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+              </svg>
+              <div class="social-link__content">
+                <span class="social-link__name">Strava</span>
+                <span class="social-link__handle">Team Estebike Zordan</span>
+              </div>
+              <Icon name="external-link" size={16} class="social-link__arrow" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section section--light">
+    <div class="container">
+      <h2 class="text-center">Domande frequenti</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>Come posso iscrivermi al Magna & Pedala?</h3>
+          <p>
+            Puoi iscriverti direttamente dal nostro sito nella sezione
+            <a href="/magna-e-pedala/iscrizioni">Iscrizioni</a>. Il pagamento
+            avviene in modo sicuro tramite Stripe.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Devo essere tesserato per partecipare?</h3>
+          <p>
+            No, il Magna & Pedala è aperto a tutti i ciclisti. Se vuoi
+            partecipare alle nostre uscite settimanali, ti consigliamo il
+            <a href="/tesseramento">tesseramento annuale</a>.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Quando si svolgono le uscite settimanali?</h3>
+          <p>
+            Organizziamo uscite durante il weekend e occasionalmente infrasettimanali.
+            Seguici su Instagram o Strava per restare aggiornato!
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Posso partecipare anche se sono principiante?</h3>
+          <p>
+            Assolutamente sì! Il nostro gruppo è aperto a tutti i livelli.
+            Il Magna & Pedala offre anche un percorso corto adatto ai meno esperti.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section section--primary">
+    <div class="container">
+      <div class="cta-content text-center">
+        <h2>Pronto a pedalare con noi?</h2>
+        <p>
+          Unisciti alla famiglia EsteBike e scopri il piacere
+          di pedalare insieme nei Colli Euganei.
+        </p>
+        <Button href="/tesseramento" variant="accent" size="lg">
+          Diventa socio
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  /* Contact Info */
+  .contact-info h2,
+  .social-section h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-info > p,
+  .social-section > p {
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-6);
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact-method {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+  }
+
+  .contact-method__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .contact-method__content h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact-method__content a {
+    color: var(--color-primary);
+    font-weight: var(--font-medium);
+    text-decoration: none;
+  }
+
+  .contact-method__content a:hover {
+    text-decoration: underline;
+  }
+
+  .contact-method__content p {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin: var(--space-1) 0 0;
+  }
+
+  .contact-method__content address {
+    font-style: normal;
+    font-size: var(--text-sm);
+    color: var(--color-gray-800);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-fast);
+  }
+
+  .social-link:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .social-link :global(.icon:first-child),
+  .social-link svg:first-child {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .social-link:hover :global(.icon:first-child),
+  .social-link:hover svg:first-child {
+    color: var(--color-white);
+  }
+
+  .social-link__content {
+    flex: 1;
+  }
+
+  .social-link__name {
+    display: block;
+    font-weight: var(--font-semibold);
+  }
+
+  .social-link__handle {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .social-link:hover .social-link__handle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .social-link__arrow {
+    color: var(--color-gray-400);
+  }
+
+  .social-link:hover .social-link__arrow {
+    color: var(--color-white);
+  }
+
+  /* FAQ Grid */
+  .faq-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .faq-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .faq-item {
+    padding: var(--space-6);
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-item p {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  .faq-item a {
+    color: var(--color-primary);
+  }
+
+  /* CTA */
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: var(--color-white);
+  }
+
+  .cta-content p {
+    font-size: var(--text-lg);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+  }
+</style>

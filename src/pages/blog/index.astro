@@ -1,0 +1,161 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+import Card from '../../components/ui/Card.astro';
+import CardImage from '../../components/ui/CardImage.astro';
+import CardBody from '../../components/ui/CardBody.astro';
+import Badge from '../../components/ui/Badge.astro';
+
+// Get all non-draft blog posts, sorted by date
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Pagination
+const postsPerPage = 10;
+const currentPage = 1;
+const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+const posts = sortedPosts.slice(0, postsPerPage);
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('it-IT', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+};
+---
+
+<BaseLayout
+  title="Blog"
+  description="News, comunicati e aggiornamenti dal mondo EsteBike. Resta informato sulle nostre attività e eventi."
+>
+  <PageHeader
+    title="Blog"
+    subtitle="News e aggiornamenti dal mondo EsteBike"
+    breadcrumbs={[{ label: 'Blog' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <Card variant="blog" href={`/blog/${post.slug}`}>
+              {post.data.image && (
+                <CardImage src={post.data.image} alt={post.data.title} />
+              )}
+              <CardBody>
+                <Badge variant="primary" size="sm">{post.data.category}</Badge>
+                <h2 class="post-title">{post.data.title}</h2>
+                <time class="post-date" datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date)}
+                </time>
+                {post.data.excerpt && (
+                  <p class="post-excerpt">{post.data.excerpt}</p>
+                )}
+                <span class="post-link">Leggi tutto &rarr;</span>
+              </CardBody>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <p class="no-posts">Nessun articolo pubblicato.</p>
+      )}
+
+      {totalPages > 1 && (
+        <nav class="pagination" aria-label="Paginazione">
+          <span class="pagination__info">
+            Pagina {currentPage} di {totalPages}
+          </span>
+          {currentPage < totalPages && (
+            <a href={`/blog/page/${currentPage + 1}`} class="pagination__next">
+              Pagina successiva &rarr;
+            </a>
+          )}
+        </nav>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .post-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    margin: var(--space-3) 0 var(--space-2);
+    line-height: var(--leading-snug);
+  }
+
+  .post-date {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .post-excerpt {
+    font-size: var(--text-sm);
+    color: var(--color-gray-800);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+    flex: 1;
+  }
+
+  .post-link {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    margin-top: auto;
+  }
+
+  .no-posts {
+    text-align: center;
+    color: var(--color-gray-600);
+    padding: var(--space-12) 0;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .pagination__info {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .pagination__next {
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .pagination__next:hover {
+    text-decoration: underline;
+  }
+</style>

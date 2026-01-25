@@ -1,0 +1,162 @@
+---
+export interface Props {
+  name: string;
+  id?: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  value?: string;
+  rows?: number;
+  minlength?: number;
+  maxlength?: number;
+  error?: string;
+  hint?: string;
+  class?: string;
+}
+
+const {
+  name,
+  id = name,
+  label,
+  placeholder,
+  required = false,
+  disabled = false,
+  value = '',
+  rows = 4,
+  minlength,
+  maxlength,
+  error,
+  hint,
+  class: className = '',
+} = Astro.props;
+
+const inputId = `textarea-${id}`;
+const errorId = error ? `${inputId}-error` : undefined;
+const hintId = hint ? `${inputId}-hint` : undefined;
+const describedBy = [errorId, hintId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['input-group', error && 'input-group--error', className]}>
+  <label for={inputId} class="input-label">
+    {label}
+    {required && <span class="input-required" aria-hidden="true">*</span>}
+  </label>
+
+  {hint && (
+    <p id={hintId} class="input-hint">{hint}</p>
+  )}
+
+  <textarea
+    id={inputId}
+    name={name}
+    placeholder={placeholder}
+    required={required}
+    disabled={disabled}
+    rows={rows}
+    minlength={minlength}
+    maxlength={maxlength}
+    aria-invalid={error ? 'true' : undefined}
+    aria-describedby={describedBy}
+    class="input-field textarea-field"
+  >{value}</textarea>
+
+  {error && (
+    <p id={errorId} class="input-error" role="alert">{error}</p>
+  )}
+</div>
+
+<style>
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .input-label {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-charcoal);
+  }
+
+  .input-required {
+    color: var(--color-error);
+    margin-left: var(--space-1);
+  }
+
+  .input-hint {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-charcoal);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .textarea-field {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .input-field::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  .input-field:hover:not(:disabled) {
+    border-color: var(--color-gray-400);
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+  }
+
+  .input-field:disabled {
+    background-color: var(--color-gray-100);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  /* Error state */
+  .input-group--error .input-field {
+    border-color: var(--color-error);
+  }
+
+  .input-group--error .input-field:focus {
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+  }
+
+  .input-error {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .input-error::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: var(--font-bold);
+    background-color: var(--color-error);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+  }
+</style>

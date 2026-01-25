@@ -1,0 +1,144 @@
+:root {
+  /* ==========================================
+   * EsteBike Design System
+   * Based on Este coat of arms (red & gold)
+   * ========================================== */
+
+  /* Primary Colors - Este Red */
+  --color-primary: #C41E3A;
+  --color-primary-light: #E63950;
+  --color-primary-dark: #9A1830;
+  --color-primary-900: #5C0F1E;
+
+  /* Accent Colors - Este Gold */
+  --color-accent: #F7D000;
+  --color-accent-light: #FFE44D;
+  --color-accent-dark: #D4B000;
+  --color-accent-muted: #FFF8CC;
+
+  /* Neutral Colors */
+  --color-charcoal: #2D2D2D;
+  --color-charcoal-light: #4A4A4A;
+  --color-white: #FFFFFF;
+  --color-off-white: #FAFAFA;
+  --color-cream: #FDF9F3;
+  --color-gray-100: #F0F0F0;
+  --color-gray-200: #E0E0E0;
+  --color-gray-300: #D0D0D0;
+  --color-gray-400: #9E9E9E;
+  --color-gray-600: #616161;
+  --color-gray-800: #424242;
+
+  /* Semantic Colors */
+  --color-success: #2E7D32;
+  --color-warning: #F9A825;
+  --color-error: #C62828;
+  --color-info: #1565C0;
+
+  /* ==========================================
+   * Typography
+   * ========================================== */
+
+  /* Font Families */
+  --font-heading: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Open Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Type Scale (mobile-first) */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  --text-5xl: 3rem;       /* 48px */
+  --text-6xl: 3.75rem;    /* 60px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* ==========================================
+   * Spacing (4px increments)
+   * ========================================== */
+
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ==========================================
+   * Layout
+   * ========================================== */
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  /* Breakpoints (for documentation, use in media queries) */
+  /* sm: 640px - Mobile landscape */
+  /* md: 768px - Tablet */
+  /* lg: 1024px - Desktop */
+  /* xl: 1280px - Large desktop */
+
+  /* ==========================================
+   * Component Tokens
+   * ========================================== */
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Navigation */
+  --header-height-mobile: 60px;
+  --header-height-desktop: 80px;
+
+  /* Touch Target */
+  --touch-target-min: 44px;
+
+  /* Z-Index Scale */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+}

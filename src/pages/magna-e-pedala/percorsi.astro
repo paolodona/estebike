@@ -1,0 +1,317 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+import Button from '../../components/ui/Button.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const routes = [
+  {
+    id: 'lungo',
+    name: 'Percorso Lungo',
+    distance: '85 km',
+    elevation: '1200 m D+',
+    difficulty: 'Impegnativo',
+    color: 'error',
+    description: 'Il percorso più impegnativo, pensato per i ciclisti allenati. Attraversa i punti più panoramici dei Colli Euganei con salite impegnative e discese tecniche.',
+    highlights: [
+      'Salita al Monte Venda (601m)',
+      'Panorama mozzafiato sui Colli',
+      'Passaggio per Arquà Petrarca',
+      'Discesa verso Battaglia Terme',
+    ],
+    stravaId: '3110044816', // Example Strava route ID - replace with actual
+    gpxFile: '/gpx/percorso-lungo.gpx',
+  },
+  {
+    id: 'medio',
+    name: 'Percorso Medio',
+    distance: '55 km',
+    elevation: '700 m D+',
+    difficulty: 'Medio',
+    color: 'warning',
+    description: 'Il giusto equilibrio tra sfida e godimento del paesaggio. Adatto a ciclisti con un buon livello di preparazione che vogliono esplorare i Colli senza eccessi.',
+    highlights: [
+      'Attraversamento Parco Colli Euganei',
+      'Vista sul Castello di Monselice',
+      'Passaggio per Villa Barbarigo',
+      'Ristoro a metà percorso',
+    ],
+    stravaId: '3110044817',
+    gpxFile: '/gpx/percorso-medio.gpx',
+  },
+  {
+    id: 'corto',
+    name: 'Percorso Corto',
+    distance: '35 km',
+    elevation: '350 m D+',
+    difficulty: 'Facile',
+    color: 'success',
+    description: 'Perfetto per famiglie, principianti o chi vuole godersi una pedalata tranquilla. Percorso pianeggiante con poche salite dolci.',
+    highlights: [
+      'Percorso prevalentemente pianeggiante',
+      'Adatto a tutti i livelli',
+      'Passaggio per il centro di Este',
+      'Ideale per e-bike',
+    ],
+    stravaId: '3110044818',
+    gpxFile: '/gpx/percorso-corto.gpx',
+  },
+];
+---
+
+<BaseLayout
+  title="Percorsi"
+  description="Scopri i 3 percorsi del Magna & Pedala 2026: lungo (85km), medio (55km) e corto (35km). Mappe, altimetrie e download GPX."
+>
+  <PageHeader
+    title="Percorsi"
+    subtitle="Tre tracciati per tutti i livelli"
+    breadcrumbs={[
+      { label: 'Magna & Pedala', href: '/magna-e-pedala' },
+      { label: 'Percorsi' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="intro text-center">
+        <p>
+          Ogni percorso è stato studiato per offrire un'esperienza unica attraverso
+          i Colli Euganei. Tutti i tracciati partono e arrivano a Este, con ristori
+          posizionati strategicamente lungo il cammino.
+        </p>
+      </div>
+
+      <div class="routes">
+        {routes.map((route) => (
+          <article id={route.id} class="route-section">
+            <div class="route-header">
+              <Badge variant={route.color as 'error' | 'warning' | 'success'}>
+                {route.difficulty}
+              </Badge>
+              <h2>{route.name}</h2>
+              <div class="route-stats">
+                <div class="route-stat">
+                  <span class="route-stat__value">{route.distance}</span>
+                  <span class="route-stat__label">Distanza</span>
+                </div>
+                <div class="route-stat">
+                  <span class="route-stat__value">{route.elevation}</span>
+                  <span class="route-stat__label">Dislivello</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="route-content">
+              <div class="route-info">
+                <p class="route-description">{route.description}</p>
+
+                <h3>Punti di interesse</h3>
+                <ul class="route-highlights">
+                  {route.highlights.map((highlight) => (
+                    <li>
+                      <Icon name="chevron-right" size={16} />
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="route-actions">
+                  <Button href={route.gpxFile} variant="primary" size="sm">
+                    <Icon name="download" size={18} />
+                    Scarica GPX
+                  </Button>
+                  <Button
+                    href={`https://www.strava.com/routes/${route.stravaId}`}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    <Icon name="external-link" size={18} />
+                    Vedi su Strava
+                  </Button>
+                </div>
+              </div>
+
+              <div class="route-map">
+                <div class="strava-embed">
+                  <iframe
+                    src={`https://www.strava.com/routes/${route.stravaId}/embed`}
+                    width="100%"
+                    height="400"
+                    loading="lazy"
+                    title={`Mappa ${route.name}`}
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section section--primary">
+    <div class="container">
+      <div class="cta-content text-center">
+        <h2>Pronto a pedalare?</h2>
+        <p>
+          Scegli il tuo percorso e iscriviti al Magna & Pedala 2026!
+        </p>
+        <Button href="/magna-e-pedala/iscrizioni" variant="accent" size="lg">
+          Iscriviti Ora
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    max-width: 700px;
+    margin: 0 auto var(--space-12);
+  }
+
+  .intro p {
+    font-size: var(--text-lg);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+  }
+
+  .routes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .route-section {
+    scroll-margin-top: calc(var(--header-height-mobile) + var(--space-8));
+  }
+
+  @media (min-width: 1024px) {
+    .route-section {
+      scroll-margin-top: calc(var(--header-height-desktop) + var(--space-8));
+    }
+  }
+
+  .route-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 2px solid var(--color-gray-200);
+  }
+
+  .route-header h2 {
+    margin: var(--space-3) 0 var(--space-4);
+  }
+
+  .route-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-8);
+  }
+
+  .route-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .route-stat__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+  }
+
+  .route-stat__label {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .route-content {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .route-content {
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--space-10);
+    }
+  }
+
+  .route-description {
+    font-size: var(--text-lg);
+    color: var(--color-gray-800);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-6);
+  }
+
+  .route-info h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .route-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+  }
+
+  .route-highlights li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+    font-size: var(--text-base);
+    color: var(--color-gray-700);
+  }
+
+  .route-highlights :global(.icon) {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .route-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .route-map {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-gray-100);
+  }
+
+  .strava-embed {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+  }
+
+  .strava-embed iframe {
+    border: none;
+    border-radius: var(--radius-md);
+  }
+
+  /* CTA */
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: var(--color-white);
+  }
+
+  .cta-content p {
+    font-size: var(--text-lg);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+  }
+</style>

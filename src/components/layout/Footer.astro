@@ -1,0 +1,291 @@
+---
+import Icon from '../ui/Icon.astro';
+
+const currentYear = new Date().getFullYear();
+
+const quickLinks = [
+  { label: 'Chi Siamo', href: '/chi-siamo' },
+  { label: 'Magna & Pedala', href: '/magna-e-pedala' },
+  { label: 'Galleria', href: '/galleria' },
+  { label: 'Tesseramento', href: '/tesseramento' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Privacy Policy', href: '/privacy' },
+];
+
+const eventLinks = [
+  { label: 'Percorsi', href: '/magna-e-pedala/percorsi' },
+  { label: 'Iscrizioni', href: '/magna-e-pedala/iscrizioni' },
+  { label: 'Partecipanti', href: '/magna-e-pedala/partecipanti' },
+];
+
+const socialLinks = [
+  { icon: 'instagram' as const, label: 'Instagram', href: 'https://www.instagram.com/team_estebike/' },
+  { icon: 'facebook' as const, label: 'Facebook', href: 'https://www.facebook.com/estebike/' },
+  // { icon: 'youtube' as const, label: 'YouTube', href: '#' },
+];
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__main container">
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label="EsteBike - Torna alla homepage">
+        <img
+          src="/images/estebike-logo-white.svg"
+          alt="EsteBike"
+          width="160"
+          height="46"
+          loading="lazy"
+        />
+      </a>
+      <p class="footer__tagline">
+        Dal 1996, passione per il ciclismo<br />
+        nel cuore dei Colli Euganei
+      </p>
+
+      <address class="footer__contact">
+        <p>
+          <Icon name="map-pin" size={16} />
+          <span>Este (PD), Veneto</span>
+        </p>
+        <p>
+          <Icon name="mail" size={16} />
+          <a href="mailto:info@estebike.it">info@estebike.it</a>
+        </p>
+      </address>
+
+      <div class="footer__social">
+        {socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label={`Seguici su ${link.label}`}
+          >
+            <Icon name={link.icon} size={22} />
+          </a>
+        ))}
+        <a
+          href="https://www.strava.com/clubs/Team-Estebike-Zordan"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-link"
+          aria-label="Seguici su Strava"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="footer__nav" aria-label="Link utili">
+      <div class="footer__nav-section">
+        <h3 class="footer__nav-title">Link Utili</h3>
+        <ul class="footer__nav-list">
+          {quickLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__nav-section">
+        <h3 class="footer__nav-title">Magna & Pedala</h3>
+        <ul class="footer__nav-list">
+          {eventLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <p class="footer__copyright">
+        &copy; {currentYear} EsteBike ASD. Tutti i diritti riservati.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    margin-top: auto;
+  }
+
+  .footer__main {
+    display: grid;
+    gap: var(--space-10);
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .footer__main {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer__main {
+      grid-template-columns: 1.5fr 1fr 1fr;
+    }
+  }
+
+  /* Brand Section */
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .footer__logo {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .footer__logo img {
+    height: 46px;
+    width: auto;
+  }
+
+  .footer__tagline {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  .footer__contact {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer__contact p {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer__contact a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer__contact a:hover {
+    color: var(--color-accent);
+  }
+
+  /* Social Links */
+  .footer__social {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    color: var(--color-white);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+  }
+
+  .social-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-charcoal);
+  }
+
+  .social-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Navigation */
+  .footer__nav {
+    display: contents;
+  }
+
+  @media (min-width: 768px) {
+    .footer__nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  .footer__nav-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .footer__nav-title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .footer__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer__nav-list a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: color var(--transition-fast);
+    display: inline-block;
+    padding: var(--space-1) 0;
+  }
+
+  .footer__nav-list a:hover {
+    color: var(--color-accent);
+  }
+
+  /* Bottom Bar */
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: var(--space-4) 0;
+  }
+
+  .footer__copyright {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .footer__copyright {
+      text-align: left;
+    }
+  }
+</style>

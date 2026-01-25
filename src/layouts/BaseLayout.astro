@@ -1,0 +1,108 @@
+---
+import { SEO } from 'astro-seo';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import WhatsAppButton from '../components/ui/WhatsAppButton.astro';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/600.css';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'EsteBike - Associazione ciclistica dal 1996. Scopri il Magna & Pedala, i nostri percorsi nei Colli Euganei e unisciti alla community.',
+  image = '/images/og-default.jpg',
+  canonical,
+  noindex = false,
+} = Astro.props;
+
+const siteTitle = title === 'EsteBike' ? title : `${title} | EsteBike`;
+const siteUrl = 'https://estebike.it';
+const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={siteTitle}
+      description={description}
+      canonical={canonicalUrl}
+      noindex={noindex}
+      openGraph={{
+        basic: {
+          title: siteTitle,
+          type: 'website',
+          image: ogImage,
+          url: canonicalUrl,
+        },
+        optional: {
+          description: description,
+          locale: 'it_IT',
+          siteName: 'EsteBike',
+        },
+        image: {
+          alt: 'EsteBike - Ciclismo nei Colli Euganei',
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: siteTitle,
+        description: description,
+        image: ogImage,
+      }}
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/images/estebike-icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#C41E3A" />
+
+    <!-- Preconnect to external services -->
+    <link rel="preconnect" href="https://www.strava.com" />
+    <link rel="preconnect" href="https://www.instagram.com" />
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <Header currentPath={Astro.url.pathname} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- WhatsApp floating button - replace phone number with actual -->
+    <WhatsAppButton phoneNumber="39XXXXXXXXXX" />
+
+    <slot name="footer-scripts" />
+  </body>
+</html>
+
+<style is:global>
+  /* Reset main padding since header handles it */
+  main {
+    padding-top: 0;
+  }
+</style>

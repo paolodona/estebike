@@ -1,0 +1,26 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['card-body', className]}>
+  <slot />
+</div>
+
+<style>
+  .card-body {
+    padding: var(--space-4);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 768px) {
+    .card-body {
+      padding: var(--space-6);
+    }
+  }
+</style>

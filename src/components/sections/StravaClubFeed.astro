@@ -1,0 +1,121 @@
+---
+/**
+ * Strava Club Feed Component
+ *
+ * Embeds the Strava club latest rides widget.
+ */
+
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+export interface Props {
+  clubId?: string;
+  clubName?: string;
+  clubUrl?: string;
+}
+
+const {
+  clubId = 'Team-Estebike-Zordan',
+  clubName = 'Team Estebike Zordan',
+  clubUrl = 'https://www.strava.com/clubs/Team-Estebike-Zordan',
+} = Astro.props;
+---
+
+<section class="strava-section">
+  <div class="strava-header">
+    <div class="strava-logo">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+      </svg>
+    </div>
+    <div class="strava-title">
+      <h3>Strava Club</h3>
+      <span>{clubName}</span>
+    </div>
+    <Button href={clubUrl} variant="secondary" size="sm" class="hide-mobile">
+      Unisciti al club
+      <Icon name="external-link" size={14} />
+    </Button>
+  </div>
+
+  <div class="strava-embed">
+    <iframe
+      src={`https://www.strava.com/clubs/${clubId}/latest-rides/`}
+      width="100%"
+      height="400"
+      loading="lazy"
+      title={`Attività recenti ${clubName}`}
+    ></iframe>
+  </div>
+
+  <div class="strava-cta show-mobile-only">
+    <Button href={clubUrl} variant="primary" fullWidth>
+      Unisciti al club su Strava
+    </Button>
+  </div>
+</section>
+
+<style>
+  .strava-section {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-200);
+    overflow: hidden;
+  }
+
+  .strava-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--color-gray-200);
+    background-color: var(--color-off-white);
+  }
+
+  .strava-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: #FC4C02;
+    color: var(--color-white);
+    border-radius: var(--radius-md);
+  }
+
+  .strava-title {
+    flex: 1;
+  }
+
+  .strava-title h3 {
+    font-size: var(--text-lg);
+    margin: 0;
+  }
+
+  .strava-title span {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .strava-embed {
+    position: relative;
+    min-height: 400px;
+    background-color: var(--color-gray-100);
+  }
+
+  .strava-embed iframe {
+    border: none;
+    display: block;
+  }
+
+  .strava-cta {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  @media (min-width: 1024px) {
+    .show-mobile-only {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,424 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+export interface NavItem {
+  label: string;
+  href: string;
+  children?: NavItem[];
+}
+
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navItems: NavItem[] = [
+  { label: 'Chi Siamo', href: '/chi-siamo' },
+  {
+    label: 'Magna & Pedala',
+    href: '/magna-e-pedala',
+    children: [
+      { label: "L'Evento", href: '/magna-e-pedala' },
+      { label: 'Percorsi', href: '/magna-e-pedala/percorsi' },
+      { label: 'Iscrizioni', href: '/magna-e-pedala/iscrizioni' },
+      { label: 'Partecipanti', href: '/magna-e-pedala/partecipanti' },
+    ],
+  },
+  { label: 'Galleria', href: '/galleria' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contatti', href: '/contatti' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="header" role="banner">
+  <a href="#main-content" class="skip-to-content">
+    Vai al contenuto principale
+  </a>
+
+  <div class="header__container container">
+    <a href="/" class="header__logo" aria-label="EsteBike - Torna alla homepage">
+      <img
+        src="/images/estebike-logo-white.svg"
+        alt="EsteBike"
+        width="140"
+        height="40"
+        loading="eager"
+      />
+    </a>
+
+    <nav class="header__nav hide-mobile" aria-label="Navigazione principale">
+      <ul class="nav-list">
+        {navItems.map((item) => (
+          <li class:list={['nav-item', item.children && 'nav-item--dropdown']}>
+            {item.children ? (
+              <>
+                <button
+                  class:list={['nav-link', 'nav-link--dropdown', isActive(item.href) && 'nav-link--active']}
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                >
+                  {item.label}
+                  <Icon name="chevron-down" size={16} />
+                </button>
+                <ul class="dropdown-menu">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class:list={['dropdown-link', isActive(child.href) && 'dropdown-link--active']}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <a
+                href={item.href}
+                class:list={['nav-link', isActive(item.href) && 'nav-link--active']}
+              >
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <Button href="/magna-e-pedala/iscrizioni" variant="accent" size="sm" class="hide-mobile">
+        Iscriviti
+      </Button>
+
+      <button
+        class="mobile-menu-toggle show-mobile-only"
+        aria-label="Apri menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-menu-toggle
+      >
+        <Icon name="menu" size={28} class="menu-icon-open" />
+        <Icon name="x" size={28} class="menu-icon-close" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav-overlay" id="mobile-nav" data-mobile-nav>
+  <nav class="mobile-nav" aria-label="Navigazione mobile">
+    <ul class="mobile-nav-list">
+      <li><a href="/" class:list={['mobile-nav-link', currentPath === '/' && 'mobile-nav-link--active']}>Home</a></li>
+      {navItems.map((item) => (
+        <>
+          <li>
+            <a
+              href={item.href}
+              class:list={['mobile-nav-link', isActive(item.href) && 'mobile-nav-link--active']}
+            >
+              {item.label}
+            </a>
+          </li>
+          {item.children?.map((child) => (
+            <li>
+              <a
+                href={child.href}
+                class:list={['mobile-nav-link', 'mobile-nav-link--sub', isActive(child.href) && 'mobile-nav-link--active']}
+              >
+                {child.label}
+              </a>
+            </li>
+          ))}
+        </>
+      ))}
+    </ul>
+    <div class="mobile-nav-cta">
+      <Button href="/magna-e-pedala/iscrizioni" variant="accent" fullWidth>
+        Iscriviti Ora
+      </Button>
+    </div>
+  </nav>
+</div>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
+    background-color: var(--color-primary);
+    height: var(--header-height-mobile);
+    display: flex;
+    align-items: center;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .header--scrolled {
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .header {
+      height: var(--header-height-desktop);
+    }
+  }
+
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .header__logo img {
+    height: 36px;
+    width: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .header__logo img {
+      height: 44px;
+    }
+  }
+
+  /* Desktop Navigation */
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-link:hover,
+  .nav-link--active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Dropdown */
+  .nav-item--dropdown:hover .dropdown-menu,
+  .nav-item--dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-2);
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all var(--transition-fast);
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-charcoal);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+  }
+
+  .dropdown-link:hover,
+  .dropdown-link--active {
+    background-color: var(--color-gray-100);
+    color: var(--color-primary);
+  }
+
+  /* Header Actions */
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  /* Mobile Menu Toggle */
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    color: var(--color-white);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .mobile-menu-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .menu-icon-close {
+    display: none;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] .menu-icon-open {
+    display: none;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] .menu-icon-close {
+    display: block;
+  }
+
+  /* Mobile Navigation Overlay */
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    top: var(--header-height-mobile);
+    z-index: var(--z-modal);
+    background-color: var(--color-primary);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+    overflow-y: auto;
+  }
+
+  .mobile-nav-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-nav {
+    padding: var(--space-6) var(--space-4);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: var(--space-4);
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color var(--transition-fast);
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link--active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-nav-link--sub {
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
+    padding-left: var(--space-8);
+  }
+
+  .mobile-nav-cta {
+    padding-top: var(--space-6);
+    margin-top: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-nav-overlay {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const menuToggle = document.querySelector('[data-menu-toggle]');
+  const mobileNav = document.querySelector('[data-mobile-nav]');
+
+  if (menuToggle && mobileNav) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileNav.classList.toggle('is-open');
+      document.body.style.overflow = isExpanded ? '' : 'hidden';
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('is-open')) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+        menuToggle.focus();
+      }
+    });
+
+    // Close menu when clicking a link
+    mobileNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // Add scrolled state to header
+  const header = document.querySelector('.header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('header--scrolled', window.scrollY > 0);
+    });
+  }
+</script>

@@ -1,0 +1,67 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  aspectRatio?: '16/9' | '4/3' | '1/1';
+  overlay?: boolean;
+}
+
+const {
+  src,
+  alt,
+  aspectRatio = '16/9',
+  overlay = false,
+} = Astro.props;
+---
+
+<div class:list={['card-image', `card-image--${aspectRatio.replace('/', '-')}`, overlay && 'card-image--overlay']}>
+  <img src={src} alt={alt} loading="lazy" />
+</div>
+
+<style>
+  .card-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .card-image--overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(196, 30, 58, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  :global(.card:hover) .card-image img {
+    transform: scale(1.05);
+  }
+
+  :global(.card:hover) .card-image--overlay::after {
+    opacity: 1;
+  }
+
+  /* Aspect ratios */
+  .card-image--16-9 {
+    aspect-ratio: 16 / 9;
+  }
+
+  .card-image--4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  .card-image--1-1 {
+    aspect-ratio: 1 / 1;
+  }
+</style>

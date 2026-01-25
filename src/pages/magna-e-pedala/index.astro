@@ -1,0 +1,405 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/layout/Hero.astro';
+import Button from '../../components/ui/Button.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Card from '../../components/ui/Card.astro';
+import CardBody from '../../components/ui/CardBody.astro';
+
+const eventDetails = {
+  date: 'Maggio 2026',
+  location: 'Este (PD)',
+  startTime: '08:00',
+  routes: 3,
+  ristori: 3,
+};
+
+const routes = [
+  {
+    name: 'Percorso Lungo',
+    distance: '85 km',
+    elevation: '1200 m D+',
+    difficulty: 'Impegnativo',
+    description: 'Per i più allenati, attraverso i punti più panoramici dei Colli Euganei.',
+    color: 'error',
+  },
+  {
+    name: 'Percorso Medio',
+    distance: '55 km',
+    elevation: '700 m D+',
+    difficulty: 'Medio',
+    description: 'Il giusto equilibrio tra sfida e godimento del paesaggio.',
+    color: 'warning',
+  },
+  {
+    name: 'Percorso Corto',
+    distance: '35 km',
+    elevation: '350 m D+',
+    difficulty: 'Facile',
+    description: 'Adatto a tutti, perfetto per famiglie e principianti.',
+    color: 'success',
+  },
+];
+
+const included = [
+  { icon: 'route', text: 'Percorso segnalato' },
+  { icon: 'users', text: 'Assistenza tecnica' },
+  { icon: 'mountain', text: 'Ristori lungo il percorso' },
+  { icon: 'calendar', text: 'Pasta party finale' },
+];
+---
+
+<BaseLayout
+  title="Magna & Pedala 2026"
+  description="Magna & Pedala 2026 - La cicloturistica che celebra i Colli Euganei. 3 percorsi, ristori, pasta party e tanto divertimento. Iscriviti ora!"
+>
+  <Hero
+    title="Magna & Pedala 2026"
+    subtitle="La tradizione continua"
+    date={eventDetails.date}
+    location={eventDetails.location}
+    image="/images/hero-event.jpg"
+    ctaText="Iscriviti Ora"
+    ctaHref="/magna-e-pedala/iscrizioni"
+    secondaryCtaText="Scopri i Percorsi"
+    secondaryCtaHref="/magna-e-pedala/percorsi"
+    size="large"
+  />
+
+  <!-- Event Info -->
+  <section class="section">
+    <div class="container">
+      <div class="event-intro text-center">
+        <Badge variant="accent">Edizione 2026</Badge>
+        <h2>Pedala, mangia, divertiti!</h2>
+        <p>
+          Il Magna & Pedala è molto più di una semplice cicloturistica. È una
+          celebrazione della passione per il ciclismo, del territorio dei Colli
+          Euganei e della tradizione gastronomica locale.
+        </p>
+      </div>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <Icon name="calendar" size={32} />
+          <span class="info-card__label">Data</span>
+          <span class="info-card__value">{eventDetails.date}</span>
+        </div>
+        <div class="info-card">
+          <Icon name="map-pin" size={32} />
+          <span class="info-card__label">Partenza</span>
+          <span class="info-card__value">{eventDetails.location}</span>
+        </div>
+        <div class="info-card">
+          <Icon name="clock" size={32} />
+          <span class="info-card__label">Orario</span>
+          <span class="info-card__value">{eventDetails.startTime}</span>
+        </div>
+        <div class="info-card">
+          <Icon name="route" size={32} />
+          <span class="info-card__label">Percorsi</span>
+          <span class="info-card__value">{eventDetails.routes}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Routes Overview -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Scegli il tuo percorso</h2>
+        <p>Tre tracciati per tutti i livelli di preparazione</p>
+      </div>
+
+      <div class="routes-grid">
+        {routes.map((route) => (
+          <Card variant="event">
+            <CardBody>
+              <Badge variant={route.color as 'error' | 'warning' | 'success'} size="sm">
+                {route.difficulty}
+              </Badge>
+              <h3 class="route-title">{route.name}</h3>
+              <div class="route-stats">
+                <div class="route-stat">
+                  <span class="route-stat__value">{route.distance}</span>
+                  <span class="route-stat__label">Distanza</span>
+                </div>
+                <div class="route-stat">
+                  <span class="route-stat__value">{route.elevation}</span>
+                  <span class="route-stat__label">Dislivello</span>
+                </div>
+              </div>
+              <p class="route-description">{route.description}</p>
+            </CardBody>
+          </Card>
+        ))}
+      </div>
+
+      <div class="text-center" style="margin-top: var(--space-8);">
+        <Button href="/magna-e-pedala/percorsi" variant="primary">
+          Vedi dettagli e mappe
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="section">
+    <div class="container">
+      <div class="included-grid">
+        <div class="included-content">
+          <h2>Cosa include l'iscrizione</h2>
+          <ul class="included-list">
+            {included.map((item) => (
+              <li>
+                <Icon name={item.icon as any} size={20} />
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="included-note">
+            Al termine, tutti i partecipanti potranno gustare la tradizionale
+            <strong>pasta party</strong> con prodotti locali!
+          </p>
+        </div>
+        <div class="included-image">
+          <img
+            src="/images/pasta-party.jpg"
+            alt="Pasta party finale del Magna & Pedala"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--primary">
+    <div class="container">
+      <div class="cta-content text-center">
+        <h2>Non perdere l'edizione 2026!</h2>
+        <p>
+          Iscriviti subito e assicurati il tuo posto alla partenza.
+          I posti sono limitati!
+        </p>
+        <div class="cta-actions">
+          <Button href="/magna-e-pedala/iscrizioni" variant="accent" size="lg">
+            Iscriviti Ora
+          </Button>
+          <Button href="/magna-e-pedala/partecipanti" variant="ghost" size="lg">
+            Vedi partecipanti
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Event Intro */
+  .event-intro {
+    max-width: 700px;
+    margin: 0 auto var(--space-10);
+  }
+
+  .event-intro h2 {
+    margin: var(--space-4) 0;
+  }
+
+  .event-intro p {
+    color: var(--color-gray-600);
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Info Cards */
+  .info-cards {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .info-cards {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .info-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-6);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+    gap: var(--space-2);
+  }
+
+  .info-card :global(.icon) {
+    color: var(--color-primary);
+  }
+
+  .info-card__label {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .info-card__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-charcoal);
+  }
+
+  /* Section Header */
+  .section-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .section-header p {
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  /* Routes Grid */
+  .routes-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .routes-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .route-title {
+    font-size: var(--text-xl);
+    margin: var(--space-3) 0 var(--space-4);
+  }
+
+  .route-stats {
+    display: flex;
+    gap: var(--space-6);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .route-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .route-stat__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+  }
+
+  .route-stat__label {
+    font-size: var(--text-xs);
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .route-description {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Included Section */
+  .included-grid {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .included-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  .included-content h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .included-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+  }
+
+  .included-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+    font-size: var(--text-lg);
+  }
+
+  .included-list :global(.icon) {
+    color: var(--color-primary);
+  }
+
+  .included-note {
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+  }
+
+  .included-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .included-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+
+  /* CTA */
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: var(--color-white);
+  }
+
+  .cta-content p {
+    font-size: var(--text-lg);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .cta-actions {
+      flex-direction: row;
+    }
+  }
+</style>

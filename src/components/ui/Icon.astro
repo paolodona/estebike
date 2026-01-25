@@ -1,0 +1,87 @@
+---
+/**
+ * Icon component - wrapper for Lucide icons
+ *
+ * Usage:
+ * <Icon name="menu" size={24} />
+ * <Icon name="x" class="custom-class" />
+ */
+
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight,
+  ChevronLeft,
+  ArrowRight,
+  ExternalLink,
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  Clock,
+  Users,
+  Mountain,
+  Route,
+  Download,
+  Instagram,
+  Facebook,
+  Youtube,
+  MessageCircle,
+} from '@lucide/astro';
+
+export interface Props {
+  name: keyof typeof icons;
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+}
+
+const icons = {
+  menu: Menu,
+  x: X,
+  'chevron-down': ChevronDown,
+  'chevron-right': ChevronRight,
+  'chevron-left': ChevronLeft,
+  'arrow-right': ArrowRight,
+  'external-link': ExternalLink,
+  phone: Phone,
+  mail: Mail,
+  'map-pin': MapPin,
+  calendar: Calendar,
+  clock: Clock,
+  users: Users,
+  mountain: Mountain,
+  route: Route,
+  download: Download,
+  instagram: Instagram,
+  facebook: Facebook,
+  youtube: Youtube,
+  whatsapp: MessageCircle,
+} as const;
+
+const {
+  name,
+  size = 24,
+  strokeWidth = 2,
+  class: className = '',
+} = Astro.props;
+
+const IconComponent = icons[name];
+---
+
+{IconComponent && (
+  <IconComponent
+    size={size}
+    strokeWidth={strokeWidth}
+    class:list={['icon', className]}
+  />
+)}
+
+<style>
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+</style>

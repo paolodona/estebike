@@ -1,0 +1,140 @@
+---
+/**
+ * Lite YouTube Embed Component
+ *
+ * Performance-optimized YouTube embed that doesn't load
+ * the full YouTube iframe until the user clicks to play.
+ */
+
+export interface Props {
+  videoId: string;
+  title: string;
+  thumbnail?: string;
+  class?: string;
+}
+
+const {
+  videoId,
+  title,
+  thumbnail,
+  class: className = '',
+} = Astro.props;
+
+// Generate thumbnail URL if not provided
+const thumbnailUrl = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+---
+
+<div class:list={['youtube-embed', className]} data-youtube-embed data-video-id={videoId}>
+  <button
+    class="youtube-embed__button"
+    aria-label={`Riproduci video: ${title}`}
+    type="button"
+  >
+    <img
+      src={thumbnailUrl}
+      alt={title}
+      loading="lazy"
+      width="640"
+      height="360"
+      class="youtube-embed__thumbnail"
+    />
+    <span class="youtube-embed__play">
+      <svg viewBox="0 0 68 48" width="68" height="48">
+        <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
+        <path d="M 45,24 27,14 27,34" fill="#fff"/>
+      </svg>
+    </span>
+    <span class="youtube-embed__title">{title}</span>
+  </button>
+</div>
+
+<style>
+  .youtube-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .youtube-embed__button {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .youtube-embed__thumbnail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity var(--transition-base);
+  }
+
+  .youtube-embed__button:hover .youtube-embed__thumbnail {
+    opacity: 0.8;
+  }
+
+  .youtube-embed__play {
+    position: relative;
+    z-index: 1;
+    transition: transform var(--transition-base), filter var(--transition-base);
+  }
+
+  .youtube-embed__button:hover .youtube-embed__play {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+  }
+
+  .youtube-embed__title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-4);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-align: left;
+  }
+
+  /* When video is loaded */
+  .youtube-embed--loaded .youtube-embed__button {
+    display: none;
+  }
+
+  .youtube-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-youtube-embed]').forEach((embed) => {
+    const button = embed.querySelector('button');
+    const videoId = embed.getAttribute('data-video-id');
+
+    button?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+
+      embed.appendChild(iframe);
+      embed.classList.add('youtube-embed--loaded');
+    });
+  });
+</script>

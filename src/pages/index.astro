@@ -1,0 +1,428 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/layout/Hero.astro';
+import Card from '../components/ui/Card.astro';
+import CardImage from '../components/ui/CardImage.astro';
+import CardBody from '../components/ui/CardBody.astro';
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+
+// Get latest blog posts
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('it-IT', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+};
+
+const routes = [
+  {
+    name: 'Percorso Lungo',
+    distance: '85 km',
+    elevation: '1200 m D+',
+    difficulty: 'Impegnativo',
+    href: '/magna-e-pedala/percorsi#lungo',
+  },
+  {
+    name: 'Percorso Medio',
+    distance: '55 km',
+    elevation: '700 m D+',
+    difficulty: 'Medio',
+    href: '/magna-e-pedala/percorsi#medio',
+  },
+  {
+    name: 'Percorso Corto',
+    distance: '35 km',
+    elevation: '350 m D+',
+    difficulty: 'Facile',
+    href: '/magna-e-pedala/percorsi#corto',
+  },
+];
+---
+
+<BaseLayout
+  title="EsteBike"
+  description="EsteBike - Associazione ciclistica dal 1996. Scopri il Magna & Pedala, i nostri percorsi nei Colli Euganei e unisciti alla nostra community di ciclisti."
+>
+  <Hero
+    title="Magna & Pedala 2026"
+    subtitle="EsteBike presenta"
+    date="Maggio 2026"
+    location="Este (PD)"
+    image="/images/hero-home.jpg"
+    ctaText="Iscriviti Ora"
+    ctaHref="/magna-e-pedala/iscrizioni"
+    secondaryCtaText="Scopri i Percorsi"
+    secondaryCtaHref="/magna-e-pedala/percorsi"
+  />
+
+  <!-- About Section -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <Badge variant="accent">Dal 1996</Badge>
+          <h2>Passione per il ciclismo nel cuore dei Colli Euganei</h2>
+          <p>
+            EsteBike nasce dalla passione condivisa per le due ruote. Da quasi 30 anni
+            organizziamo eventi ciclistici, uscite in gruppo e promuoviamo la cultura
+            del ciclismo nel nostro territorio.
+          </p>
+          <p>
+            Il nostro evento principale, il <strong>Magna & Pedala</strong>, celebra
+            la tradizione ciclistica locale con percorsi adatti a tutti i livelli,
+            immersi nel paesaggio unico dei Colli Euganei.
+          </p>
+          <Button href="/chi-siamo" variant="secondary">
+            Scopri chi siamo
+            <Icon name="arrow-right" size={18} />
+          </Button>
+        </div>
+        <div class="about-image">
+          <img
+            src="/images/about-preview.jpg"
+            alt="Ciclisti EsteBike in gruppo sui Colli Euganei"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Routes Preview -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Scegli il tuo percorso</h2>
+        <p>Tre tracciati per tutti i livelli, attraverso i paesaggi dei Colli Euganei</p>
+      </div>
+
+      <div class="routes-grid">
+        {routes.map((route) => (
+          <Card variant="event" href={route.href}>
+            <CardBody>
+              <Badge variant="accent" size="sm">{route.distance}</Badge>
+              <h3 class="route-name">{route.name}</h3>
+              <div class="route-stats">
+                <span>
+                  <Icon name="mountain" size={16} />
+                  {route.elevation}
+                </span>
+                <span>
+                  <Icon name="route" size={16} />
+                  {route.difficulty}
+                </span>
+              </div>
+            </CardBody>
+          </Card>
+        ))}
+      </div>
+
+      <div class="text-center" style="margin-top: var(--space-8);">
+        <Button href="/magna-e-pedala/percorsi" variant="primary">
+          Vedi tutti i percorsi
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event CTA -->
+  <section class="section section--primary">
+    <div class="container">
+      <div class="event-cta text-center">
+        <h2>Partecipa al Magna & Pedala 2026</h2>
+        <p>
+          Unisciti a centinaia di ciclisti per una giornata di sport, natura e buon cibo.
+          Ristori lungo il percorso, pasta party finale e tanto divertimento!
+        </p>
+        <div class="event-cta__actions">
+          <Button href="/magna-e-pedala/iscrizioni" variant="accent" size="lg">
+            Iscriviti Ora
+          </Button>
+          <Button href="/magna-e-pedala" variant="ghost" size="lg">
+            Scopri l'evento
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest News -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Ultime News</h2>
+        <Button href="/blog" variant="secondary" size="sm">
+          Vedi tutte
+          <Icon name="arrow-right" size={16} />
+        </Button>
+      </div>
+
+      {latestPosts.length > 0 ? (
+        <div class="news-grid">
+          {latestPosts.map((post) => (
+            <Card variant="blog" href={`/blog/${post.slug}`}>
+              {post.data.image && (
+                <CardImage src={post.data.image} alt={post.data.title} />
+              )}
+              <CardBody>
+                <Badge variant="primary" size="sm">{post.data.category}</Badge>
+                <h3 class="post-title">{post.data.title}</h3>
+                <time class="post-date" datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date)}
+                </time>
+                {post.data.excerpt && (
+                  <p class="post-excerpt">{post.data.excerpt}</p>
+                )}
+              </CardBody>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-muted">Nessun articolo pubblicato.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="contact-cta text-center">
+        <h2>Resta in contatto</h2>
+        <p>
+          Hai domande? Vuoi unirti a noi per un'uscita?<br />
+          Contattaci o seguici sui social!
+        </p>
+        <div class="contact-actions">
+          <Button href="/contatti" variant="primary">
+            Contattaci
+          </Button>
+          <Button href="https://www.instagram.com/team_estebike/" variant="secondary">
+            <Icon name="instagram" size={18} />
+            Seguici
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Section Header */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .section-header.text-center {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-header h2 {
+    margin: 0;
+  }
+
+  .section-header p {
+    color: var(--color-gray-600);
+    margin: 0;
+    max-width: 600px;
+  }
+
+  /* About Section */
+  .about-grid {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .about-content h2 {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 768px) {
+    .about-content h2 {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  .about-content p {
+    color: var(--color-gray-800);
+    line-height: var(--leading-relaxed);
+  }
+
+  .about-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+
+  /* Routes Grid */
+  .routes-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .routes-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .route-name {
+    font-size: var(--text-xl);
+    margin: var(--space-3) 0 var(--space-2);
+  }
+
+  .route-stats {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .route-stats span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  /* Event CTA */
+  .event-cta {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .event-cta h2 {
+    color: var(--color-white);
+    font-size: var(--text-3xl);
+  }
+
+  @media (min-width: 768px) {
+    .event-cta h2 {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  .event-cta p {
+    font-size: var(--text-lg);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+  }
+
+  .event-cta__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .event-cta__actions {
+      flex-direction: row;
+    }
+  }
+
+  /* News Grid */
+  .news-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .news-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .news-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .post-title {
+    font-size: var(--text-lg);
+    margin: var(--space-3) 0 var(--space-2);
+    line-height: var(--leading-snug);
+  }
+
+  .post-date {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .post-excerpt {
+    font-size: var(--text-sm);
+    color: var(--color-gray-800);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Contact CTA */
+  .contact-cta {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-cta p {
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-6);
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .contact-actions {
+      flex-direction: row;
+    }
+  }
+</style>

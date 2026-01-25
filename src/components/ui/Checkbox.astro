@@ -1,0 +1,173 @@
+---
+export interface Props {
+  name: string;
+  id?: string;
+  label: string;
+  required?: boolean;
+  disabled?: boolean;
+  checked?: boolean;
+  value?: string;
+  error?: string;
+  class?: string;
+}
+
+const {
+  name,
+  id = name,
+  label,
+  required = false,
+  disabled = false,
+  checked = false,
+  value = 'true',
+  error,
+  class: className = '',
+} = Astro.props;
+
+const inputId = `checkbox-${id}`;
+const errorId = error ? `${inputId}-error` : undefined;
+---
+
+<div class:list={['checkbox-group', error && 'checkbox-group--error', className]}>
+  <label class="checkbox-label">
+    <input
+      type="checkbox"
+      id={inputId}
+      name={name}
+      value={value}
+      required={required}
+      disabled={disabled}
+      checked={checked}
+      aria-invalid={error ? 'true' : undefined}
+      aria-describedby={errorId}
+      class="checkbox-input"
+    />
+    <span class="checkbox-box" aria-hidden="true">
+      <svg class="checkbox-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </span>
+    <span class="checkbox-text">
+      {label}
+      {required && <span class="checkbox-required" aria-hidden="true">*</span>}
+    </span>
+  </label>
+
+  {error && (
+    <p id={errorId} class="checkbox-error" role="alert">{error}</p>
+  )}
+</div>
+
+<style>
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    cursor: pointer;
+    /* Minimum touch target */
+    min-height: var(--touch-target-min);
+    padding: var(--space-2) 0;
+  }
+
+  .checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .checkbox-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .checkbox-check {
+    opacity: 0;
+    color: var(--color-white);
+    transform: scale(0.8);
+    transition: all var(--transition-fast);
+  }
+
+  .checkbox-input:checked + .checkbox-box {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .checkbox-input:checked + .checkbox-box .checkbox-check {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .checkbox-input:hover:not(:disabled) + .checkbox-box {
+    border-color: var(--color-primary);
+  }
+
+  .checkbox-input:focus-visible + .checkbox-box {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .checkbox-input:disabled + .checkbox-box {
+    background-color: var(--color-gray-100);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .checkbox-input:disabled ~ .checkbox-text {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .checkbox-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-charcoal);
+  }
+
+  .checkbox-required {
+    color: var(--color-error);
+    margin-left: var(--space-1);
+  }
+
+  /* Error state */
+  .checkbox-group--error .checkbox-box {
+    border-color: var(--color-error);
+  }
+
+  .checkbox-error {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .checkbox-error::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: var(--font-bold);
+    background-color: var(--color-error);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+  }
+</style>

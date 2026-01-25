@@ -1,0 +1,285 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Get all posts for prev/next navigation
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('it-IT', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+};
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.excerpt}
+  image={post.data.image}
+>
+  <PageHeader
+    title={post.data.title}
+    breadcrumbs={[
+      { label: 'Blog', href: '/blog' },
+      { label: post.data.title },
+    ]}
+  />
+
+  <article class="article section">
+    <div class="container">
+      <div class="article__meta">
+        <Badge variant="primary">{post.data.category}</Badge>
+        <time class="article__date" datetime={post.data.date.toISOString()}>
+          <Icon name="calendar" size={16} />
+          {formatDate(post.data.date)}
+        </time>
+        {post.data.author && (
+          <span class="article__author">
+            di {post.data.author}
+          </span>
+        )}
+      </div>
+
+      {post.data.image && (
+        <figure class="article__hero">
+          <img src={post.data.image} alt={post.data.title} loading="eager" />
+        </figure>
+      )}
+
+      <div class="article__content prose">
+        <Content />
+      </div>
+
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="article__tags">
+          <span class="article__tags-label">Tag:</span>
+          {post.data.tags.map((tag) => (
+            <Badge variant="neutral" size="sm">{tag}</Badge>
+          ))}
+        </div>
+      )}
+
+      <nav class="article__nav" aria-label="Navigazione articoli">
+        {prevPost ? (
+          <a href={`/blog/${prevPost.slug}`} class="article__nav-link article__nav-link--prev">
+            <Icon name="chevron-left" size={20} />
+            <span>
+              <small>Articolo precedente</small>
+              <strong>{prevPost.data.title}</strong>
+            </span>
+          </a>
+        ) : <div />}
+        {nextPost ? (
+          <a href={`/blog/${nextPost.slug}`} class="article__nav-link article__nav-link--next">
+            <span>
+              <small>Articolo successivo</small>
+              <strong>{nextPost.data.title}</strong>
+            </span>
+            <Icon name="chevron-right" size={20} />
+          </a>
+        ) : <div />}
+      </nav>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .article__date {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .article__author {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .article__hero {
+    margin: 0 0 var(--space-8);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .article__hero img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Prose styles for article content */
+  .prose {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-gray-800);
+  }
+
+  .prose :global(h2) {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+  }
+
+  .prose :global(h3) {
+    font-size: var(--text-xl);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: var(--space-4);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .prose :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-primary-dark);
+  }
+
+  .prose :global(strong) {
+    font-weight: var(--font-semibold);
+    color: var(--color-charcoal);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--color-primary);
+    padding-left: var(--space-4);
+    margin: var(--space-6) 0;
+    font-style: italic;
+    color: var(--color-gray-600);
+  }
+
+  .prose :global(img) {
+    border-radius: var(--radius-md);
+    margin: var(--space-6) 0;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-gray-200);
+    margin: var(--space-8) 0;
+  }
+
+  /* Tags */
+  .article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .article__tags-label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-gray-600);
+  }
+
+  /* Navigation */
+  .article__nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  @media (min-width: 640px) {
+    .article__nav {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .article__nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--transition-fast);
+  }
+
+  .article__nav-link:hover {
+    background-color: var(--color-gray-100);
+  }
+
+  .article__nav-link--next {
+    text-align: right;
+    justify-content: flex-end;
+  }
+
+  .article__nav-link small {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .article__nav-link strong {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    margin-top: var(--space-1);
+  }
+</style>

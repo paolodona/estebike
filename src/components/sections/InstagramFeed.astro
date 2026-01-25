@@ -1,0 +1,140 @@
+---
+/**
+ * Instagram Feed Component
+ *
+ * Since Instagram API requires Business account approval,
+ * we use a fallback CTA to the profile.
+ *
+ * In the future, this could integrate with:
+ * - Instagram Basic Display API (with proper auth)
+ * - Third-party services like Behold.so
+ */
+
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+export interface Props {
+  profileUrl?: string;
+  username?: string;
+}
+
+const {
+  profileUrl = 'https://www.instagram.com/team_estebike/',
+  username = '@team_estebike',
+} = Astro.props;
+---
+
+<section class="instagram-section">
+  <div class="instagram-content">
+    <div class="instagram-header">
+      <Icon name="instagram" size={32} />
+      <h3>Seguici su Instagram</h3>
+    </div>
+    <p>
+      Resta aggiornato sulle nostre attività, le uscite settimanali
+      e i momenti più belli delle nostre pedalate.
+    </p>
+    <Button href={profileUrl} variant="secondary">
+      Segui {username}
+      <Icon name="external-link" size={16} />
+    </Button>
+  </div>
+
+  <div class="instagram-placeholder">
+    <div class="instagram-grid">
+      {[1, 2, 3, 4, 5, 6].map(() => (
+        <div class="instagram-placeholder-item"></div>
+      ))}
+    </div>
+    <div class="instagram-placeholder-overlay">
+      <Icon name="instagram" size={48} />
+      <span>Vedi le foto su Instagram</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .instagram-section {
+    display: grid;
+    gap: var(--space-8);
+    padding: var(--space-8);
+    background: linear-gradient(135deg, #833AB4 0%, #E1306C 50%, #F77737 100%);
+    border-radius: var(--radius-lg);
+    color: var(--color-white);
+  }
+
+  @media (min-width: 1024px) {
+    .instagram-section {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .instagram-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .instagram-header h3 {
+    font-size: var(--text-2xl);
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .instagram-content p {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+  }
+
+  .instagram-content :global(.btn) {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+
+  .instagram-content :global(.btn:hover) {
+    background-color: var(--color-white);
+    color: #E1306C;
+  }
+
+  .instagram-placeholder {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .instagram-placeholder-item {
+    aspect-ratio: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .instagram-placeholder-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .instagram-placeholder-overlay span {
+    font-weight: var(--font-medium);
+  }
+
+  .instagram-placeholder-overlay:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+</style>

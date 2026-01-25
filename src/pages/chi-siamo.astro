@@ -1,0 +1,363 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Chi Siamo"
+  description="Scopri la storia di EsteBike, associazione ciclistica fondata nel 1996 a Este (PD). Da quasi 30 anni promuoviamo il ciclismo nei Colli Euganei."
+>
+  <PageHeader
+    title="Chi Siamo"
+    subtitle="La nostra storia, la nostra passione"
+    breadcrumbs={[{ label: 'Chi Siamo' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <h2>Dal 1996, passione su due ruote</h2>
+          <p>
+            <strong>EsteBike</strong> nasce nel 1996 dalla passione di un gruppo di
+            amici ciclisti nel cuore dei Colli Euganei. Da allora, siamo cresciuti
+            fino a diventare un punto di riferimento per il ciclismo amatoriale nella
+            zona di Este e dintorni.
+          </p>
+          <p>
+            La nostra missione è promuovere il ciclismo come stile di vita sano e
+            sostenibile, creando una comunità inclusiva dove tutti possono trovare
+            il proprio ritmo, dal principiante all'appassionato esperto.
+          </p>
+          <p>
+            Organizziamo uscite settimanali, eventi ciclistici e il nostro fiore
+            all'occhiello: il <strong>Magna & Pedala</strong>, una cicloturistica
+            che celebra la tradizione locale combinando sport e gastronomia.
+          </p>
+        </div>
+        <div class="about-image">
+          <img
+            src="/images/about-team.jpg"
+            alt="Il team EsteBike"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="section section--light">
+    <div class="container">
+      <h2 class="text-center">I nostri valori</h2>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <Icon name="users" size={32} />
+          </div>
+          <h3>Comunità</h3>
+          <p>
+            Crediamo nel potere della condivisione. Ogni pedalata è un'occasione
+            per conoscere nuove persone e rafforzare i legami esistenti.
+          </p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">
+            <Icon name="mountain" size={32} />
+          </div>
+          <h3>Territorio</h3>
+          <p>
+            I Colli Euganei sono la nostra casa. Promuoviamo la conoscenza e il
+            rispetto del nostro paesaggio unico attraverso il ciclismo.
+          </p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">
+            <Icon name="route" size={32} />
+          </div>
+          <h3>Inclusività</h3>
+          <p>
+            Non importa il tuo livello o la tua bici. In EsteBike c'è spazio per
+            tutti quelli che amano pedalare.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History Timeline -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">La nostra storia</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">1996</div>
+          <div class="timeline-content">
+            <h3>La fondazione</h3>
+            <p>
+              Un gruppo di appassionati ciclisti di Este decide di fondare
+              un'associazione per condividere la passione per le due ruote.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2000</div>
+          <div class="timeline-content">
+            <h3>Nasce il Magna & Pedala</h3>
+            <p>
+              Prima edizione della nostra cicloturistica che unisce sport e
+              tradizione gastronomica locale.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2010</div>
+          <div class="timeline-content">
+            <h3>Oltre 100 soci</h3>
+            <p>
+              L'associazione cresce e supera i 100 tesserati, diventando un
+              punto di riferimento nel territorio.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">Oggi</div>
+          <div class="timeline-content">
+            <h3>Quasi 30 anni di storia</h3>
+            <p>
+              Continuiamo a pedalare insieme, organizzando eventi e
+              promuovendo il ciclismo per tutte le età.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section section--primary">
+    <div class="container">
+      <div class="cta-content text-center">
+        <h2>Unisciti a noi</h2>
+        <p>
+          Vuoi far parte della famiglia EsteBike? Tesserati e partecipa alle
+          nostre uscite e ai nostri eventi!
+        </p>
+        <div class="cta-actions">
+          <Button href="/tesseramento" variant="accent" size="lg">
+            Diventa socio
+          </Button>
+          <Button href="/contatti" variant="ghost" size="lg">
+            Contattaci
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* About Grid */
+  .about-grid {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  .about-content h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .about-content p {
+    color: var(--color-gray-800);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  .about-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+
+  /* Values Grid */
+  .values-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .values-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .value-card {
+    text-align: center;
+    padding: var(--space-6);
+  }
+
+  .value-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+
+  .value-card h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .value-card p {
+    color: var(--color-gray-600);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Timeline */
+  .timeline {
+    max-width: 700px;
+    margin: var(--space-10) auto 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-primary);
+  }
+
+  @media (min-width: 768px) {
+    .timeline::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .timeline-item {
+      width: 50%;
+      padding-left: 0;
+      padding-right: var(--space-8);
+    }
+
+    .timeline-item:nth-child(even) {
+      margin-left: 50%;
+      padding-left: var(--space-8);
+      padding-right: 0;
+    }
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-white);
+    border-radius: var(--radius-full);
+  }
+
+  @media (min-width: 768px) {
+    .timeline-item::before {
+      left: auto;
+      right: -6px;
+    }
+
+    .timeline-item:nth-child(even)::before {
+      right: auto;
+      left: -6px;
+    }
+  }
+
+  .timeline-year {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline-content h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline-content p {
+    color: var(--color-gray-600);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* CTA */
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: var(--color-white);
+  }
+
+  .cta-content p {
+    font-size: var(--text-lg);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .cta-actions {
+      flex-direction: row;
+    }
+  }
+</style>
