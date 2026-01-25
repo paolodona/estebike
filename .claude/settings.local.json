@@ -34,7 +34,8 @@
       "WebFetch(domain:docs.astro.build)",
       "WebFetch(domain:zellwk.com)",
       "WebFetch(domain:marcandreuf.com)",
-      "WebFetch(domain:mihai-andrei.com)"
+      "WebFetch(domain:mihai-andrei.com)",
+      "Bash(git rev-list:*)"
     ]
   }
 }
