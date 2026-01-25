@@ -39,7 +39,24 @@
       "Bash(copy:*)",
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:localhost)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:developer.chrome.com)",
+      "WebFetch(domain:raf.dev)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__get_console_message",
+      "mcp__chrome-devtools__press_key",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__resize_page",
+      "WebFetch(domain:uploadcare.com)",
+      "Bash(ls:*)",
+      "mcp__chrome-devtools__list_pages"
     ]
   }
 }
