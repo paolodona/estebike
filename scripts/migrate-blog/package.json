@@ -1,0 +1,23 @@
+{
+  "name": "migrate-blog",
+  "version": "1.0.0",
+  "description": "Migration script for legacy EsteBike blog posts",
+  "type": "module",
+  "scripts": {
+    "migrate": "tsx index.ts",
+    "dry-run": "tsx index.ts --dry-run"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "glob": "^11.0.0",
+    "sanitize-filename": "^1.6.3",
+    "sharp": "^0.33.0",
+    "turndown": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/turndown": "^5.0.5",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
