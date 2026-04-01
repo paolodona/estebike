@@ -33,3 +33,7 @@ nul
 
 # Astro
 .astro/
+
+# WhatsApp gallery temp files
+scripts/whatsapp-gallery/.tmp-import/
+scripts/whatsapp-gallery/downloads/
