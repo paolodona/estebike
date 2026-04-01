@@ -3,27 +3,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
 import Icon from '../components/ui/Icon.astro';
 
-// Gallery images (would be populated from a data source in production)
+// Gallery images sourced from existing blog photos and site assets
 const galleries = [
   {
-    title: 'Magna & Pedala 2025',
-    year: 2025,
+    title: 'Magna & Pedala 2018',
+    year: 2018,
     images: [
-      { src: '/images/gallery/2025/img1.jpg', alt: 'Partenza Magna & Pedala 2025' },
-      { src: '/images/gallery/2025/img2.jpg', alt: 'Ristoro sui Colli Euganei' },
-      { src: '/images/gallery/2025/img3.jpg', alt: 'Gruppo in salita' },
-      { src: '/images/gallery/2025/img4.jpg', alt: 'Panorama dai Colli' },
-      { src: '/images/gallery/2025/img5.jpg', alt: 'Arrivo a Este' },
-      { src: '/images/gallery/2025/img6.jpg', alt: 'Pasta party finale' },
+      { src: '/images/blog/2018/05/magnaepedala.jpg', alt: 'Magna e Pedala 2018' },
+      { src: '/images/blog/2018/05/magnaepedala-b.jpg', alt: 'Volantino Magna e Pedala 2018' },
+      { src: '/images/blog/2018/04/assemblea-soci_b.jpg', alt: 'Assemblea soci 2018' },
+      { src: '/images/about-team.jpg', alt: 'Team EsteBike' },
+      { src: '/images/about-preview.jpg', alt: 'Ciclisti in gruppo' },
+      { src: '/images/pasta-party.jpg', alt: 'Pasta party finale' },
     ],
   },
   {
-    title: 'Magna & Pedala 2024',
-    year: 2024,
+    title: 'Magna & Pedala 2017',
+    year: 2017,
     images: [
-      { src: '/images/gallery/2024/img1.jpg', alt: 'Edizione 2024' },
-      { src: '/images/gallery/2024/img2.jpg', alt: 'Pedalata nei Colli' },
-      { src: '/images/gallery/2024/img3.jpg', alt: 'Gruppo EsteBike' },
+      { src: '/images/blog/2017/05/magna-e-pedala-volantino.jpg', alt: 'Volantino Magna e Pedala 2017' },
+      { src: '/images/blog/2017/04/7guadi-2.jpg', alt: 'Gara 7 Guadi 2017' },
+      { src: '/images/blog/2017/02/team-agonisti-2017.jpg', alt: 'Team agonisti 2017' },
+    ],
+  },
+  {
+    title: 'Edizioni precedenti',
+    year: 2016,
+    images: [
+      { src: '/images/blog/2016/05/magna-pedala-2016.jpg', alt: 'Magna e Pedala 2016' },
+      { src: '/images/blog/2016/04/soci_oo.jpg', alt: 'Soci EsteBike 2016' },
+      { src: '/images/blog/2015/05/magna-e-pedalata-2015.jpg', alt: 'Magna e Pedala 2015' },
+      { src: '/images/blog/2015/05/MAGNAEPEDALA-BAONE.jpg', alt: 'Magna e Pedala a Baone' },
+      { src: '/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg', alt: 'Gruppo EsteBike 2015' },
+      { src: '/images/blog/2015/10/squadra_1.jpg', alt: 'Squadra EsteBike' },
     ],
   },
 ];
@@ -36,7 +48,7 @@ const galleries = [
   <PageHeader
     title="Galleria"
     subtitle="I momenti più belli delle nostre attività"
-    breadcrumbs={[{ label: 'Galleria' }]}
+
   />
 
   <section class="section">

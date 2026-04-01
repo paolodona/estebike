@@ -23,29 +23,7 @@ const formatDate = (date: Date) => {
   }).format(date);
 };
 
-const routes = [
-  {
-    name: 'Percorso Lungo',
-    distance: '85 km',
-    elevation: '1200 m D+',
-    difficulty: 'Impegnativo',
-    href: '/magna-e-pedala/percorsi#lungo',
-  },
-  {
-    name: 'Percorso Medio',
-    distance: '55 km',
-    elevation: '700 m D+',
-    difficulty: 'Medio',
-    href: '/magna-e-pedala/percorsi#medio',
-  },
-  {
-    name: 'Percorso Corto',
-    distance: '35 km',
-    elevation: '350 m D+',
-    difficulty: 'Facile',
-    href: '/magna-e-pedala/percorsi#corto',
-  },
-];
+
 ---
 
 <BaseLayout
@@ -55,19 +33,38 @@ const routes = [
   <Hero
     title="Magna & Pedala 2026"
     subtitle="EsteBike presenta"
-    date="Maggio 2026"
-    location="Este (PD)"
+    date="10 Maggio 2026"
+    location="Castello Carrarese, Este"
     image="/images/hero-home.jpg"
     ctaText="Iscriviti Ora"
-    ctaHref="/magna-e-pedala/iscrizioni"
+    ctaHref="/magna-e-pedala#iscrizioni"
     secondaryCtaText="Scopri i Percorsi"
-    secondaryCtaHref="/magna-e-pedala/percorsi"
-  />
+    secondaryCtaHref="/magna-e-pedala#percorsi"
+  >
+    <div class="countdown" id="countdown" aria-label="Conto alla rovescia per l'evento">
+      <div class="countdown__item">
+        <span class="countdown__value" id="cd-days">--</span>
+        <span class="countdown__label">Giorni</span>
+      </div>
+      <div class="countdown__item">
+        <span class="countdown__value" id="cd-hours">--</span>
+        <span class="countdown__label">Ore</span>
+      </div>
+      <div class="countdown__item">
+        <span class="countdown__value" id="cd-mins">--</span>
+        <span class="countdown__label">Minuti</span>
+      </div>
+      <div class="countdown__item">
+        <span class="countdown__value" id="cd-secs">--</span>
+        <span class="countdown__label">Secondi</span>
+      </div>
+    </div>
+  </Hero>
 
   <!-- About Section -->
   <section class="section">
     <div class="container">
-      <div class="about-grid">
+      <div class="about-grid animate-on-scroll">
         <div class="about-content">
           <Badge variant="accent">Dal 1996</Badge>
           <h2>Passione per il ciclismo nel cuore dei Colli Euganei</h2>
@@ -97,60 +94,57 @@ const routes = [
     </div>
   </section>
 
-  <!-- Routes Preview -->
-  <section class="section section--light">
-    <div class="container">
-      <div class="section-header text-center">
-        <h2>Scegli il tuo percorso</h2>
-        <p>Tre tracciati per tutti i livelli, attraverso i paesaggi dei Colli Euganei</p>
-      </div>
-
-      <div class="routes-grid">
-        {routes.map((route) => (
-          <Card variant="event" href={route.href}>
-            <CardBody>
-              <Badge variant="accent" size="sm">{route.distance}</Badge>
-              <h3 class="route-name">{route.name}</h3>
-              <div class="route-stats">
-                <span>
-                  <Icon name="mountain" size={16} />
-                  {route.elevation}
-                </span>
-                <span>
-                  <Icon name="route" size={16} />
-                  {route.difficulty}
-                </span>
-              </div>
-            </CardBody>
-          </Card>
-        ))}
-      </div>
-
-      <div class="text-center" style="margin-top: var(--space-8);">
-        <Button href="/magna-e-pedala/percorsi" variant="primary">
-          Vedi tutti i percorsi
-        </Button>
-      </div>
-    </div>
-  </section>
-
   <!-- Event CTA -->
-  <section class="section section--primary">
+  <section class="section event-cta-section">
     <div class="container">
-      <div class="event-cta text-center">
+      <div class="event-cta text-center animate-on-scroll">
         <h2>Partecipa al Magna & Pedala 2026</h2>
         <p>
           Unisciti a centinaia di ciclisti per una giornata di sport, natura e buon cibo.
           Ristori lungo il percorso, pasta party finale e tanto divertimento!
         </p>
         <div class="event-cta__actions">
-          <Button href="/magna-e-pedala/iscrizioni" variant="accent" size="lg">
+          <Button href="/magna-e-pedala#iscrizioni" variant="accent" size="lg">
             Iscriviti Ora
           </Button>
           <Button href="/magna-e-pedala" variant="ghost" size="lg">
             Scopri l'evento
           </Button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Preview -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2>Galleria</h2>
+        <Button href="/galleria" variant="secondary" size="sm">
+          Vedi tutte
+          <Icon name="arrow-right" size={16} />
+        </Button>
+      </div>
+
+      <div class="gallery-mosaic animate-on-scroll">
+        <a href="/galleria" class="gallery-mosaic__item gallery-mosaic__item--tall">
+          <img src="/images/about-preview.jpg" alt="Ciclisti in gruppo" loading="lazy" />
+        </a>
+        <a href="/galleria" class="gallery-mosaic__item">
+          <img src="/images/blog/2018/05/magnaepedala.jpg" alt="Magna e Pedala 2018" loading="lazy" />
+        </a>
+        <a href="/galleria" class="gallery-mosaic__item">
+          <img src="/images/about-team.jpg" alt="Team EsteBike" loading="lazy" />
+        </a>
+        <a href="/galleria" class="gallery-mosaic__item">
+          <img src="/images/blog/2017/02/team-agonisti-2017.jpg" alt="Team agonisti 2017" loading="lazy" />
+        </a>
+        <a href="/galleria" class="gallery-mosaic__item gallery-mosaic__item--tall">
+          <img src="/images/pasta-party.jpg" alt="Pasta party finale" loading="lazy" />
+        </a>
+        <a href="/galleria" class="gallery-mosaic__item">
+          <img src="/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg" alt="Gruppo EsteBike" loading="lazy" />
+        </a>
       </div>
     </div>
   </section>
@@ -170,9 +164,7 @@ const routes = [
         <div class="news-grid">
           {latestPosts.map((post) => (
             <Card variant="blog" href={`/blog/${post.slug}`}>
-              {post.data.image && (
-                <CardImage src={post.data.image} alt={post.data.title} />
-              )}
+              <CardImage src={post.data.image} alt={post.data.title} />
               <CardBody>
                 <Badge variant="primary" size="sm">{post.data.category}</Badge>
                 <h3 class="post-title">{post.data.title}</h3>
@@ -195,7 +187,7 @@ const routes = [
   <!-- Contact CTA -->
   <section class="section section--light">
     <div class="container">
-      <div class="contact-cta text-center">
+      <div class="contact-cta text-center animate-on-scroll">
         <h2>Resta in contatto</h2>
         <p>
           Hai domande? Vuoi unirti a noi per un'uscita?<br />
@@ -216,6 +208,96 @@ const routes = [
 </BaseLayout>
 
 <style>
+  /* Countdown */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (min-width: 640px) {
+    .countdown {
+      gap: var(--space-6);
+    }
+  }
+
+  .countdown__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+  }
+
+  @media (min-width: 640px) {
+    .countdown__item {
+      min-width: 80px;
+    }
+  }
+
+  .countdown__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-accent);
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 640px) {
+    .countdown__value {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  .countdown__label {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: var(--space-1);
+  }
+
+  /* Gallery Mosaic */
+  .gallery-mosaic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 180px;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .gallery-mosaic {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px;
+      gap: var(--space-4);
+    }
+  }
+
+  .gallery-mosaic__item {
+    display: block;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .gallery-mosaic__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .gallery-mosaic__item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-mosaic__item--tall {
+    grid-row: span 2;
+  }
+
   /* Section Header */
   .section-header {
     display: flex;
@@ -309,6 +391,11 @@ const routes = [
     }
   }
 
+  .route-color-bar {
+    height: 4px;
+    width: 100%;
+  }
+
   .route-name {
     font-size: var(--text-xl);
     margin: var(--space-3) 0 var(--space-2);
@@ -328,6 +415,24 @@ const routes = [
   }
 
   /* Event CTA */
+  .event-cta-section {
+    position: relative;
+    background: url('/images/colli-euganei-bg.jpg') center/cover no-repeat;
+    color: var(--color-white);
+  }
+
+  .event-cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(196, 30, 58, 0.85), rgba(139, 21, 40, 0.92));
+  }
+
+  .event-cta-section > .container {
+    position: relative;
+    z-index: 1;
+  }
+
   .event-cta {
     max-width: 700px;
     margin: 0 auto;
@@ -426,3 +531,36 @@ const routes = [
     }
   }
 </style>
+
+<script>
+  const EVENT_DATE = new Date('2026-05-10T07:30:00+02:00');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = EVENT_DATE.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      const el = document.getElementById('countdown');
+      if (el) el.innerHTML = '<p style="color: var(--color-accent); font-size: var(--text-xl); font-weight: bold;">L\'evento è oggi!</p>';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const daysEl = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minsEl = document.getElementById('cd-mins');
+    const secsEl = document.getElementById('cd-secs');
+
+    if (daysEl) daysEl.textContent = String(days);
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+    if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+    if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

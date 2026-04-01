@@ -35,7 +35,6 @@ const formatDate = (date: Date) => {
   <PageHeader
     title="Blog"
     subtitle="News e aggiornamenti dal mondo EsteBike"
-    breadcrumbs={[{ label: 'Blog' }]}
   />
 
   <section class="section">
@@ -44,9 +43,7 @@ const formatDate = (date: Date) => {
         <div class="blog-grid">
           {posts.map((post) => (
             <Card variant="blog" href={`/blog/${post.slug}`}>
-              {post.data.image && (
-                <CardImage src={post.data.image} alt={post.data.title} />
-              )}
+              <CardImage src={post.data.image} alt={post.data.title} />
               <CardBody>
                 <Badge variant="primary" size="sm">{post.data.category}</Badge>
                 <h2 class="post-title">{post.data.title}</h2>

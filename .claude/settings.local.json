@@ -56,7 +56,15 @@
       "mcp__chrome-devtools__resize_page",
       "WebFetch(domain:uploadcare.com)",
       "Bash(ls:*)",
-      "mcp__chrome-devtools__list_pages"
+      "mcp__chrome-devtools__list_pages",
+      "Bash(gh issue list:*)",
+      "Bash(npx tsx:*)",
+      "Bash(node -e:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm version:*)",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__click",
+      "Bash(powershell -ExecutionPolicy Bypass -File:*)"
     ]
   }
 }

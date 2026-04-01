@@ -1,167 +1,173 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
-import Input from '../components/ui/Input.astro';
-import Checkbox from '../components/ui/Checkbox.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import Badge from '../components/ui/Badge.astro';
 
-const membershipPrice = 50; // EUR
-const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.estebike.it';
+const iban = 'IT54X0890462560036015009901';
+const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfPwphvfoCXPuqr9wrAuA-pT9-frl3UsZjALaEfWy2BBc7rnA/viewform';
 
 const benefits = [
   'Partecipazione alle uscite settimanali',
-  'Copertura assicurativa durante le attività',
+  'Copertura assicurativa R.C. verso terzi',
   'Sconti presso i nostri partner',
   'Accesso agli eventi riservati ai soci',
   'Supporto nella scelta dell\'attrezzatura',
 ];
+
+const options = [
+  {
+    name: 'Socio Sostenitore',
+    price: 30,
+    description: 'Tessera amatoriale per partecipare a tutte le attività sociali del club.',
+    badge: 'Amatoriale',
+  },
+  {
+    name: 'Tesseramento Agonista FCI',
+    price: 55,
+    description: 'Tessera federale per partecipare a gare e competizioni ufficiali FCI.',
+    badge: 'Agonista',
+  },
+];
 ---
 
 <BaseLayout
-  title="Tesseramento"
-  description="Diventa socio EsteBike! Iscriviti al club e partecipa alle nostre uscite, eventi e goditi i vantaggi riservati ai tesserati."
+  title="Tesseramento 2026"
+  description="Tesseramento EsteBike 2026: socio sostenitore (€30) o agonista FCI (€55). Compila il form e effettua il bonifico. Iscrizioni aperte!"
 >
   <PageHeader
-    title="Tesseramento"
-    subtitle="Diventa socio EsteBike"
-    breadcrumbs={[{ label: 'Tesseramento' }]}
-  />
+    title="Tesseramento 2026"
+    subtitle="Iscrizioni aperte!"
+/>
 
+  <!-- Options -->
   <section class="section">
     <div class="container">
-      <div class="membership-grid">
-        <!-- Info Section -->
-        <div class="membership-info">
-          <Badge variant="accent">Anno 2026</Badge>
-          <h2>Entra a far parte della famiglia EsteBike</h2>
-          <p>
-            Il tesseramento annuale ti dà accesso a tutte le attività del club,
-            dalla partecipazione alle uscite settimanali agli eventi esclusivi
-            riservati ai soci.
-          </p>
+      <div class="intro text-center">
+        <Badge variant="accent">Anno 2026</Badge>
+        <h2>Scegli la tua tessera</h2>
+        <p>
+          Due opzioni di tesseramento per entrare a far parte della famiglia EsteBike.
+        </p>
+      </div>
 
-          <h3>Cosa include il tesseramento</h3>
-          <ul class="benefits-list">
-            {benefits.map((benefit) => (
-              <li>
-                <Icon name="chevron-right" size={18} />
-                <span>{benefit}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div class="membership-price">
-            <span class="membership-price__amount">&euro;{membershipPrice}</span>
-            <span class="membership-price__label">quota annuale</span>
+      <div class="options-grid">
+        {options.map((opt) => (
+          <div class="option-card">
+            <Badge variant="primary" size="sm">{opt.badge}</Badge>
+            <h3>{opt.name}</h3>
+            <div class="option-price">
+              <span class="option-price__amount">&euro;{opt.price}</span>
+              <span class="option-price__label">quota annuale</span>
+            </div>
+            <p>{opt.description}</p>
           </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Register -->
+  <section class="section section--light" id="come-tesserarsi">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Come tesserarsi</h2>
+        <p>Due semplici passaggi</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <h3>Compila il form</h3>
+          <p>
+            Compila il modulo online con i tuoi dati anagrafici. Serve pochi minuti.
+          </p>
+          <Button href={formUrl} variant="primary" size="lg" fullWidth target="_blank" rel="noopener noreferrer">
+            Compila il form
+            <Icon name="arrow-right" size={18} />
+          </Button>
         </div>
 
-        <!-- Form Section -->
-        <div class="form-container">
-          <h2>Compila il modulo</h2>
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <h3>Effettua il bonifico</h3>
+          <p>
+            Effettua un bonifico al conto EsteBike indicando come causale
+            il tuo <strong>cognome/nome</strong> e il tipo di tessera scelta
+            (socio sostenitore o tessera FCI).
+          </p>
+          <div class="iban-box">
+            <span class="iban-label">IBAN (BCC Prealpi San Biagio)</span>
+            <code class="iban-value" id="iban-value">{iban}</code>
+            <button class="iban-copy" id="iban-copy" type="button" title="Copia IBAN">
+              <Icon name="clipboard" size={18} />
+            </button>
+          </div>
+          <div class="causale-example">
+            <span class="causale-label">Esempio causale:</span>
+            <code>Rossi Mario — Socio sostenitore</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <form id="membership-form" novalidate>
-            <div class="form-section">
-              <h3>Dati personali</h3>
-              <div class="form-row">
-                <Input
-                  name="nome"
-                  label="Nome"
-                  required
-                  autocomplete="given-name"
-                />
-                <Input
-                  name="cognome"
-                  label="Cognome"
-                  required
-                  autocomplete="family-name"
-                />
-              </div>
-              <Input
-                type="email"
-                name="email"
-                label="Email"
-                required
-                autocomplete="email"
-              />
-              <Input
-                type="tel"
-                name="telefono"
-                label="Telefono"
-                required
-                autocomplete="tel"
-                placeholder="Es. 333 1234567"
-              />
-            </div>
+  <!-- FCI Notice -->
+  <section class="section">
+    <div class="container">
+      <div class="fci-notice">
+        <div class="fci-notice__icon">
+          <Icon name="shield" size={28} />
+        </div>
+        <div class="fci-notice__content">
+          <h3>Per i tesserati FCI (Agonisti)</h3>
+          <p>
+            Per il tesseramento agonista FCI occorre inviare a
+            <a href="mailto:info@estebike.it">info@estebike.it</a>:
+          </p>
+          <ul>
+            <li>Copia del certificato medico agonistico in corso di validità</li>
+            <li>I propri dati anagrafici</li>
+            <li>Una fototessera (se nuovo tesserato)</li>
+          </ul>
+          <p class="fci-warning">
+            L'assenza del certificato medico nel sistema informatico FCI
+            non permetterà l'iscrizione a gare e competizioni.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <div class="form-section">
-              <h3>Indirizzo di residenza</h3>
-              <Input
-                name="indirizzo"
-                label="Indirizzo"
-                required
-                autocomplete="street-address"
-                placeholder="Via/Piazza e numero civico"
-              />
-              <div class="form-row">
-                <Input
-                  name="cap"
-                  label="CAP"
-                  required
-                  autocomplete="postal-code"
-                  maxlength={5}
-                />
-                <Input
-                  name="citta"
-                  label="Città"
-                  required
-                  autocomplete="address-level2"
-                />
-              </div>
-            </div>
+  <!-- Benefits -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="benefits-section">
+        <h2>Cosa include il tesseramento</h2>
+        <ul class="benefits-list">
+          {benefits.map((benefit) => (
+            <li>
+              <Icon name="chevron-right" size={18} />
+              <span>{benefit}</span>
+            </li>
+          ))}
+        </ul>
 
-            <div class="form-section">
-              <h3>Codice Fiscale</h3>
-              <Input
-                name="codiceFiscale"
-                label="Codice Fiscale"
-                required
-                maxlength={16}
-                placeholder="RSSMRA85M01H501Z"
-                hint="Necessario per la tessera assicurativa"
-              />
-            </div>
-
-            <div class="form-section">
-              <h3>Privacy</h3>
-              <Checkbox
-                name="consensoPrivacy"
-                label="Ho letto e accetto l'informativa sulla privacy"
-                required
-              />
-              <p class="form-section__hint">
-                <a href="/privacy">Leggi l'informativa completa</a>
-              </p>
-            </div>
-
-            <div class="form-error" id="form-error" hidden>
-              <Icon name="x" size={20} />
-              <span></span>
-            </div>
-
-            <Button type="submit" variant="primary" size="lg" fullWidth>
-              Procedi al pagamento
-            </Button>
-          </form>
+        <div class="insurance-warning">
+          <Icon name="alert-triangle" size={20} />
+          <p>
+            In mancanza del tesseramento non è consentita la copertura
+            dell'assicurazione R.C. verso terzi in caso di danni causati
+            nell'esercizio dell'attività sociale.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ Section -->
-  <section class="section section--light">
+  <section class="section">
     <div class="container">
       <h2 class="text-center">Domande frequenti</h2>
 
@@ -185,8 +191,8 @@ const benefits = [
         <div class="faq-item">
           <h3>Come funziona la copertura assicurativa?</h3>
           <p>
-            La tessera include una polizza assicurativa che ti copre durante
-            tutte le attività ufficiali del club.
+            La tessera include una polizza assicurativa R.C. verso terzi che ti
+            copre durante tutte le attività ufficiali del club.
           </p>
         </div>
 
@@ -203,36 +209,268 @@ const benefits = [
 </BaseLayout>
 
 <style>
-  .membership-grid {
-    display: grid;
-    gap: var(--space-10);
+  /* Intro */
+  .intro {
+    max-width: 600px;
+    margin: 0 auto var(--space-10);
   }
 
-  @media (min-width: 1024px) {
-    .membership-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-12);
-      align-items: start;
+  .intro h2 {
+    margin: var(--space-4) 0;
+  }
+
+  .intro p {
+    color: var(--color-gray-600);
+    font-size: var(--text-lg);
+  }
+
+  /* Options Grid */
+  .options-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .options-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  /* Info Section */
-  .membership-info h2 {
-    font-size: var(--text-3xl);
-    margin: var(--space-4) 0 var(--space-4);
-    line-height: var(--leading-tight);
+  .option-card {
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    text-align: center;
   }
 
-  .membership-info > p {
+  .option-card h3 {
+    font-size: var(--text-xl);
+    margin: var(--space-3) 0 var(--space-2);
+  }
+
+  .option-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .option-price__amount {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .option-price__label {
+    font-size: var(--text-sm);
     color: var(--color-gray-600);
+    margin-top: var(--space-1);
+  }
+
+  .option-card > p {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Section Header */
+  .section-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .section-header p {
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  /* Steps Grid */
+  .steps-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .step-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (min-width: 768px) {
+    .step-card {
+      padding: var(--space-8);
+    }
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-family: var(--font-heading);
     font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-4);
+  }
+
+  .step-card h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .step-card > p {
+    color: var(--color-gray-600);
     line-height: var(--leading-relaxed);
     margin-bottom: var(--space-6);
   }
 
-  .membership-info h3 {
-    font-size: var(--text-lg);
+  /* IBAN Box */
+  .iban-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
     margin-bottom: var(--space-4);
+    position: relative;
+  }
+
+  .iban-label {
+    font-size: var(--text-xs);
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .iban-value {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-charcoal);
+    letter-spacing: 0.02em;
+    word-break: break-all;
+  }
+
+  .iban-copy {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    background: none;
+    border: none;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast);
+  }
+
+  .iban-copy:hover {
+    color: var(--color-primary);
+  }
+
+  /* Causale example */
+  .causale-example {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .causale-label {
+    font-size: var(--text-xs);
+    color: var(--color-gray-500);
+  }
+
+  .causale-example code {
+    font-size: var(--text-sm);
+    color: var(--color-gray-700);
+  }
+
+  /* FCI Notice */
+  .fci-notice {
+    display: flex;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-primary);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 639px) {
+    .fci-notice {
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  }
+
+  .fci-notice__icon :global(.icon) {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .fci-notice__content h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .fci-notice__content p {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-3);
+  }
+
+  .fci-notice__content a {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+  }
+
+  .fci-notice__content ul {
+    margin: 0 0 var(--space-3);
+    padding-left: var(--space-5);
+  }
+
+  .fci-notice__content ul li {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-1);
+  }
+
+  .fci-warning {
+    font-weight: var(--font-semibold);
+    color: var(--color-charcoal) !important;
+  }
+
+  /* Benefits */
+  .benefits-section {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .benefits-section h2 {
+    margin-bottom: var(--space-6);
   }
 
   .benefits-list {
@@ -254,106 +492,27 @@ const benefits = [
     flex-shrink: 0;
   }
 
-  .membership-price {
+  .insurance-warning {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--space-6);
-    background-color: var(--color-off-white);
-    border-radius: var(--radius-md);
-  }
-
-  .membership-price__amount {
-    font-family: var(--font-heading);
-    font-size: var(--text-5xl);
-    font-weight: var(--font-bold);
-    color: var(--color-primary);
-    line-height: 1;
-  }
-
-  .membership-price__label {
-    font-size: var(--text-sm);
-    color: var(--color-gray-600);
-    margin-top: var(--space-1);
-  }
-
-  /* Form Section */
-  .form-container {
-    background-color: var(--color-white);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-    border: 1px solid var(--color-gray-200);
-  }
-
-  @media (min-width: 768px) {
-    .form-container {
-      padding: var(--space-8);
-    }
-  }
-
-  .form-container h2 {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-6);
-  }
-
-  .form-section {
-    margin-bottom: var(--space-6);
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid var(--color-gray-200);
-  }
-
-  .form-section:last-of-type {
-    border-bottom: none;
-    margin-bottom: var(--space-4);
-  }
-
-  .form-section h3 {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-4);
-  }
-
-  .form-row {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  @media (min-width: 640px) {
-    .form-row {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .form-section :global(.input-group),
-  .form-section :global(.checkbox-group) {
-    margin-bottom: var(--space-4);
-  }
-
-  .form-section__hint {
-    font-size: var(--text-sm);
-    color: var(--color-gray-600);
-    margin-top: var(--space-2);
-  }
-
-  .form-section__hint a {
-    color: var(--color-primary);
-  }
-
-  .form-error {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
-    background-color: rgba(198, 40, 40, 0.1);
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: rgba(198, 40, 40, 0.08);
     border: 1px solid var(--color-error);
-    border-radius: var(--radius-sm);
-    color: var(--color-error);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
+    border-radius: var(--radius-md);
   }
 
-  .form-error[hidden] {
-    display: none;
+  .insurance-warning :global(.icon) {
+    color: var(--color-error);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .insurance-warning p {
+    font-size: var(--text-sm);
+    color: var(--color-charcoal);
+    line-height: var(--leading-relaxed);
+    margin: 0;
   }
 
   /* FAQ Grid */
@@ -371,9 +530,8 @@ const benefits = [
 
   .faq-item {
     padding: var(--space-6);
-    background-color: var(--color-white);
+    background-color: var(--color-off-white);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
   }
 
   .faq-item h3 {
@@ -389,13 +547,24 @@ const benefits = [
   }
 </style>
 
-<script define:vars={{ apiUrl }}>
-  // Form handling would be similar to registration form
-  // For now, just show a message
-  const form = document.getElementById('membership-form');
+<script>
+  const copyBtn = document.getElementById('iban-copy');
+  const ibanVal = document.getElementById('iban-value');
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Il sistema di tesseramento online sarà disponibile presto. Per ora, contattaci via email per tesserarti.');
+  copyBtn?.addEventListener('click', async () => {
+    if (ibanVal) {
+      try {
+        await navigator.clipboard.writeText(ibanVal.textContent?.trim() || '');
+        copyBtn.title = 'Copiato!';
+        setTimeout(() => { copyBtn.title = 'Copia IBAN'; }, 2000);
+      } catch {
+        // fallback: select text
+        const range = document.createRange();
+        range.selectNodeContents(ibanVal);
+        const sel = window.getSelection();
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      }
+    }
   });
 </script>

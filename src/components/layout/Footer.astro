@@ -1,5 +1,6 @@
 ---
 import Icon from '../ui/Icon.astro';
+import logo from '../../../assets/estebike-logo.png';
 
 const currentYear = new Date().getFullYear();
 
@@ -13,9 +14,8 @@ const quickLinks = [
 ];
 
 const eventLinks = [
-  { label: 'Percorsi', href: '/magna-e-pedala/percorsi' },
-  { label: 'Iscrizioni', href: '/magna-e-pedala/iscrizioni' },
-  { label: 'Partecipanti', href: '/magna-e-pedala/partecipanti' },
+  { label: 'Percorsi', href: '/magna-e-pedala#percorsi' },
+  { label: 'Iscrizioni', href: '/magna-e-pedala#iscrizioni' },
 ];
 
 const socialLinks = [
@@ -30,7 +30,7 @@ const socialLinks = [
     <div class="footer__brand">
       <a href="/" class="footer__logo" aria-label="EsteBike - Torna alla homepage">
         <img
-          src="/images/estebike-logo-white.svg"
+          src={logo.src}
           alt="EsteBike"
           width="160"
           height="46"

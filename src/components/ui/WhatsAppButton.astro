@@ -19,9 +19,11 @@ const {
 
 // Format phone number (remove spaces and special chars)
 const cleanNumber = phoneNumber.replace(/[\s\-\(\)]/g, '');
+const isPlaceholder = cleanNumber.includes('XXXX');
 const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
 ---
 
+{!isPlaceholder && (
 <a
   href={whatsappUrl}
   class="whatsapp-button"
@@ -34,6 +36,7 @@ const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(mess
   </svg>
   <span class="whatsapp-tooltip">WhatsApp</span>
 </a>
+)}
 
 <style>
   .whatsapp-button {

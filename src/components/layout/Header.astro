@@ -1,6 +1,7 @@
 ---
 import Icon from '../ui/Icon.astro';
 import Button from '../ui/Button.astro';
+import logo from '../../../assets/estebike-logo.png';
 
 export interface NavItem {
   label: string;
@@ -15,17 +16,9 @@ export interface Props {
 const { currentPath = '/' } = Astro.props;
 
 const navItems: NavItem[] = [
+  { label: 'Home', href: '/' },
   { label: 'Chi Siamo', href: '/chi-siamo' },
-  {
-    label: 'Magna & Pedala',
-    href: '/magna-e-pedala',
-    children: [
-      { label: "L'Evento", href: '/magna-e-pedala' },
-      { label: 'Percorsi', href: '/magna-e-pedala/percorsi' },
-      { label: 'Iscrizioni', href: '/magna-e-pedala/iscrizioni' },
-      { label: 'Partecipanti', href: '/magna-e-pedala/partecipanti' },
-    ],
-  },
+  { label: 'Magna & Pedala', href: '/magna-e-pedala' },
   { label: 'Galleria', href: '/galleria' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contatti', href: '/contatti' },
@@ -45,7 +38,7 @@ const isActive = (href: string) => {
   <div class="header__container container">
     <a href="/" class="header__logo" aria-label="EsteBike - Torna alla homepage">
       <img
-        src="/images/estebike-logo-white.svg"
+        src={logo.src}
         alt="EsteBike"
         width="140"
         height="40"
@@ -54,47 +47,20 @@ const isActive = (href: string) => {
     </a>
 
     <nav class="header__nav hide-mobile" aria-label="Navigazione principale">
-      <ul class="nav-list">
+      <div class="nav-list">
         {navItems.map((item) => (
-          <li class:list={['nav-item', item.children && 'nav-item--dropdown']}>
-            {item.children ? (
-              <>
-                <button
-                  class:list={['nav-link', 'nav-link--dropdown', isActive(item.href) && 'nav-link--active']}
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                >
-                  {item.label}
-                  <Icon name="chevron-down" size={16} />
-                </button>
-                <ul class="dropdown-menu">
-                  {item.children.map((child) => (
-                    <li>
-                      <a
-                        href={child.href}
-                        class:list={['dropdown-link', isActive(child.href) && 'dropdown-link--active']}
-                      >
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <a
-                href={item.href}
-                class:list={['nav-link', isActive(item.href) && 'nav-link--active']}
-              >
-                {item.label}
-              </a>
-            )}
-          </li>
+          <a
+            href={item.href}
+            class:list={['nav-link', isActive(item.href) && 'nav-link--active']}
+          >
+            {item.label}
+          </a>
         ))}
-      </ul>
+      </div>
     </nav>
 
     <div class="header__actions">
-      <Button href="/magna-e-pedala/iscrizioni" variant="accent" size="sm" class="hide-mobile">
+      <Button href="/magna-e-pedala#iscrizioni" variant="accent" size="sm" class="hide-mobile">
         Iscriviti
       </Button>
 
@@ -115,7 +81,6 @@ const isActive = (href: string) => {
 <div class="mobile-nav-overlay" id="mobile-nav" data-mobile-nav>
   <nav class="mobile-nav" aria-label="Navigazione mobile">
     <ul class="mobile-nav-list">
-      <li><a href="/" class:list={['mobile-nav-link', currentPath === '/' && 'mobile-nav-link--active']}>Home</a></li>
       {navItems.map((item) => (
         <>
           <li>
@@ -140,12 +105,20 @@ const isActive = (href: string) => {
       ))}
     </ul>
     <div class="mobile-nav-cta">
-      <Button href="/magna-e-pedala/iscrizioni" variant="accent" fullWidth>
+      <Button href="/magna-e-pedala#iscrizioni" variant="accent" fullWidth>
         Iscriviti Ora
       </Button>
     </div>
   </nav>
 </div>
+
+<style is:global>
+  .header__nav .nav-list {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+</style>
 
 <style>
   .header {
@@ -185,13 +158,13 @@ const isActive = (href: string) => {
   }
 
   .header__logo img {
-    height: 36px;
+    height: 48px;
     width: auto;
   }
 
   @media (min-width: 1024px) {
     .header__logo img {
-      height: 44px;
+      height: 56px;
     }
   }
 
@@ -200,13 +173,8 @@ const isActive = (href: string) => {
     display: flex;
     align-items: center;
     gap: var(--space-1);
-    list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  .nav-item {
-    position: relative;
   }
 
   .nav-link {
@@ -219,11 +187,13 @@ const isActive = (href: string) => {
     font-family: var(--font-heading);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
+    line-height: 1;
     border-radius: var(--radius-sm);
     transition: background-color var(--transition-fast);
     background: none;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .nav-link:hover,
@@ -303,15 +273,15 @@ const isActive = (href: string) => {
     outline-offset: 2px;
   }
 
-  .menu-icon-close {
+  .mobile-menu-toggle :global(.menu-icon-close) {
     display: none;
   }
 
-  .mobile-menu-toggle[aria-expanded="true"] .menu-icon-open {
+  .mobile-menu-toggle[aria-expanded="true"] :global(.menu-icon-open) {
     display: none;
   }
 
-  .mobile-menu-toggle[aria-expanded="true"] .menu-icon-close {
+  .mobile-menu-toggle[aria-expanded="true"] :global(.menu-icon-close) {
     display: block;
   }
 

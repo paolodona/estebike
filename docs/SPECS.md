@@ -18,8 +18,7 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 | **Chi Siamo (About)** | Club history, mission, team/board members |
 | **Magna & Pedala** | Event landing page with full details |
 | **Percorsi (Routes)** | Route options with maps and GPX downloads |
-| **Iscrizioni (Registration)** | Event registration form with Stripe payment |
-| **Partecipanti (Participants)** | Live list of registered participants |
+| **Iscrizioni (Registration)** | Eventbrite link and QR code for event registration |
 | **Galleria (Gallery)** | Photo galleries and video embeds |
 | **Tesseramento (Membership)** | Annual club membership registration |
 | **Contatti (Contact)** | Contact information and WhatsApp |
@@ -38,88 +37,24 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 - **Domain:** estebike.it (existing)
 - **SSL:** Provided by GitHub Pages
 
-### Backend (Serverless Functions)
-Since GitHub Pages is static-only, form submissions require a lightweight backend:
-
-- **Provider:** Cloudflare Workers (free tier: 100k requests/day) or Netlify Functions
-- **Purpose:** Handle registration form submissions securely
-- **Workflow:**
-  1. User submits registration form on Astro site
-  2. Form data sent to serverless function endpoint
-  3. Function validates data and writes to Google Sheets (via API)
-  4. Function sends admin notification email (via Resend/SendGrid free tier)
-  5. Function returns success → user redirected to Stripe Checkout
-
-**Why serverless?** API credentials (Google Sheets, email service) cannot be exposed in frontend code. The serverless function keeps secrets secure on the server side.
-
 ### Content Management
 - **Primary:** Markdown files in Git repository
 - **Updates:** Edit markdown, push to GitHub, automatic rebuild
-- **Participant List:** Google Sheets as data source (read via public CSV export or API)
 
-### Payments
-- **Provider:** Stripe Checkout
-- **Use Cases:**
-  - Event registration (Magna & Pedala)
-  - Annual club membership
-- **Flow:** Serverless function creates Stripe Checkout session → redirect user
+### Ticketing
+- **Provider:** Eventbrite
+- **URL:** https://estebikemangnaepedala2026.eventbrite.com/
+- **Use Cases:** Event registration (Magna & Pedala)
+- **Flow:** Site links to Eventbrite page; QR code provided for quick mobile access
 
 ---
 
 ## Event Registration (Magna & Pedala)
 
-### Registration Data Collected
-| Field | Type | Required |
-|-------|------|----------|
-| Nome (First Name) | Text | Yes |
-| Cognome (Last Name) | Text | Yes |
-| Email | Email | Yes |
-| Telefono (Phone) | Phone | Yes |
-| Contatto Emergenza (Emergency Contact) | Text | Yes |
-| Telefono Emergenza | Phone | Yes |
-| Percorso (Route Choice) | Select | Yes |
-| Consenso Lista Pubblica | Checkbox | Yes |
-
-### GDPR / Privacy Compliance
-**Italian data protection law requires explicit consent for public display of personal data.**
-
-The registration form includes a mandatory checkbox:
-> ☐ Acconsento alla pubblicazione del mio nome e percorso scelto nella lista pubblica dei partecipanti. (I consent to the publication of my name and chosen route on the public participant list.)
-
-- Users who consent: Name and route displayed on public list
-- Users who decline: NOT shown on public list, but still counted in statistics
-- The serverless function writes a `is_public` boolean to Google Sheets
-- The participant list page filters to show only `is_public = TRUE` entries
-
-**Alternative approach (simpler):** Display only aggregate statistics without names:
-> "127 ciclisti iscritti! (45 Percorso Lungo, 52 Percorso Medio, 30 Percorso Corto)"
-
-### Pricing
-- **Single price** for all participants (amount TBD)
-- Same price regardless of route choice
-
-### Registration Flow (Technical)
-1. User fills out form on `/iscrizioni` page
-2. Client-side validation (required fields, email format, etc.)
-3. Form submitted to serverless function endpoint
-4. Serverless function:
-   - Validates data server-side
-   - Appends row to Google Sheets (including `is_public` consent flag)
-   - Sends admin notification email via Resend/SendGrid
-   - Creates Stripe Checkout session with participant metadata
-   - Returns Stripe Checkout URL
-5. User redirected to Stripe Checkout
-6. After payment: Stripe webhook (optional) or manual verification
-
-### Notifications
-- **Admin notification:** Email sent by serverless function on each registration
-- **Stripe dashboard:** Backup notification via Stripe
-
-### Participant List
-- **Public display:** Searchable list of registered participants **who consented**
-- **Data source:** Google Sheets (public CSV export or API read)
-- **Displayed fields:** Name, route choice, registration date
-- **Privacy:** Only shows entries where `is_public = TRUE`
+Registration is handled entirely via Eventbrite. The site provides:
+- A dedicated `/iscrizioni` page with a link to the Eventbrite event
+- A QR code (`/images/eventbrite-qr.svg`) for quick mobile access
+- Eventbrite URL: https://estebikemangnaepedala2026.eventbrite.com/
 - **Statistics:** Total count includes ALL participants regardless of consent
 
 ---
@@ -161,23 +96,9 @@ The registration form includes a mandatory checkbox:
 
 ## Club Membership
 
-### Registration
-- Separate Stripe Checkout flow via serverless function
-- Same architecture as event registration
-- Annual membership fee (amount TBD)
-
-### Membership Registration Flow
-1. User fills form on `/tesseramento` page
-2. Form submitted to serverless function
-3. Function writes to separate "Membri" Google Sheet
-4. Function sends admin notification
-5. Function creates Stripe Checkout session
-6. User completes payment
-
-### Data Collected
-- Name, email, phone
-- Address (for membership card)
-- Codice Fiscale (Italian tax code, if required for insurance)
+### Tesseramento
+- Annual club membership information page at `/tesseramento`
+- Contact club directly for membership registration
 
 ---
 
@@ -323,36 +244,20 @@ Post content in markdown...
 | Service | Purpose | Cost |
 |---------|---------|------|
 | GitHub Pages | Static site hosting | Free |
-| Cloudflare Workers | Serverless functions (form handling) | Free (100k req/day) |
-| Stripe | Payments | ~1.4% + €0.25 per transaction |
-| Google Sheets | Participant data storage | Free |
-| Resend / SendGrid | Admin email notifications | Free tier (100/day) |
+| Eventbrite | Event ticketing & registration | Per Eventbrite pricing |
 | YouTube | Video hosting | Free |
 | Instagram | Feed embed | Free |
 | Strava | Route embeds, club feed | Free |
 | WhatsApp | Contact button | Free |
 
-**Estimated monthly cost: €0** (only per-transaction Stripe fees)
+**Estimated monthly cost: €0** (Eventbrite fees apply per ticket)
 
 ### Architecture Diagram
 ```
-┌─────────────────┐     ┌──────────────────────┐     ┌─────────────────┐
-│   Astro Site    │────▶│  Cloudflare Worker   │────▶│  Google Sheets  │
-│  (GitHub Pages) │     │  (serverless func)   │     │  (participant   │
-│                 │     │                      │     │   data store)   │
-└─────────────────┘     └──────────────────────┘     └─────────────────┘
-        │                        │
-        │                        ▼
-        │               ┌──────────────────────┐
-        │               │   Resend/SendGrid    │
-        │               │  (admin email alert) │
-        │               └──────────────────────┘
-        │                        │
-        │                        ▼
-        │               ┌──────────────────────┐
-        └──────────────▶│   Stripe Checkout    │
-                        │  (payment redirect)  │
-                        └──────────────────────┘
+┌─────────────────┐
+│   Astro Site    │────▶  Eventbrite (registration & ticketing)
+│  (GitHub Pages) │
+└─────────────────┘
 ```
 
 ---
