@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "exported_at": "2026-01-25T20:07:00Z",
+    "source": "whatsapp-web",
+    "group_name": "EsteBike",
+    "total_images": 2,
+    "curated_count": 0
+  },
+  "images": [
+    {
+      "id": "img_001",
+      "filename": "2026-01-25_20-07-28_6f7f5cb5.jpg",
+      "hash": "6f7f5cb5704912e4fc959048e0c834779a219982938daf66eb1675644527de29",
+      "downloaded_at": "2026-01-25T20:07:28Z",
+      "file_size_bytes": 294687,
+      "dimensions": {
+        "width": 1500,
+        "height": 2000
+      },
+      "ai_analysis": {
+        "description": "Snowy mountain village scene with snow-covered road, traditional houses with wooden balconies, and trees in foggy winter weather. Photo dated 25/01/2026.",
+        "has_estebike_kit": false,
+        "kit_confidence": 0,
+        "website_relevance": 4,
+        "suggested_tags": ["snow", "landscape", "winter", "village", "mountain"],
+        "faces_detected": 0,
+        "scene_type": "landscape",
+        "analyzed_at": "2026-01-25T20:08:00Z"
+      },
+      "curation": {
+        "approved": null,
+        "approved_by": null,
+        "approved_at": null,
+        "notes": null,
+        "target_gallery": null
+      }
+    },
+    {
+      "id": "img_002",
+      "filename": "2026-01-26_09-50-26_56ee4fe0.jpg",
+      "hash": "56ee4fe01bc03762f2a005db60514435d50d8447a9212d7198f206eed409cfe8",
+      "downloaded_at": "2026-01-26T09:50:26Z",
+      "file_size_bytes": 678686,
+      "dimensions": {
+        "width": 1536,
+        "height": 2048
+      },
+      "ai_analysis": {
+        "description": "Cyclist in orange/black kit posing with white Specialized road bike featuring Roval carbon wheels in parking lot. High quality portrait before/after group ride.",
+        "has_estebike_kit": false,
+        "kit_confidence": 0.9,
+        "website_relevance": 7,
+        "suggested_tags": ["cyclist", "road_bike", "portrait", "Specialized", "parking"],
+        "faces_detected": 1,
+        "scene_type": "outdoor_cycling",
+        "analyzed_at": "2026-01-26T09:51:00Z"
+      },
+      "curation": {
+        "approved": null,
+        "approved_by": null,
+        "approved_at": null,
+        "notes": null,
+        "target_gallery": null
+      }
+    }
+  ]
+}

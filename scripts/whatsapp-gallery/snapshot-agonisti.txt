@@ -1,0 +1,353 @@
+uid=1_0 RootWebArea "(2) WhatsApp" url="https://web.whatsapp.com/"
+  uid=1_1 generic
+    uid=1_2 generic
+      uid=1_3 generic
+      uid=1_4 banner
+        uid=1_5 button "Chats" pressed
+        uid=1_6 button "Updates in Status"
+        uid=1_7 button "Channels"
+        uid=1_8 button "Communities"
+        uid=1_9 button "Media"
+        uid=1_10 button "You"
+          uid=1_11 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/656028206_1264171249008852_4026111152170256424_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGOQ9ZuumE95BtOuZD6TDCREvDBbhLDe6Mrqe7l6kfmjA&oe=69DA7364&_nc_sid=5e03e0&_nc_cat=111"
+      uid=1_12 banner
+        uid=1_13 banner
+          uid=1_14 heading "WhatsApp" level="2"
+          uid=1_15 button "New chat" expandable haspopup="menu"
+          uid=1_16 button "Menu" expandable haspopup="menu"
+      uid=1_17 textbox value="agoni"
+      uid=1_18 button "End icon button"
+      uid=1_19 tablist "chat-list-filters" orientation="horizontal"
+        uid=1_20 tab "All" selectable
+        uid=1_21 tab "Unread 2" selectable
+        uid=1_22 tab "Favourites" selectable
+        uid=1_23 tab "Groups 1" selectable
+        uid=1_24 generic
+          uid=1_25 tab "New list" selectable
+      uid=1_26 generic
+        uid=1_27 generic
+          uid=1_28 StaticText "Chats"
+          uid=1_29 gridcell "AGONISTI TEAM Estebike 23/03/2026 Maybe Albert :  Bravissimi tutti!! 💪🏼"
+            uid=1_30 generic
+              uid=1_31 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/57328049_983055211891229_5082797527971921920_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AHlTBQ2GhMeWcYwMbqVz4USytyq_GOaljiMSU3sWqsHRA&oe=69DA582C&_nc_sid=5e03e0&_nc_cat=111"
+              uid=1_32 StaticText "AGO"
+              uid=1_33 StaticText "NISTI TEAM Estebike"
+              uid=1_34 StaticText "23/03/2026"
+              uid=1_35 StaticText "~ Albert"
+              uid=1_36 StaticText ": "
+              uid=1_37 StaticText "Bravissimi tutti!! "
+              uid=1_38 image "💪🏼" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_39 gridcell "Estebike - Team AGONISTI 2025 12/02/2025 Andrea :  Ragazzi, cancello questo gruppo. Ci sentiamo di là, Nel gruppo ufficiale"
+            uid=1_40 generic
+              uid=1_41 StaticText "Estebike - Team "
+              uid=1_42 StaticText "AGO"
+              uid=1_43 StaticText "NISTI 2025"
+              uid=1_44 StaticText "12/02/2025"
+              uid=1_45 StaticText "Andrea"
+              uid=1_46 StaticText ": "
+              uid=1_47 StaticText "Ragazzi, cancello questo gruppo. Ci sentiamo di là, Nel gruppo ufficiale"
+          uid=1_48 StaticText "Messages"
+          uid=1_49 gridcell "Gianni Thursday Ciao Gianni, mi fai la tessera agonistica? Ho già pagato e avvertito Giorgio"
+            uid=1_50 generic
+              uid=1_51 StaticText "Gianni"
+              uid=1_52 StaticText "Thursday"
+              uid=1_53 StaticText "Ciao Gianni, mi fai la tessera "
+              uid=1_54 StaticText "agoni"
+              uid=1_55 StaticText "stica? Ho già pagato e avvertito Giorgio"
+          uid=1_56 gridcell "Gianni Thursday Certificato Agonistico"
+            uid=1_57 generic
+              uid=1_58 StaticText "Gianni"
+              uid=1_59 StaticText "Thursday"
+              uid=1_60 StaticText "Certificato "
+              uid=1_61 StaticText "Agoni"
+              uid=1_62 StaticText "stico"
+          uid=1_63 gridcell "Giorgio Roman Thursday Certificato Agonistico"
+            uid=1_64 generic
+              uid=1_65 StaticText "Giorgio Roman"
+              uid=1_66 StaticText "Thursday"
+              uid=1_67 StaticText "Certificato "
+              uid=1_68 StaticText "Agoni"
+              uid=1_69 StaticText "stico"
+          uid=1_70 gridcell "AGONISTI TEAM Estebike 09/03/2026 Giorgio :  📌 Ricordiamo che domani è l’ultimo martedì per potersi iscrivere all’associazione. ❌ Chi non desiderasse rinnovare né come socio sostenitore né come agonista potrà abbandonare spontaneamente la chat. Confidando di avervi tutti/e tra noi in questo importante anno, vi aspettiamo al Leon d’oro 🦁"
+            uid=1_71 generic
+              uid=1_72 StaticText "AGONISTI TEAM Estebike"
+              uid=1_73 StaticText "09/03/2026"
+              uid=1_74 StaticText "Giorgio"
+              uid=1_75 StaticText ": "
+              uid=1_76 image "📌" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_77 StaticText "Ricordiamo che domani è l’ultimo martedì per potersi iscrivere all’associazione. "
+              uid=1_78 image "❌" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_79 StaticText "Chi non desiderasse rinnovare né come socio sostenitore né come "
+              uid=1_80 StaticText "agoni"
+              uid=1_81 StaticText "sta potrà abbandonare spontaneamente la chat. Confidando di avervi tutti/e tra noi in questo importante anno, vi aspettiamo al Leon d’oro "
+              uid=1_82 image "🦁" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_83 gridcell "Estebike 09/03/2026 Giorgio :  📌 Ricordiamo che domani è l’ultimo martedì per potersi iscrivere all’associazione. ❌ Chi non desiderasse rinnovare né come socio sostenitore né come agonista potrà abbandonare spontaneamente la chat. Confidando di avervi tutti/e tra noi in questo importante anno, vi aspettiamo al Leon d’oro 🦁"
+            uid=1_84 generic
+              uid=1_85 StaticText "Estebike"
+              uid=1_86 StaticText "09/03/2026"
+              uid=1_87 StaticText "Giorgio"
+              uid=1_88 StaticText ": "
+              uid=1_89 image "📌" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_90 StaticText "Ricordiamo che domani è l’ultimo martedì per potersi iscrivere all’associazione. "
+              uid=1_91 image "❌" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_92 StaticText "Chi non desiderasse rinnovare né come socio sostenitore né come "
+              uid=1_93 StaticText "agoni"
+              uid=1_94 StaticText "sta potrà abbandonare spontaneamente la chat. Confidando di avervi tutti/e tra noi in questo importante anno, vi aspettiamo al Leon d’oro "
+              uid=1_95 image "🦁" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_96 gridcell "Giorgio Roman 26/02/2026 Ciao Giorgio ti comunico il pagamento della quota tessera agonistica"
+            uid=1_97 generic
+              uid=1_98 StaticText "Giorgio Roman"
+              uid=1_99 StaticText "26/02/2026"
+              uid=1_100 StaticText "Ciao Giorgio ti comunico il pagamento della quota tessera "
+              uid=1_101 StaticText "agoni"
+              uid=1_102 StaticText "stica"
+      uid=1_103 StaticText "Your personal messages are "
+      uid=1_104 button "end-to-end encrypted"
+      uid=1_105 button "See more chat history on the app Get WhatsApp for Windows"
+        uid=1_106 generic
+      uid=1_107 banner
+        uid=1_108 button "Profile details"
+          uid=1_109 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/57328049_983055211891229_5082797527971921920_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AHlTBQ2GhMeWcYwMbqVz4USytyq_GOaljiMSU3sWqsHRA&oe=69DA582C&_nc_sid=5e03e0&_nc_cat=111"
+        uid=1_110 button "AGONISTI TEAM Estebike Andrea, Francesco, Gianni, Giorgio, Lorenzo, Luisa, Marco, Max, Michele, Michele, Mirko, Moreno, Nicola, Renzo, Roberto, Simone, +39 348 138 2932, +39 340 807 7868, +39 348 882 0095, +39 338 190 3701, +39 349 423 8674, +39 345 925 9703, +39 342 521 2744, +39 340 617 8730, +39 342 554 7852, You"
+        uid=1_111 button "Group video call" expandable haspopup="menu"
+        uid=1_112 button "Search" expandable
+        uid=1_113 button "Menu" expandable haspopup="menu"
+      uid=1_114 generic
+        uid=1_115 button "Click here to get older messages from your phone."
+        uid=1_116 generic
+          uid=1_117 generic
+            uid=1_118 StaticText "08/03/2026"
+          uid=1_119 button "Open chat details for Gianni"
+            uid=1_120 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/55964012_330217351186628_2664529321674145792_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFQrqrpK5p-3MB_pX1SgwqTjWXOG0IcNlmXIpMGW46_QQ&oe=69DA65DD&_nc_sid=5e03e0&_nc_cat=110"
+          uid=1_121 row
+            uid=1_122 generic
+              uid=1_123 StaticText "Gianni"
+              uid=1_124 StaticText "Grazie e complimenti anche a tutti gli altri Gareggianti"
+              uid=1_125 StaticText "18:13"
+              uid=1_126 button "reaction 👍. View reactions" haspopup="menu"
+                uid=1_127 image "👍🏻" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_128 generic
+            uid=1_129 StaticText "09/03/2026"
+          uid=1_130 button "Open chat details for Giorgio Roman"
+            uid=1_131 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/654317759_1488128516158707_152261662142551105_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGpxPWbUZXaMNleK4fSGcV_sn9uFBa2YPIWkl55z12cDg&oe=69DA67FC&_nc_sid=5e03e0&_nc_cat=102"
+          uid=1_132 row
+            uid=1_133 generic
+              uid=1_134 StaticText "Giorgio Roman"
+              uid=1_135 image "📌" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_136 StaticText "Ricordiamo che domani è l’ultimo martedì per potersi iscrivere all’associazione."
+              uid=1_137 StaticText "
+"
+              uid=1_138 image "❌" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_139 StaticText "Chi non desiderasse rinnovare né come socio sostenitore né come agonista potrà abbandonare spontaneamente la chat."
+              uid=1_140 StaticText "
+"
+              uid=1_141 StaticText "Confidando di avervi tutti/e tra noi in questo importante anno, vi aspettiamo al Leon d’oro "
+              uid=1_142 image "🦁" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_143 StaticText "20:33"
+          uid=1_144 generic
+            uid=1_145 StaticText "11/03/2026"
+          uid=1_146 button "Open chat details for Andrea Sorze"
+            uid=1_147 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/579442515_824584190366450_7736423373865160213_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGA8v4sq6_l8IAE-x1QsZwmsZl-TB567raPenasN8ZN0w&oe=69DA57C6&_nc_sid=5e03e0&_nc_cat=101"
+          uid=1_148 row
+            uid=1_149 generic
+              uid=1_150 StaticText "Andrea Sorze"
+              uid=1_151 StaticText "This message was deleted"
+              uid=1_152 StaticText "18:00"
+          uid=1_153 row
+            uid=1_154 generic
+              uid=1_155 StaticText "Andrea Sorze"
+              uid=1_156 StaticText "This message was deleted"
+              uid=1_157 StaticText "18:00"
+          uid=1_158 row
+            uid=1_159 generic
+              uid=1_160 StaticText "Sbagliato gruppo"
+              uid=1_161 StaticText "18:01"
+          uid=1_162 generic
+            uid=1_163 StaticText "14/03/2026"
+          uid=1_164 button "Open chat details for Gianni"
+            uid=1_165 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/55964012_330217351186628_2664529321674145792_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFQrqrpK5p-3MB_pX1SgwqTjWXOG0IcNlmXIpMGW46_QQ&oe=69DA65DD&_nc_sid=5e03e0&_nc_cat=110"
+          uid=1_166 row
+            uid=1_167 generic
+              uid=1_168 StaticText "Gianni"
+              uid=1_169 button "PDF Modulo179139.pdf 1 page • PDF • 90 kB" description="Download "Modulo179139.pdf""
+              uid=1_170 StaticText "22:12"
+              uid=1_171 button "Forward media"
+              uid=1_172 button "Reactions 👍 3 in total. View reactions" haspopup="menu"
+                uid=1_173 image "👍" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_174 generic
+            uid=1_175 StaticText "15/03/2026"
+          uid=1_176 button "Open chat details for Nicola Carretta"
+            uid=1_177 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/490583347_660661953498986_452489604567868370_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AF8EOcq6AXuzfFvRAD84X2MwolFwBb5qNgHR2N_Kr7gkw&oe=69DA4A78&_nc_sid=5e03e0&_nc_cat=106"
+          uid=1_178 row
+            uid=1_179 generic
+              uid=1_180 StaticText "Nicola Carretta"
+              uid=1_181 button "Quoted message"
+                uid=1_182 button "Modulo179139.pdf • 1 page"
+              uid=1_183 StaticText "Grande Gianni!! Grazie "
+              uid=1_184 image "🙋🏻‍♂️" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_185 image "🙋🏻‍♂️" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_186 StaticText "09:04"
+          uid=1_187 generic
+            uid=1_188 StaticText "17/03/2026"
+          uid=1_189 row
+            uid=1_190 generic
+              uid=1_191 link "Giorgio Roman"
+                uid=1_192 StaticText "Giorgio Roman"
+              uid=1_193 StaticText " removed "
+              uid=1_194 link "Simone Travaglia"
+                uid=1_195 StaticText "Simone Travaglia"
+          uid=1_196 generic
+            uid=1_197 StaticText "18/03/2026"
+          uid=1_198 button "Open chat details for Simone Contin"
+            uid=1_199 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/608823046_834344049471698_5425700408347154379_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AEbG8esHl4JNJQCSqhd5-N-bxPFgwu9yyjXx6ptCyi5Sw&oe=69DA767A&_nc_sid=5e03e0&_nc_cat=110"
+          uid=1_200 row
+            uid=1_201 generic
+              uid=1_202 StaticText "Simone Contin"
+              uid=1_203 StaticText "LONTANO DA TE by Simone David"
+              uid=1_204 StaticText "Stream and Pre-save LONTANO DA TE - Distributed by DistroKid"
+              uid=1_205 StaticText "distrokid.com"
+              uid=1_206 link "https://distrokid.com/hyperfollow/simonedavid/lontano-da-te/" url="https://distrokid.com/hyperfollow/simonedavid/lontano-da-te/"
+                uid=1_207 StaticText "https://distrokid.com/hyperfollow/simonedavid/lontano-da-te/"
+              uid=1_208 StaticText "18:57"
+              uid=1_209 button "Forward media"
+          uid=1_210 row
+            uid=1_211 generic
+              uid=1_212 StaticText "Per ricordarvi che tra poche ore uscirà il mio INEDITO e chi non lo avesse ancora fatto clicchi sul link per il pre-salavtggio del brano,  così sarà già disponibile nella vostra libreria domani. Non  costa nulla ma mi aiutate con la classifica. Grazie a chi vorrà dedicarmi il suo tempo e a molto presto. Un saluto a tutti !!"
+              uid=1_213 StaticText "18:57"
+          uid=1_214 generic
+            uid=1_215 StaticText "22/03/2026"
+          uid=1_216 button "Open chat details for Maybe Luca 🤓 +39 342 521 2744"
+            uid=1_217 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/370471341_1277773329388131_7993336369778464288_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGv3kSmnGz_6Odr5rIH7_DdD9yNE9_Nu1ymxO-lHlKbdg&oe=69DA5948&_nc_sid=5e03e0&_nc_cat=104"
+          uid=1_218 row
+            uid=1_219 generic
+              uid=1_220 StaticText "~ "
+              uid=1_221 StaticText "Luca "
+              uid=1_222 image "🤓" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_223 button "+39 342 521 2744"
+              uid=1_224 StaticText "Io oggi gf garda cycling fatta"
+              uid=1_225 StaticText "14:54"
+              uid=1_226 button "reaction 👍. View reactions" haspopup="menu"
+                uid=1_227 image "👍" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_228 button "Open chat details for Max Demuro"
+            uid=1_229 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/73417886_101460758071491_8603659454109500909_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFMovRmNaWB3qQNZ0eolJuvI9ip3S8izksKhgyOQcmeKQ&oe=69DA5999&_nc_sid=5e03e0&_nc_cat=111"
+          uid=1_230 row
+            uid=1_231 generic
+              uid=1_232 StaticText "Max Demuro"
+              uid=1_233 StaticText "Io oggi gf 3 Valli fatta"
+              uid=1_234 StaticText "15:42"
+          uid=1_235 button "Open chat details for Marco Zaggia"
+            uid=1_236 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/56106054_284185542482073_5235457489058660352_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFejl80kjLsoyJtt33iTMhxFoXA5LF_MqOi8kMpm_bKbA&oe=69DA79C1&_nc_sid=5e03e0&_nc_cat=110"
+          uid=1_237 row
+            uid=1_238 generic
+              uid=1_239 StaticText "Marco Zaggia"
+              uid=1_240 button "Quoted message"
+                uid=1_241 button "Io oggi gf 3 Valli fatta"
+              uid=1_242 StaticText "anche io"
+              uid=1_243 StaticText "15:44"
+          uid=1_244 button "Open chat details for Gianni"
+            uid=1_245 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/55964012_330217351186628_2664529321674145792_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFQrqrpK5p-3MB_pX1SgwqTjWXOG0IcNlmXIpMGW46_QQ&oe=69DA65DD&_nc_sid=5e03e0&_nc_cat=110"
+          uid=1_246 row
+            uid=1_247 generic
+              uid=1_248 StaticText "Gianni"
+              uid=1_249 StaticText "Complimenti a tutti i gareggianti io e Carretto Compresi."
+              uid=1_250 StaticText "18:45"
+              uid=1_251 button "Reactions 👍, 😂 3 in total. View reactions" haspopup="menu"
+                uid=1_252 image "👍🏻" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                uid=1_253 image "😂" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_254 button "Open chat details for Maybe Attilio +39 348 882 0095"
+            uid=1_255 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/473405669_1317635445943529_139717589893910226_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFyIeYVW8CBHbDYTDbswKwIHEIqAQYtHGLyQ5O1B8y-4g&oe=69DA4AA2&_nc_sid=5e03e0&_nc_cat=102"
+          uid=1_256 row
+            uid=1_257 generic
+              uid=1_220 StaticText "~ "
+              uid=1_258 StaticText "Attilio"
+              uid=1_259 button "+39 348 882 0095"
+              uid=1_260 button "Open picture"
+              uid=1_261 button "Open picture"
+              uid=1_262 button "Open picture"
+              uid=1_263 StaticText "Pieve Santostefano (AR)OGGI Luisa 3 di cat. Circuito Appenino Superbike"
+              uid=1_264 StaticText "19:23"
+              uid=1_265 button "Reactions 👍 2 in total. View reactions" haspopup="menu"
+                uid=1_266 image "👍🏻" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          uid=1_267 row
+            uid=1_268 generic
+              uid=1_269 generic "You:"
+              uid=1_270 StaticText "Grandi!!"
+              uid=1_271 StaticText "19:50"
+              uid=1_272 image "msg-check"
+          uid=1_273 button "Open chat details for Nicola Carretta"
+            uid=1_274 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/490583347_660661953498986_452489604567868370_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AF8EOcq6AXuzfFvRAD84X2MwolFwBb5qNgHR2N_Kr7gkw&oe=69DA4A78&_nc_sid=5e03e0&_nc_cat=106"
+          uid=1_275 row
+            uid=1_276 generic
+              uid=1_277 StaticText "Nicola Carretta"
+              uid=1_278 StaticText "Io oggi gf 3 valli"
+              uid=1_279 image "💪" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_280 image "💪" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_281 StaticText "19:55"
+          uid=1_282 row
+            uid=1_283 generic
+              uid=1_284 StaticText "Nicola Carretta"
+              uid=1_285 button "Quoted message"
+                uid=1_286 button "3 photos"
+              uid=1_287 StaticText "Brava Luisa "
+              uid=1_288 image "🙋🏻‍♂️" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_289 image "🙋🏻‍♂️" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_290 StaticText "19:55"
+          uid=1_291 button "Open chat details for Luisa De Lorenzo Poz"
+            uid=1_292 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/650413555_947352421085352_5799839025186616027_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AHOkwkBb-Ds171MjFm9v1VwAlkuFME19L6M5EE-_hUsGg&oe=69DA61AE&_nc_sid=5e03e0&_nc_cat=109"
+          uid=1_293 row
+            uid=1_294 generic
+              uid=1_295 StaticText "Luisa De Lorenzo Poz"
+              uid=1_296 StaticText "Bravi tutti!"
+              uid=1_297 image "👏" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_298 image "👏" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_299 image "👏" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_300 image "👏" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_301 StaticText "20:06"
+          uid=1_302 generic
+            uid=1_303 StaticText "23/03/2026"
+          uid=1_304 button "Open chat details for Francesco"
+            uid=1_305 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/57019729_2080427628914325_1057531290280001536_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGKnxc0LAsSzTWZQgpnsZQngqlh0WHys_exBKKE_p6RGw&oe=69DA5689&_nc_sid=5e03e0&_nc_cat=110"
+          uid=1_306 row
+            uid=1_307 generic
+              uid=1_308 StaticText "Francesco"
+              uid=1_309 StaticText "Bravi ragazzi "
+              uid=1_310 image "👏" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_311 image "👏" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_312 image "👍" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_313 StaticText "05:36"
+          uid=1_314 button "Open chat details for Giorgio Roman"
+            uid=1_315 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/654317759_1488128516158707_152261662142551105_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGpxPWbUZXaMNleK4fSGcV_sn9uFBa2YPIWkl55z12cDg&oe=69DA67FC&_nc_sid=5e03e0&_nc_cat=102"
+          uid=1_316 row
+            uid=1_317 generic
+              uid=1_318 StaticText "Giorgio Roman"
+              uid=1_319 StaticText "Grandissimi "
+              uid=1_320 image "💛" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_321 image "❤️" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_322 StaticText "05:56"
+          uid=1_323 button "Open chat details for Lorenzo"
+            uid=1_324 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/56105962_1995225280600090_4891979544124194816_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AFs81B8DKYWRob5ZL6m_6nTbkkVsZrrZuhFVqutIMTiBg&oe=69DA5A94&_nc_sid=5e03e0&_nc_cat=107"
+          uid=1_325 row
+            uid=1_326 generic
+              uid=1_327 StaticText "Lorenzo"
+              uid=1_328 StaticText "Bravi tutti complimenti "
+              uid=1_329 image "👍" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_330 StaticText "07:39"
+          uid=1_331 button "Open chat details for Maybe Albert +39 340 807 7868"
+            uid=1_332 image url="https://media-mxp2-1.cdn.whatsapp.net/v/t61.24694-24/490584435_4083676695285529_6329493577736903378_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa4AGe14ZRqXvXY5V3-vRQP-FyZ1RbF9yTUmEuFgOP4LHZdw&oe=69DA657F&_nc_sid=5e03e0&_nc_cat=107"
+          uid=1_333 row
+            uid=1_334 generic
+              uid=1_220 StaticText "~ "
+              uid=1_335 StaticText "Albert"
+              uid=1_336 button "+39 340 807 7868"
+              uid=1_337 StaticText "Bravissimi tutti!! "
+              uid=1_338 image "💪🏼" url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              uid=1_339 StaticText "07:55"
+      uid=1_340 contentinfo
+        uid=1_341 generic
+          uid=1_342 button "Attach" expandable haspopup="menu"
+          uid=1_343 button "Emojis, GIFs, Stickers" expandable
+          uid=1_344 textbox "Type a message to group AGONISTI TEAM Estebike" autocomplete="list" focusable focused multiline value="
+"
+            uid=1_345 paragraph
+          uid=1_346 button "Voice message"
+            uid=1_347 button "Voice message" expandable

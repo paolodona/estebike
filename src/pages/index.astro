@@ -190,8 +190,33 @@ const formatDate = (date: Date) => {
       <div class="contact-cta text-center animate-on-scroll">
         <h2>Resta in contatto</h2>
         <p>
-          Hai domande? Vuoi unirti a noi per un'uscita?<br />
-          Contattaci o seguici sui social!
+          Organizziamo uscite settimanali in bicicletta:
+        </p>
+        <div class="rides-info">
+          <div class="ride-detail">
+            <Icon name="calendar" size={20} />
+            <div>
+              <strong>Sabato ore 9:00</strong>
+              <span>Piazzale delle Piscine, Este</span>
+            </div>
+          </div>
+          <div class="ride-detail">
+            <Icon name="calendar" size={20} />
+            <div>
+              <strong>Domenica</strong>
+              <span>Piazza "ai Leoni", Este</span>
+            </div>
+          </div>
+          <div class="ride-detail">
+            <Icon name="bike" size={20} />
+            <div>
+              <span>Mountain bike in inverno, bici da corsa in estate</span>
+            </div>
+          </div>
+        </div>
+        <p class="rides-note">
+          Le uscite vengono organizzate tramite il gruppo WhatsApp,
+          accessibile previo <a href="/tesseramento">tesseramento</a>.
         </p>
         <div class="contact-actions">
           <Button href="/contatti" variant="primary">
@@ -516,6 +541,46 @@ const formatDate = (date: Date) => {
   .contact-cta p {
     color: var(--color-gray-600);
     margin-bottom: var(--space-6);
+  }
+
+  .rides-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ride-detail {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-gray-800);
+  }
+
+  .ride-detail div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ride-detail span {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+  }
+
+  .rides-note {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-6);
+  }
+
+  .rides-note a {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+    text-decoration: underline;
   }
 
   .contact-actions {

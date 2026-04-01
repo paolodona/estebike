@@ -1,5 +1,5 @@
 ---
-title: "Magna & Pedala 2026: la 30a edizione vi aspetta!"
+title: "Magna & Pedala 2026: 30° anniversario EsteBike!"
 date: 2026-04-01
 author: admin
 category: News
@@ -8,12 +8,12 @@ tags:
   - eventi
   - colli euganei
 image: "/images/about-preview.jpg"
-excerpt: "Domenica 10 maggio torna il Magna & Pedala, giunto alla sua 30a edizione. Tre circuiti tra i Colli Euganei, ristori con prodotti locali e la tradizionale pasta party finale. Iscrizioni aperte su Eventbrite!"
+excerpt: "Domenica 10 maggio torna il Magna & Pedala per celebrare il 30° anniversario di EsteBike! Tre circuiti tra i Colli Euganei, ristori con prodotti locali e la tradizionale pasta party finale. Iscrizioni aperte su Eventbrite!"
 ---
 
 Ci siamo! **Domenica 10 maggio 2026** torna il **Magna & Pedala**, la manifestazione non competitiva che da trent'anni porta ciclisti e camminatori alla scoperta dei Colli Euganei.
 
-Quest'anno festeggiamo un traguardo importante: la **30a edizione** di un evento che è diventato un appuntamento fisso per tutti gli appassionati del territorio.
+Quest'anno festeggiamo un traguardo importante: il **30° anniversario di EsteBike**, il club che da trent'anni organizza questo evento diventato un appuntamento fisso per tutti gli appassionati del territorio.
 
 ## Tre circuiti per tutti i gusti
 
