@@ -8,6 +8,7 @@ import CardBody from '../components/ui/CardBody.astro';
 import Badge from '../components/ui/Badge.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
+import { url } from '../utils/base';
 
 // Get latest blog posts
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -35,7 +36,7 @@ const formatDate = (date: Date) => {
     subtitle="EsteBike presenta"
     date="10 Maggio 2026"
     location="Castello Carrarese, Este"
-    image="/images/hero-home.jpg"
+    image="/images/hero-default.jpg"
     ctaText="Iscriviti Ora"
     ctaHref="/magna-e-pedala#iscrizioni"
     secondaryCtaText="Scopri i Percorsi"
@@ -85,7 +86,7 @@ const formatDate = (date: Date) => {
         </div>
         <div class="about-image">
           <img
-            src="/images/about-preview.jpg"
+            src={url('/images/about-preview.jpg')}
             alt="Ciclisti EsteBike in gruppo sui Colli Euganei"
             loading="lazy"
           />
@@ -127,23 +128,23 @@ const formatDate = (date: Date) => {
       </div>
 
       <div class="gallery-mosaic animate-on-scroll">
-        <a href="/galleria" class="gallery-mosaic__item gallery-mosaic__item--tall">
-          <img src="/images/about-preview.jpg" alt="Ciclisti in gruppo" loading="lazy" />
+        <a href={url('/galleria')} class="gallery-mosaic__item gallery-mosaic__item--tall">
+          <img src={url('/images/about-preview.jpg')} alt="Ciclisti in gruppo" loading="lazy" />
         </a>
-        <a href="/galleria" class="gallery-mosaic__item">
-          <img src="/images/blog/2018/05/magnaepedala.jpg" alt="Magna e Pedala 2018" loading="lazy" />
+        <a href={url('/galleria')} class="gallery-mosaic__item">
+          <img src={url('/images/blog/2018/05/magnaepedala.jpg')} alt="Magna e Pedala 2018" loading="lazy" />
         </a>
-        <a href="/galleria" class="gallery-mosaic__item">
-          <img src="/images/about-team.jpg" alt="Team EsteBike" loading="lazy" />
+        <a href={url('/galleria')} class="gallery-mosaic__item">
+          <img src={url('/images/about-team.jpg')} alt="Team EsteBike" loading="lazy" />
         </a>
-        <a href="/galleria" class="gallery-mosaic__item">
-          <img src="/images/blog/2017/02/team-agonisti-2017.jpg" alt="Team agonisti 2017" loading="lazy" />
+        <a href={url('/galleria')} class="gallery-mosaic__item">
+          <img src={url('/images/blog/2017/02/team-agonisti-2017.jpg')} alt="Team agonisti 2017" loading="lazy" />
         </a>
-        <a href="/galleria" class="gallery-mosaic__item gallery-mosaic__item--tall">
-          <img src="/images/pasta-party.jpg" alt="Pasta party finale" loading="lazy" />
+        <a href={url('/galleria')} class="gallery-mosaic__item gallery-mosaic__item--tall">
+          <img src={url('/images/pasta-party.jpg')} alt="Pasta party finale" loading="lazy" />
         </a>
-        <a href="/galleria" class="gallery-mosaic__item">
-          <img src="/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg" alt="Gruppo EsteBike" loading="lazy" />
+        <a href={url('/galleria')} class="gallery-mosaic__item">
+          <img src={url('/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg')} alt="Gruppo EsteBike" loading="lazy" />
         </a>
       </div>
     </div>
@@ -216,7 +217,7 @@ const formatDate = (date: Date) => {
         </div>
         <p class="rides-note">
           Le uscite vengono organizzate tramite il gruppo WhatsApp,
-          accessibile previo <a href="/tesseramento">tesseramento</a>.
+          accessibile previo <a href={url('/tesseramento')}>tesseramento</a>.
         </p>
         <div class="contact-actions">
           <Button href="/contatti" variant="primary">

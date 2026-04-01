@@ -9,6 +9,7 @@ import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat/700.css';
 import '@fontsource/open-sans/400.css';
 import '@fontsource/open-sans/600.css';
+import { url } from '../utils/base';
 import '../styles/global.css';
 
 export interface Props {
@@ -70,9 +71,9 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-    <link rel="icon" type="image/svg+xml" href="/images/estebike-icon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href={url('/favicon.ico')} />
+    <link rel="icon" type="image/svg+xml" href={url('/images/estebike-icon.svg')} />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#C41E3A" />

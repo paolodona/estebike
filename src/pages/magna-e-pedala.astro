@@ -6,6 +6,7 @@ import Badge from '../components/ui/Badge.astro';
 import Icon from '../components/ui/Icon.astro';
 import Card from '../components/ui/Card.astro';
 import CardBody from '../components/ui/CardBody.astro';
+import { url } from '../utils/base';
 
 const eventbriteUrl = 'https://estebikemangnaepedala2026.eventbrite.com/';
 
@@ -66,7 +67,7 @@ const routes = [
     subtitle="30° Anniversario del Club — La tradizione continua"
     date={eventDetails.dateShort}
     location={eventDetails.location}
-    image="/images/hero-event.jpg"
+    image="/images/hero-default.jpg"
     ctaText="Iscriviti su Eventbrite"
     ctaHref={eventbriteUrl}
     size="large"
@@ -174,7 +175,7 @@ const routes = [
         </div>
         <div class="included-image">
           <img
-            src="/images/pasta-party.jpg"
+            src={url('/images/pasta-party.jpg')}
             alt="Magna & Pedala — ristoro e pasta party"
             loading="lazy"
           />
@@ -227,7 +228,7 @@ const routes = [
 
         <div class="qr-section">
           <img
-            src="/images/eventbrite-qr.svg"
+            src={url('/images/eventbrite-qr.svg')}
             alt="QR code per la pagina Eventbrite del Magna & Pedala 2026"
             class="qr-code"
             width="160"

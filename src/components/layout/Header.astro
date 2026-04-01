@@ -1,6 +1,7 @@
 ---
 import Icon from '../ui/Icon.astro';
 import Button from '../ui/Button.astro';
+import { url } from '../../utils/base';
 import logo from '../../../assets/estebike-logo.png';
 
 export interface NavItem {
@@ -36,7 +37,7 @@ const isActive = (href: string) => {
   </a>
 
   <div class="header__container container">
-    <a href="/" class="header__logo" aria-label="EsteBike - Torna alla homepage">
+    <a href={url('/')} class="header__logo" aria-label="EsteBike - Torna alla homepage">
       <img
         src={logo.src}
         alt="EsteBike"
@@ -50,7 +51,7 @@ const isActive = (href: string) => {
       <div class="nav-list">
         {navItems.map((item) => (
           <a
-            href={item.href}
+            href={url(item.href)}
             class:list={['nav-link', isActive(item.href) && 'nav-link--active']}
           >
             {item.label}
@@ -85,7 +86,7 @@ const isActive = (href: string) => {
         <>
           <li>
             <a
-              href={item.href}
+              href={url(item.href)}
               class:list={['mobile-nav-link', isActive(item.href) && 'mobile-nav-link--active']}
             >
               {item.label}
@@ -94,7 +95,7 @@ const isActive = (href: string) => {
           {item.children?.map((child) => (
             <li>
               <a
-                href={child.href}
+                href={url(child.href)}
                 class:list={['mobile-nav-link', 'mobile-nav-link--sub', isActive(child.href) && 'mobile-nav-link--active']}
               >
                 {child.label}

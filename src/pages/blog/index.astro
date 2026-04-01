@@ -6,6 +6,7 @@ import Card from '../../components/ui/Card.astro';
 import CardImage from '../../components/ui/CardImage.astro';
 import CardBody from '../../components/ui/CardBody.astro';
 import Badge from '../../components/ui/Badge.astro';
+import { url } from '../../utils/base';
 
 // Get all non-draft blog posts, sorted by date
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -68,7 +69,7 @@ const formatDate = (date: Date) => {
             Pagina {currentPage} di {totalPages}
           </span>
           {currentPage < totalPages && (
-            <a href={`/blog/page/${currentPage + 1}`} class="pagination__next">
+            <a href={url(`/blog/page/${currentPage + 1}`)} class="pagination__next">
               Pagina successiva &rarr;
             </a>
           )}

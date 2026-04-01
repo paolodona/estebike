@@ -6,6 +6,7 @@
  */
 
 import Card from '../ui/Card.astro';
+import { url } from '../../utils/base';
 
 export interface Sponsor {
   name: string;
@@ -87,7 +88,7 @@ const otherSponsors = sponsors.filter((s) => !s.tier);
 
   {sponsors.length === 0 && (
     <p class="sponsors-empty">
-      Interessato a diventare sponsor? <a href="/contatti">Contattaci</a>
+      Interessato a diventare sponsor? <a href={url('/contatti')}>Contattaci</a>
     </p>
   )}
 </section>

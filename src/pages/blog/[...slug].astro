@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import Badge from '../../components/ui/Badge.astro';
 import Icon from '../../components/ui/Icon.astro';
+import { url } from '../../utils/base';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -64,7 +65,7 @@ const formatDate = (date: Date) => {
 
       {post.data.image && (
         <figure class="article__hero">
-          <img src={post.data.image} alt={post.data.title} loading="eager" />
+          <img src={post.data.image?.startsWith('/') ? url(post.data.image) : post.data.image} alt={post.data.title} loading="eager" />
         </figure>
       )}
 
@@ -83,7 +84,7 @@ const formatDate = (date: Date) => {
 
       <nav class="article__nav" aria-label="Navigazione articoli">
         {prevPost ? (
-          <a href={`/blog/${prevPost.slug}`} class="article__nav-link article__nav-link--prev">
+          <a href={url(`/blog/${prevPost.slug}`)} class="article__nav-link article__nav-link--prev">
             <Icon name="chevron-left" size={20} />
             <span>
               <small>Articolo precedente</small>
@@ -92,7 +93,7 @@ const formatDate = (date: Date) => {
           </a>
         ) : <div />}
         {nextPost ? (
-          <a href={`/blog/${nextPost.slug}`} class="article__nav-link article__nav-link--next">
+          <a href={url(`/blog/${nextPost.slug}`)} class="article__nav-link article__nav-link--next">
             <span>
               <small>Articolo successivo</small>
               <strong>{nextPost.data.title}</strong>

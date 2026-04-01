@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
 import Icon from '../components/ui/Icon.astro';
 import Button from '../components/ui/Button.astro';
+import { url } from '../utils/base';
 ---
 
 <BaseLayout
@@ -38,7 +39,7 @@ import Button from '../components/ui/Button.astro';
         </div>
         <div class="about-image">
           <img
-            src="/images/about-team.jpg"
+            src={url('/images/about-team.jpg')}
             alt="Il team EsteBike"
             loading="lazy"
           />

@@ -1,5 +1,6 @@
 ---
 import Button from '../ui/Button.astro';
+import { url } from '../../utils/base';
 
 export interface Props {
   title: string;
@@ -20,7 +21,7 @@ const {
   subtitle,
   date,
   location,
-  image = '/images/hero-default.jpg',
+  image: rawImage = '/images/hero-default.jpg',
   ctaText,
   ctaHref,
   secondaryCtaText,
@@ -28,6 +29,8 @@ const {
   size = 'full',
   overlay = 'gradient',
 } = Astro.props;
+
+const image = rawImage.startsWith('/') && !rawImage.startsWith('//') ? url(rawImage) : rawImage;
 
 const sizeClasses = {
   full: 'hero--full',
@@ -98,18 +101,18 @@ const overlayClasses = {
 
   /* Sizes */
   .hero--full {
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 75vh;
+    min-height: 75dvh;
   }
 
   .hero--large {
-    min-height: 80vh;
-    min-height: 80dvh;
+    min-height: 60vh;
+    min-height: 60dvh;
   }
 
   .hero--medium {
-    min-height: 50vh;
-    min-height: 50dvh;
+    min-height: 40vh;
+    min-height: 40dvh;
   }
 
   /* Background */
@@ -169,7 +172,7 @@ const overlayClasses = {
 
   .hero__subtitle {
     font-family: var(--font-heading);
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     font-weight: var(--font-medium);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -179,7 +182,7 @@ const overlayClasses = {
 
   @media (min-width: 768px) {
     .hero__subtitle {
-      font-size: var(--text-xl);
+      font-size: var(--text-2xl);
     }
   }
 

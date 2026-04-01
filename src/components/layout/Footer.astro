@@ -1,5 +1,6 @@
 ---
 import Icon from '../ui/Icon.astro';
+import { url } from '../../utils/base';
 import logo from '../../../assets/estebike-logo.png';
 
 const currentYear = new Date().getFullYear();
@@ -28,7 +29,7 @@ const socialLinks = [
 <footer class="footer" role="contentinfo">
   <div class="footer__main container">
     <div class="footer__brand">
-      <a href="/" class="footer__logo" aria-label="EsteBike - Torna alla homepage">
+      <a href={url('/')} class="footer__logo" aria-label="EsteBike - Torna alla homepage">
         <img
           src={logo.src}
           alt="EsteBike"
@@ -85,7 +86,7 @@ const socialLinks = [
         <ul class="footer__nav-list">
           {quickLinks.map((link) => (
             <li>
-              <a href={link.href}>{link.label}</a>
+              <a href={url(link.href)}>{link.label}</a>
             </li>
           ))}
         </ul>
@@ -96,7 +97,7 @@ const socialLinks = [
         <ul class="footer__nav-list">
           {eventLinks.map((link) => (
             <li>
-              <a href={link.href}>{link.label}</a>
+              <a href={url(link.href)}>{link.label}</a>
             </li>
           ))}
         </ul>
@@ -254,7 +255,7 @@ const socialLinks = [
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: 0;
   }
 
   .footer__nav-list a {
@@ -263,7 +264,7 @@ const socialLinks = [
     font-size: var(--text-sm);
     transition: color var(--transition-fast);
     display: inline-block;
-    padding: var(--space-1) 0;
+    padding: 2px 0;
   }
 
   .footer__nav-list a:hover {

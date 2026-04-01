@@ -1,4 +1,6 @@
 ---
+import { url } from '../../utils/base';
+
 export interface Props {
   src?: string;
   alt: string;
@@ -8,12 +10,14 @@ export interface Props {
 }
 
 const {
-  src,
+  src: rawSrc,
   alt,
   aspectRatio = '16/9',
   overlay = false,
   placeholder = false,
 } = Astro.props;
+
+const src = rawSrc && rawSrc.startsWith('/') && !rawSrc.startsWith('//') ? url(rawSrc) : rawSrc;
 
 const showPlaceholder = !src || placeholder;
 ---
