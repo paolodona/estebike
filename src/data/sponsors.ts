@@ -21,6 +21,17 @@ export interface Sponsor {
 export const sponsors: Sponsor[] = [
   // === GOLD SPONSORS ===
   {
+    name: 'Ristorante Leon d\'Oro',
+    logo: '/images/sponsors/leon-doro.png',
+    url: 'https://www.leondoroeste.it',
+    description:
+      'Albergo ristorante storico di Este, sede sociale di EsteBike e punto di ritrovo per la cena settimanale del martedì.',
+    discounts: [
+      { description: '10% sul menù alla carta per i soci' },
+    ],
+    tier: 'gold',
+  },
+  {
     name: 'Cicli Zordan',
     logo: '/images/sponsors/cicli-zordan.png',
     url: 'https://www.ciclizordan.it',
