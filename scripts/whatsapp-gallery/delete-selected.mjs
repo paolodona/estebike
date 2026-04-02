@@ -32,11 +32,15 @@ if (!LIST_FILE || LIST_FILE.startsWith("--")) {
   process.exit(1);
 }
 
-const lines = fs
-  .readFileSync(LIST_FILE, "utf8")
-  .split("\n")
-  .map((l) => l.trim())
-  .filter((l) => l && !l.startsWith("#"));
+const lines = [
+  ...new Set(
+    fs
+      .readFileSync(LIST_FILE, "utf8")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter((l) => l && !l.startsWith("#"))
+  ),
+].sort();
 
 if (lines.length === 0) {
   console.log("No images in the list.");
