@@ -1,0 +1,53 @@
+---
+import JsonLd from './JsonLd.astro';
+
+export interface Props {
+  breadcrumbs?: { name: string; url?: string }[];
+}
+
+const siteUrl = 'https://estebike.it';
+
+const slugNames: Record<string, string> = {
+  'chi-siamo': 'Chi Siamo',
+  'magna-e-pedala': 'Magna & Pedala',
+  galleria: 'Galleria',
+  tesseramento: 'Tesseramento',
+  contatti: 'Contatti',
+  privacy: 'Privacy',
+  blog: 'Blog',
+};
+
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+
+// Skip homepage
+const segments = pathname.split('/').filter(Boolean);
+
+let breadcrumbs = Astro.props.breadcrumbs;
+
+if (!breadcrumbs && segments.length > 0) {
+  breadcrumbs = [{ name: 'Home', url: `${siteUrl}/` }];
+  let path = '';
+  segments.forEach((seg, i) => {
+    path += `/${seg}`;
+    const isLast = i === segments.length - 1;
+    breadcrumbs!.push({
+      name: slugNames[seg] || seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+      url: isLast ? undefined : `${siteUrl}${path}/`,
+    });
+  });
+}
+
+const data = breadcrumbs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        ...(item.url ? { item: item.url } : {}),
+      })),
+    }
+  : null;
+---
+{data && <JsonLd data={data} />}

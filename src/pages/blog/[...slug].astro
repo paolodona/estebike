@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import Badge from '../../components/ui/Badge.astro';
 import Icon from '../../components/ui/Icon.astro';
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro';
 import { url } from '../../utils/base';
 
 export async function getStaticPaths() {
@@ -37,13 +38,31 @@ const formatDate = (date: Date) => {
     year: 'numeric',
   }).format(date);
 };
+
+const siteUrl = 'https://estebike.it';
+const postUrl = new URL(`/blog/${post.slug}/`, siteUrl).href;
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.excerpt}
   image={post.data.image}
+  breadcrumbs={[
+    { name: 'Home', url: `${siteUrl}/` },
+    { name: 'Blog', url: `${siteUrl}/blog/` },
+    { name: post.data.title },
+  ]}
 >
+  <Fragment slot="head">
+    <BlogPostingSchema
+      title={post.data.title}
+      description={post.data.excerpt || ''}
+      image={post.data.image}
+      datePublished={post.data.date.toISOString()}
+      author={post.data.author || 'EsteBike'}
+      url={postUrl}
+    />
+  </Fragment>
   <PageHeader
     title={post.data.title}
   />

@@ -1,0 +1,33 @@
+---
+import JsonLd from './JsonLd.astro';
+
+const data = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsClub',
+  name: 'EsteBike',
+  url: 'https://estebike.it',
+  logo: 'https://estebike.it/images/estebike-icon.svg',
+  description:
+    'Associazione ciclistica fondata nel 1996 a Este (PD). Organizziamo il Magna & Pedala e uscite settimanali nei Colli Euganei.',
+  foundingDate: '1996',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Este',
+    addressRegion: 'PD',
+    addressCountry: 'IT',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 45.228,
+    longitude: 11.659,
+  },
+  sameAs: [
+    'https://www.instagram.com/team_estebike/',
+    'https://www.facebook.com/estebike/',
+    'https://www.strava.com/clubs/Team-Estebike-Zordan',
+  ],
+  sport: 'Cycling',
+  email: 'info@estebike.it',
+};
+---
+<JsonLd data={data} />

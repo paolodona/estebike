@@ -1,0 +1,60 @@
+---
+import JsonLd from './JsonLd.astro';
+
+const data = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsEvent',
+  name: 'Magna & Pedala 2026 — 30° Anniversario EsteBike',
+  description:
+    'Manifestazione ciclistica non competitiva nei Colli Euganei. Tre percorsi: Corto (10 km), Gravel (55 km), MTB (50 km). Pasta party finale per tutti i partecipanti.',
+  startDate: '2026-05-10T07:30:00+02:00',
+  endDate: '2026-05-10T15:00:00+02:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: 'Castello Carrarese',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Via G. Negri',
+      addressLocality: 'Este',
+      addressRegion: 'PD',
+      postalCode: '35042',
+      addressCountry: 'IT',
+    },
+  },
+  organizer: {
+    '@type': 'SportsClub',
+    name: 'EsteBike',
+    url: 'https://estebike.it',
+  },
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'Circuito Corto (10 km)',
+      price: '10',
+      priceCurrency: 'EUR',
+      url: 'https://estebikemangnaepedala2026.eventbrite.com/',
+      availability: 'https://schema.org/InStock',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Circuito Gravel (55 km)',
+      price: '15',
+      priceCurrency: 'EUR',
+      url: 'https://estebikemangnaepedala2026.eventbrite.com/',
+      availability: 'https://schema.org/InStock',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Circuito MTB (50 km)',
+      price: '15',
+      priceCurrency: 'EUR',
+      url: 'https://estebikemangnaepedala2026.eventbrite.com/',
+      availability: 'https://schema.org/InStock',
+    },
+  ],
+  image: 'https://estebike.it/images/og-default.jpg',
+};
+---
+<JsonLd data={data} />

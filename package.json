@@ -12,6 +12,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.0.0",
     "@fontsource/montserrat": "^5.0.0",
     "@fontsource/open-sans": "^5.0.0",

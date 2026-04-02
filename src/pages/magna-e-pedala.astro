@@ -6,6 +6,7 @@ import Badge from '../components/ui/Badge.astro';
 import Icon from '../components/ui/Icon.astro';
 import Card from '../components/ui/Card.astro';
 import CardBody from '../components/ui/CardBody.astro';
+import EventSchema from '../components/seo/EventSchema.astro';
 import { url } from '../utils/base';
 
 const eventbriteUrl = 'https://estebikemangnaepedala2026.eventbrite.com/';
@@ -62,6 +63,9 @@ const routes = [
   title="Magna & Pedala 2026 — 30° Anniversario EsteBike"
   description="Magna & Pedala 2026, 30° Anniversario EsteBike. Domenica 10 Maggio, Castello Carrarese, Este. 3 circuiti (Corto, Gravel, MTB), ristori e pasta party. Iscriviti su Eventbrite!"
 >
+  <Fragment slot="head">
+    <EventSchema />
+  </Fragment>
   <Hero
     title="Magna & Pedala 2026"
     subtitle="30° Anniversario del Club — La tradizione continua"

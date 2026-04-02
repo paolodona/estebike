@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
 import Icon from '../components/ui/Icon.astro';
 import Button from '../components/ui/Button.astro';
+import FaqSchema from '../components/seo/FaqSchema.astro';
 import { url } from '../utils/base';
 
 const socialLinks = [
@@ -25,6 +26,26 @@ const socialLinks = [
   title="Contatti"
   description="Contatta EsteBike per informazioni su eventi, iscrizioni e attività. Scrivici via email, WhatsApp o seguici sui social."
 >
+  <Fragment slot="head">
+    <FaqSchema items={[
+      {
+        question: 'Come posso iscrivermi al Magna & Pedala?',
+        answer: 'Puoi iscriverti tramite Eventbrite dalla sezione Iscrizioni del nostro sito.',
+      },
+      {
+        question: 'Devo essere tesserato per partecipare?',
+        answer: 'No, il Magna & Pedala è aperto a tutti i ciclisti. Se vuoi partecipare alle nostre uscite settimanali, ti consigliamo il tesseramento annuale.',
+      },
+      {
+        question: 'Quando si svolgono le uscite settimanali?',
+        answer: 'Organizziamo uscite durante il weekend e occasionalmente infrasettimanali. Seguici su Instagram o Strava per restare aggiornato!',
+      },
+      {
+        question: 'Posso partecipare anche se sono principiante?',
+        answer: 'Assolutamente sì! Il nostro gruppo è aperto a tutti i livelli. Il Magna & Pedala offre anche un percorso corto adatto ai meno esperti.',
+      },
+    ]} />
+  </Fragment>
   <PageHeader
     title="Contatti"
     subtitle="Siamo sempre felici di sentirti!"

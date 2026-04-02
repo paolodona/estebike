@@ -1,0 +1,22 @@
+{
+  "name": "EsteBike",
+  "short_name": "EsteBike",
+  "description": "Associazione ciclistica dal 1996 - Este (PD)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#C41E3A",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
