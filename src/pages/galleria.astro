@@ -584,6 +584,87 @@ const ssrSections = ssrSectionLimit === -1 ? allGalleries.length : ssrSectionLim
     text-overflow: ellipsis;
   }
 
+  /* ---- Edit mode styles ---- */
+  .gallery-edit-mode .photo-item {
+    cursor: crosshair;
+  }
+
+  .gallery-edit-mode .photo-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 3px solid transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+
+  .gallery-edit-mode .photo-item--selected::after {
+    border-color: var(--color-primary);
+    background-color: rgba(196, 30, 58, 0.3);
+  }
+
+  .gallery-edit-mode .photo-item--selected::before {
+    content: '\2717'; /* ✗ */
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 5;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    pointer-events: none;
+  }
+
+  .edit-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-charcoal);
+    color: white;
+    font-size: var(--text-sm);
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.3);
+  }
+
+  .edit-toolbar__count {
+    font-weight: 600;
+    min-width: 120px;
+  }
+
+  .edit-toolbar__btn {
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: var(--text-sm);
+    transition: background 0.15s;
+  }
+
+  .edit-toolbar__btn:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  .edit-toolbar__btn--clear {
+    margin-left: auto;
+    border-color: var(--color-primary);
+    color: #ff9999;
+  }
+
   /* Scroll-driven fade-in for lazy loaded images */
   @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.98); }
@@ -762,6 +843,97 @@ const ssrSections = ssrSectionLimit === -1 ? allGalleries.length : ssrSectionLim
       navigateLightbox(diff > 0 ? 'next' : 'prev');
     }
   }, { passive: true });
+
+  // ---- Edit Mode (?edit=true) ----
+  // Allows clicking thumbnails to select images for deletion.
+  const editMode = new URLSearchParams(window.location.search).has('edit');
+  const selectedPaths = new Set<string>();
+
+  if (editMode) {
+    document.body.classList.add('gallery-edit-mode');
+
+    // Floating toolbar
+    const toolbar = document.createElement('div');
+    toolbar.className = 'edit-toolbar';
+    toolbar.innerHTML = `
+      <span class="edit-toolbar__count">0 selezionate</span>
+      <button class="edit-toolbar__btn" data-edit-copy>Copia lista</button>
+      <button class="edit-toolbar__btn" data-edit-download>Scarica .txt</button>
+      <button class="edit-toolbar__btn edit-toolbar__btn--clear" data-edit-clear>Reset</button>
+    `;
+    document.body.appendChild(toolbar);
+    const countEl = toolbar.querySelector('.edit-toolbar__count')!;
+
+    function updateCount() {
+      countEl.textContent = `${selectedPaths.size} selezionate`;
+    }
+
+    // Convert image src URL to relative filesystem path (public/images/gallery/...)
+    function srcToPath(src: string): string {
+      // Strip base URL prefix and leading slash to get path relative to public/
+      const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+      let rel = src;
+      if (base && rel.startsWith(base)) rel = rel.slice(base.length);
+      if (rel.startsWith('/')) rel = rel.slice(1);
+      return 'public/' + rel;
+    }
+
+    function toggleSelection(btn: Element) {
+      const src = btn.getAttribute('data-src') || btn.querySelector('img')?.getAttribute('src') || '';
+      if (!src) return;
+      const p = srcToPath(src);
+      if (selectedPaths.has(p)) {
+        selectedPaths.delete(p);
+        btn.classList.remove('photo-item--selected');
+      } else {
+        selectedPaths.add(p);
+        btn.classList.add('photo-item--selected');
+      }
+      updateCount();
+    }
+
+    // Intercept clicks on photo items in edit mode (prevent lightbox)
+    document.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest('.photo-item');
+      if (!btn) return;
+      e.stopPropagation();
+      e.preventDefault();
+      toggleSelection(btn);
+    }, true); // capture phase to beat lightbox handlers
+
+    function getList() {
+      return [...selectedPaths].sort().join('\n');
+    }
+
+    toolbar.querySelector('[data-edit-copy]')!.addEventListener('click', () => {
+      const text = getList();
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        countEl.textContent = 'Copiato!';
+        setTimeout(updateCount, 1500);
+      });
+    });
+
+    toolbar.querySelector('[data-edit-download]')!.addEventListener('click', () => {
+      const text = getList();
+      if (!text) return;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'gallery-delete-list.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    toolbar.querySelector('[data-edit-clear]')!.addEventListener('click', () => {
+      selectedPaths.clear();
+      document.querySelectorAll('.photo-item--selected').forEach((el) => el.classList.remove('photo-item--selected'));
+      updateCount();
+    });
+
+    // Also need to expand all lazy sections so user can select everything
+    lazySections.forEach((s) => expandSection(s));
+  }
 
   // ---- Date Slider (Google Photos-style vertical scrubber) ----
   const slider = document.getElementById('date-slider');

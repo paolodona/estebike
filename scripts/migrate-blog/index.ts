@@ -5,10 +5,11 @@
  * Migrates legacy WordPress blog posts from crawled-site to Astro content collection.
  *
  * Usage:
- *   npx tsx index.ts [--dry-run] [--slug <name>]
+ *   npx tsx index.ts [--dry-run] [--force] [--slug <name>]
  *
  * Options:
  *   --dry-run    Preview changes without writing files
+ *   --force      Overwrite existing blog posts (default: skip)
  *   --slug       Process only a specific post by slug
  */
 
@@ -24,21 +25,24 @@ import type { LegacyPost, MigrationReport, ProcessedPost } from './types.js';
 /**
  * Parse command line arguments
  */
-function parseArgs(): { dryRun: boolean; slug?: string } {
+function parseArgs(): { dryRun: boolean; force: boolean; slug?: string } {
   const args = process.argv.slice(2);
   let dryRun = false;
+  let force = false;
   let slug: string | undefined;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--dry-run') {
       dryRun = true;
+    } else if (args[i] === '--force') {
+      force = true;
     } else if (args[i] === '--slug' && args[i + 1]) {
       slug = args[i + 1];
       i++;
     }
   }
 
-  return { dryRun, slug };
+  return { dryRun, force, slug };
 }
 
 /**
@@ -197,10 +201,14 @@ async function migrate(): Promise<void> {
   console.log('EsteBike Blog Migration');
   console.log('='.repeat(60));
 
-  const { dryRun, slug } = parseArgs();
+  const { dryRun, force, slug } = parseArgs();
 
   if (dryRun) {
     console.log('\n[DRY RUN MODE - No files will be written]\n');
+  }
+
+  if (force) {
+    console.log('[FORCE MODE - Existing posts will be overwritten]\n');
   }
 
   if (slug) {
@@ -211,6 +219,7 @@ async function migrate(): Promise<void> {
   const report: MigrationReport = {
     totalPosts: 0,
     successCount: 0,
+    skippedCount: 0,
     failedCount: 0,
     failures: [],
     images: {
@@ -239,6 +248,20 @@ async function migrate(): Promise<void> {
   for (const post of posts) {
     current++;
     process.stdout.write(`[${current}/${posts.length}] ${post.slug}... `);
+
+    // Check if post already exists (skip unless --force)
+    if (!force) {
+      const parsed = parsePost(post);
+      const existingFile = path.join(config.blogOutputPath, generateFilename(parsed.date, post.slug));
+      try {
+        await fs.access(existingFile);
+        report.skippedCount++;
+        console.log('SKIP (exists)');
+        continue;
+      } catch {
+        // File doesn't exist, proceed with migration
+      }
+    }
 
     const result = await processPost(post, dryRun);
 
@@ -273,6 +296,7 @@ async function migrate(): Promise<void> {
   console.log('='.repeat(60));
   console.log(`Total posts:     ${report.totalPosts}`);
   console.log(`Successful:      ${report.successCount}`);
+  console.log(`Skipped (exist): ${report.skippedCount}`);
   console.log(`Failed:          ${report.failedCount}`);
   console.log();
   console.log('Images:');

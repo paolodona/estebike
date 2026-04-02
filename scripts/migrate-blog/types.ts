@@ -59,6 +59,8 @@ export interface MigrationReport {
   totalPosts: number;
   /** Successfully migrated posts */
   successCount: number;
+  /** Skipped (already exist) */
+  skippedCount: number;
   /** Failed migrations */
   failedCount: number;
   /** List of failed posts with errors */
