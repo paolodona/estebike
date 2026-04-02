@@ -6,6 +6,7 @@ description: Creates a detailed implementation plan through interactive analysis
 ## STEP 0: Enter Plan Mode (MUST BE FIRST ACTION)
 
 **IMMEDIATELY** call the `EnterPlanMode` tool before doing anything else. This enters Claude Code's plan mode which:
+
 - Signals to the user that you are in planning mode
 - Allows you to explore the codebase and design the solution
 - Requires user approval before implementation begins
@@ -25,6 +26,7 @@ This command expects the format: `/create-plan <plan-name>: <description>`
 **With GitHub Issue reference**: `/create-plan <issue-number>-<plan-name>: <description>`
 
 Examples:
+
 - `/create-plan fix-sync: update sync logic to resolve conflict issues`
 - `/create-plan add-export: implement note export to markdown and PDF`
 - `/create-plan 45-fix-echo: resolve echo bug (GitHub Issue #45)`
@@ -32,6 +34,7 @@ Examples:
 When the plan name starts with a number followed by a hyphen (e.g., `45-fix-echo`), treat the number as a GitHub Issue reference and fetch the issue details to include in the prompt.
 
 The `<plan-name>` is used to create sequentially numbered files:
+
 - **Prompt file**: `.agent_session/<NNN>_<plan-name>_prompt.md` - Original task/mission
 - **Context file**: `.agent_session/<NNN>_<plan-name>_context.md` - Research findings
 - **Plan file**: `.agent_session/<NNN>_<plan-name>_plan.md` - Implementation steps
@@ -58,11 +61,14 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
 5. **IMMEDIATELY create placeholder files** (before any research):
 
    Write `.agent_session/<NNN>_<plan-name>_prompt.md`:
-   ```markdown
+
+   ````markdown
    # Original Prompt: [Feature Name]
+
    Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | GitRef: <short-sha>
 
    ## Related Files
+
    - **Context**: `.agent_session/<NNN>_<plan-name>_context.md` - Research findings
    - **Plan**: `.agent_session/<NNN>_<plan-name>_plan.md` - Implementation steps
 
@@ -86,6 +92,7 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
    ```bash
    gh issue view <number> --json number,title,body,labels,url
    ```
+   ````
 
    Then include:
    - **Issue**: #<number> - <title>
@@ -94,7 +101,8 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
 
    And copy the issue body into the "Original User Request" section above.
    If no issue number prefix, remove this section.]
-   ```
+
+   ````
 
    Write `.agent_session/<NNN>_<plan-name>_context.md`:
    ```markdown
@@ -119,14 +127,17 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
 
    ## Open Questions
    - [ ] [unresolved question]
-   ```
+   ````
 
    Write `.agent_session/<NNN>_<plan-name>_plan.md`:
+
    ```markdown
    # Implementation Plan: [Feature Name]
+
    Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | Status: PLANNING | GitRef: <short-sha>
 
    ## Related Files
+
    - **Prompt**: `.agent_session/<NNN>_<plan-name>_prompt.md` - Original mission
    - **Context**: `.agent_session/<NNN>_<plan-name>_context.md` - Research findings
 
@@ -136,6 +147,7 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
    ```
 
 6. **Add to SUMMARY.md**: Append a new row to `.agent_session/SUMMARY.md`:
+
    ```
    | <NNN> | <plan-name> | [pending description] | PLANNING | <short-sha> | YYYY-MM-DD |
    ```
@@ -146,13 +158,13 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
 
 ## Planning Guidelines
 
-| Guideline | Meaning |
-|-----------|---------|
-| **Be Skeptical** | Question vague requirements. Don't assume—verify with code. |
-| **Be Interactive** | Don't write full plan in one shot. Get buy-in at each step. |
-| **Be Thorough** | Read files COMPLETELY. Use parallel sub-tasks. Include file:line refs. |
-| **Be Practical** | Incremental changes. Consider migration/rollback. Include edge cases. |
-| **No Open Questions** | If unresolved questions exist, STOP and clarify before finalizing. |
+| Guideline             | Meaning                                                                |
+| --------------------- | ---------------------------------------------------------------------- |
+| **Be Skeptical**      | Question vague requirements. Don't assume—verify with code.            |
+| **Be Interactive**    | Don't write full plan in one shot. Get buy-in at each step.            |
+| **Be Thorough**       | Read files COMPLETELY. Use parallel sub-tasks. Include file:line refs. |
+| **Be Practical**      | Incremental changes. Consider migration/rollback. Include edge cases.  |
+| **No Open Questions** | If unresolved questions exist, STOP and clarify before finalizing.     |
 
 **Sub-task Best Practices**: Update `_context.md` BEFORE spawning agents. Spawn in parallel. Be specific about directories. Request file:line references.
 
@@ -168,12 +180,15 @@ Where `<NNN>` is a 3-digit sequential number (001, 002, 003, etc.).
 ## Process Steps
 
 ### STEP 1: Reserve Plan Number (MUST BE FIRST after entering plan mode)
+
 Follow "CRITICAL: Sequential Numbering & Reservation" above. Create placeholder files BEFORE any analysis.
 
 ### STEP 2: Identify the Scope
+
 Determine which parts of the codebase are affected. State this explicitly.
 
 ### STEP 3: Code Placement Mandate
+
 **Complete BEFORE other research.** Determine where code will live (default: shared module).
 
 1. Read any existing architecture/design documentation
@@ -185,6 +200,7 @@ Determine which parts of the codebase are affected. State this explicitly.
 4. Present decision for approval
 
 ### STEP 4: Detailed Research & Design
+
 Gather full context for the affected areas.
 
 ### STEP 5: Write the Implementation Plan
@@ -193,53 +209,61 @@ Write to `.agent_session/<NNN>_<plan-name>_plan.md`:
 
 ```markdown
 # Implementation Plan: [Feature Name]
+
 Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | Status: PLANNED | GitRef: <short-sha>
 
 ## Related Files
+
 - **Prompt**: `.agent_session/<NNN>_<plan-name>_prompt.md` - Original mission/task
 - **Context**: `.agent_session/<NNN>_<plan-name>_context.md` - Research findings and decisions
 
 ---
 
 ## Overview
+
 [Brief description of what and why]
 
 ## Affected Areas
-| Area/Module | Affected | Scope |
-|-------------|----------|-------|
-| [Area 1] | Yes/No | [details] |
-| [Area 2] | Yes/No | [details] |
+
+| Area/Module | Affected | Scope     |
+| ----------- | -------- | --------- |
+| [Area 1]    | Yes/No   | [details] |
+| [Area 2]    | Yes/No   | [details] |
 
 ## Current State → Desired End State
+
 **Current**: [what exists now]
 **Desired**: [what should exist after]
 **Key Discoveries**: [file:line - important findings]
 
 ## What We're NOT Doing
+
 - [Explicit out-of-scope items to prevent scope creep]
 
 ## Code Placement & Architecture
 
-| Component | Location | Justification |
-|-----------|----------|---------------|
-| Business Logic | [shared module] | Shared across [areas] |
-| Types | [types location] | Single source of truth |
+| Component      | Location         | Justification          |
+| -------------- | ---------------- | ---------------------- |
+| Business Logic | [shared module]  | Shared across [areas]  |
+| Types          | [types location] | Single source of truth |
 
 ## Assumptions Requiring Verification
 
 **CRITICAL**: List assumptions that, if wrong, would cause the fix to fail.
 
-| Assumption | Verification Method | Owner |
-|------------|---------------------|-------|
+| Assumption                                          | Verification Method               | Owner     |
+| --------------------------------------------------- | --------------------------------- | --------- |
 | [e.g., "triggerDebouncedSync calls processMetaOps"] | [e.g., "Unit test or code trace"] | [Phase #] |
-| [e.g., "Fixing X will cascade to fix Y"] | [e.g., "Must test Y explicitly"] | [Phase #] |
+| [e.g., "Fixing X will cascade to fix Y"]            | [e.g., "Must test Y explicitly"]  | [Phase #] |
 
 **Rule**: If you assume fixing one issue will cascade to fix another, you MUST:
+
 1. List the assumption explicitly
 2. Add a test case proving the cascading fix works
 3. Do NOT mark the cascaded issue as fixed until verified
 
 **WARNING - Confirmation Bias**: If you find one bug that seems to explain multiple symptoms, STOP and verify:
+
 - Does fixing this bug ACTUALLY affect all the claimed symptoms?
 - Are there simpler, independent explanations for each symptom?
 - Are you labeling a critical fix as "optimization" to simplify the plan?
@@ -247,12 +271,13 @@ Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | Status: PLANNED | GitRef
 ## Critical vs Optional Classification
 
 **NEVER label a feature as "optimization" if:**
+
 1. Data loss occurs without it
 2. User actions silently fail without it
 3. Other features depend on it
 
-| Feature | Classification | Justification |
-|---------|---------------|---------------|
+| Feature                                 | Classification          | Justification                  |
+| --------------------------------------- | ----------------------- | ------------------------------ |
 | [e.g., "Metadata queue for online ops"] | CRITICAL / OPTIMIZATION | [Why - what fails without it?] |
 
 **Rule**: If removing a feature causes silent failures or data loss, it is CRITICAL, not an optimization.
@@ -261,24 +286,27 @@ Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | Status: PLANNED | GitRef
 
 For multi-area changes, explicitly track what needs to change where:
 
-| Component | Area 1 | Area 2 | Area 3 | Notes |
-|-----------|--------|--------|--------|-------|
-| [component] | ✓ Change | ✓ Change | N/A | [notes] |
+| Component   | Area 1   | Area 2   | Area 3 | Notes   |
+| ----------- | -------- | -------- | ------ | ------- |
+| [component] | ✓ Change | ✓ Change | N/A    | [notes] |
 
 **Rule**: If a row has multiple checkmarks, validation MUST verify ALL areas were implemented.
 
 ## Call Graph Analysis
 
 For bug fixes, trace the FULL call path to verify the fix actually affects the broken code:
-
 ```
+
 Entry Point → [function] → [function] → Bug Location
+
 ```
 
 Example:
 ```
+
 deleteItem() → triggerSync() → push() → ❌ DOES NOT call processQueue()
-                                        (queue never processed!)
+(queue never processed!)
+
 ```
 
 **Rule**: Before finalizing a bug fix plan, trace from entry point to the bug location and verify EVERY intermediate step.
@@ -338,6 +366,7 @@ deleteItem() → triggerSync() → push() → ❌ DOES NOT call processQueue()
 ```
 
 After writing the plan file, **update SUMMARY.md**:
+
 - Find the row for this plan number
 - Update description from the Overview section (first sentence)
 - Update status from `PLANNING` to `PLANNED`
@@ -345,6 +374,7 @@ After writing the plan file, **update SUMMARY.md**:
 ### STEP 5.5: Record Backlog Items
 
 If during research you discovered:
+
 - Existing code that should be refactored
 - Dead code that should be removed
 - Patterns that could be unified
@@ -354,6 +384,7 @@ Add these as items to `.agent_session/BACKLOG.md` under the appropriate priority
 Format: `- [ ] **[Plan <NNN>]** <description>`
 
 ### STEP 6: Review and Refine
+
 Present the plan to the user for review and iterate based on feedback.
 
 ### STEP 7: Exit Plan Mode (FINAL STEP)

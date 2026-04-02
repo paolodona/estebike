@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 EsteBike is a website for a cycling club based in Este (Padova, Veneto, Italy). The site is built with **Astro 5** and deployed to **GitHub Pages**. The flagship event is **Magna & Pedala** (30th edition, May 10, 2026), with registration handled via Eventbrite.
 
 **Stack:**
+
 - Framework: Astro 5 (static site generator, `type: "module"`)
 - Hosting: GitHub Pages (deployed via `.github/workflows/deploy.yml` on push to `main`)
 - Language: TypeScript
@@ -31,32 +32,38 @@ Node 20 is used in CI. Run `npm ci` to install dependencies.
 ## Key Documentation
 
 Before implementing any feature, read:
+
 - `docs/SPECS.md` - Technical specifications, site structure, registration flow, integrations
 - `docs/DESIGN.md` - Complete design system with colors, typography, components, layouts
 
 ## Critical Design Constraints
 
 ### Mobile-First (Primary Requirement)
+
 - **Design for mobile screens first**, then enhance for larger screens with `min-width` media queries
 - Never write desktop-first CSS
 - Minimum touch targets: 44px (`--touch-target-min`)
 - No horizontal scrolling
 
 ### Brand Colors (Este Coat of Arms)
+
 ```css
---color-primary: #CC2635;  /* Este Red */
---color-accent: #F7D000;   /* Este Gold */
---color-charcoal: #2D2D2D; /* Primary text */
+--color-primary: #cc2635; /* Este Red */
+--color-accent: #f7d000; /* Este Gold */
+--color-charcoal: #2d2d2d; /* Primary text */
 ```
+
 - Yellow text should NEVER appear on white backgrounds
 - Yellow works as badges/buttons on red or dark backgrounds
 - Full color system defined in `src/styles/variables.css`
 
 ### Typography
+
 - Headings: Montserrat (`--font-heading`)
 - Body: Open Sans (`--font-body`)
 
 ### Formatting Rules (Prettier)
+
 - Semicolons: yes
 - Single quotes
 - 2-space indent
@@ -98,38 +105,43 @@ Before implementing any feature, read:
 ## Architecture Notes
 
 ### Base URL Handling
+
 The site may be served from a subpath (e.g., `/estebike/`). Use `url()` from `src/utils/base.ts` to prefix paths in Astro components. Markdown image paths are automatically rewritten by the `rehype-base-url` plugin.
 
 ### Content Collections
+
 Blog posts use Astro content collections defined in `src/content/config.ts`:
+
 - **Schema fields:** `title`, `date`, `author`, `category`, `tags?`, `image?`, `excerpt?`, `draft?`
 - **Categories:** `'Comunicato del direttivo'`, `'News'`, `'Coppa Colli Euganei'`, `'Convenzioni'`
 - **Filename format:** `YYYY-MM-DD-slug.md`
 - Posts with `draft: true` are filtered out in page queries
 
 ### Registration Flow
+
 - Registration is handled externally via Eventbrite
 - The site links to the Eventbrite page and provides a QR code for quick access
 - Form validation schemas in `shared/schemas.ts` (Zod) for registration & membership forms
 
 ### Deployment
+
 - Push to `main` triggers GitHub Actions → Astro build → GitHub Pages deploy
 - CI uses Node 20, `npm ci`, builds with site/base from GitHub Pages config
 
 ## Site Pages
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Homepage | `/` | Hero + latest blog posts + sections |
-| Chi Siamo | `/chi-siamo` | About the club |
-| Magna & Pedala | `/magna-e-pedala` | Main event page |
-| Galleria | `/galleria` | Photo gallery |
-| Tesseramento | `/tesseramento` | Membership info |
-| Contatti | `/contatti` | Contact information |
-| Privacy | `/privacy` | Privacy policy |
-| Blog | `/blog` | Blog listing |
-| Blog Post | `/blog/[slug]` | Individual post |
-| RSS | `/rss.xml` | RSS feed |
+| Page           | Route             | Description                         |
+| -------------- | ----------------- | ----------------------------------- |
+| Homepage       | `/`               | Hero + latest blog posts + sections |
+| Chi Siamo      | `/chi-siamo`      | About the club                      |
+| Magna & Pedala | `/magna-e-pedala` | Main event page                     |
+| Galleria       | `/galleria`       | Photo gallery                       |
+| Tesseramento   | `/tesseramento`   | Membership info                     |
+| Contatti       | `/contatti`       | Contact information                 |
+| Privacy        | `/privacy`        | Privacy policy                      |
+| Blog           | `/blog`           | Blog listing                        |
+| Blog Post      | `/blog/[slug]`    | Individual post                     |
+| RSS            | `/rss.xml`        | RSS feed                            |
 
 **Not yet implemented:** Percorsi (Routes), Iscrizioni (Registration form), Partecipanti (Participants list)
 

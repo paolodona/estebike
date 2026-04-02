@@ -31,40 +31,55 @@ const groupId = `radio-group-${name}`;
 const errorId = error ? `${groupId}-error` : undefined;
 ---
 
-<fieldset class:list={['radio-group', error && 'radio-group--error', className]} aria-describedby={errorId}>
+<fieldset
+  class:list={['radio-group', error && 'radio-group--error', className]}
+  aria-describedby={errorId}
+>
   <legend class="radio-legend">
     {legend}
-    {required && <span class="radio-required" aria-hidden="true">*</span>}
+    {
+      required && (
+        <span class="radio-required" aria-hidden="true">
+          *
+        </span>
+      )
+    }
   </legend>
 
   <div class:list={['radio-options', inline && 'radio-options--inline']}>
-    {options.map((option, index) => {
-      const inputId = `${groupId}-${index}`;
-      return (
-        <label class="radio-label">
-          <input
-            type="radio"
-            id={inputId}
-            name={name}
-            value={option.value}
-            required={required && index === 0}
-            disabled={option.disabled}
-            checked={value === option.value}
-            aria-invalid={error ? 'true' : undefined}
-            class="radio-input"
-          />
-          <span class="radio-circle" aria-hidden="true">
-            <span class="radio-dot"></span>
-          </span>
-          <span class="radio-text">{option.label}</span>
-        </label>
-      );
-    })}
+    {
+      options.map((option, index) => {
+        const inputId = `${groupId}-${index}`;
+        return (
+          <label class="radio-label">
+            <input
+              type="radio"
+              id={inputId}
+              name={name}
+              value={option.value}
+              required={required && index === 0}
+              disabled={option.disabled}
+              checked={value === option.value}
+              aria-invalid={error ? 'true' : undefined}
+              class="radio-input"
+            />
+            <span class="radio-circle" aria-hidden="true">
+              <span class="radio-dot" />
+            </span>
+            <span class="radio-text">{option.label}</span>
+          </label>
+        );
+      })
+    }
   </div>
 
-  {error && (
-    <p id={errorId} class="radio-error" role="alert">{error}</p>
-  )}
+  {
+    error && (
+      <p id={errorId} class="radio-error" role="alert">
+        {error}
+      </p>
+    )
+  }
 </fieldset>
 
 <style>

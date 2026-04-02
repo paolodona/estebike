@@ -1,5 +1,5 @@
 ---
-title: "Riparte la Coppa Colli: Este e dintorni ancora teatro della sfida!"
+title: 'Riparte la Coppa Colli: Este e dintorni ancora teatro della sfida!'
 date: 2014-01-31
 author: admin
 category: Coppa Colli Euganei
@@ -8,8 +8,8 @@ tags:
   - MTB
   - XC Circuito del Castello
   - XC del Monte Cecilia
-image: "/images/blog/2014/01/cc-pranzo-2.jpg"
-excerpt: "La notizia tardava ad arrivare, ma ben presto si è capito il perchè. L’ACSI di Padova settore ciclismo stava riprendendo in mano una macchina da guerra che ha sempre riscosso molto successo; il tem..."
+image: '/images/blog/2014/01/cc-pranzo-2.jpg'
+excerpt: 'La notizia tardava ad arrivare, ma ben presto si è capito il perchè. L’ACSI di Padova settore ciclismo stava riprendendo in mano una macchina da guerra che ha sempre riscosso molto successo; il tem...'
 ---
 
 La notizia tardava ad arrivare, ma ben presto si è capito il perchè. **L’ACSI di Padova settore ciclismo** stava riprendendo in mano una macchina da guerra che ha sempre riscosso molto successo; il tempo di chiarire alcuni aspetti, legati ad un calendario sempre più fitto, parlare con molti sponsor che si erano fatti avanti, organizzare i molti aspetti connessi, ed ecco che verso metà novembre gli appassionati bikers veneti avevano le prime novità dai comunicati stampa ufficiali, che li rassicuravano sulla stagione agonistica 2014.  

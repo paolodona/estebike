@@ -21,11 +21,11 @@ export default defineConfig({
     rehypePlugins: [rehypeBaseUrl],
   },
   build: {
-    inlineStylesheets: 'auto'
+    inlineStylesheets: 'auto',
   },
   vite: {
     css: {
-      devSourcemap: true
-    }
-  }
+      devSourcemap: true,
+    },
+  },
 });

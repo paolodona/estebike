@@ -8,12 +8,14 @@ description: Download images from the EsteBike WhatsApp groups (Estebike + AGONI
 Download new images from **both** EsteBike WhatsApp groups via Chrome DevTools MCP, save them to the gallery, and update `galleria.astro`.
 
 **Groups to pull from (in this order):**
+
 1. **"Estebike"** — the main group chat
 2. **"AGONISTI TEAM Estebike"** — the agonisti/racing team group
 
 Both groups share the same gallery folders, dedup hash list, and descriptions file. Process them sequentially: complete all steps for group 1, then repeat for group 2.
 
 **Arguments:** `$ARGUMENTS`
+
 - No args = pull only NEW images (posted after last pull date)
 - `--backfill` = re-scan all media to capture previously missed images
 - `--dry-run` = scan and report what would be downloaded without saving
@@ -27,6 +29,7 @@ Both groups share the same gallery folders, dedup hash list, and descriptions fi
 ## Overall flow
 
 Steps 1–2 run once at the start. Then steps 3–10 are executed **for each group** in sequence:
+
 1. Read state & connect to WhatsApp (once)
 2. **For "Estebike" group:** navigate → open media → extract → download → move → describe → update state
 3. **For "AGONISTI TEAM Estebike" group:** navigate → open media → extract → download → move → describe → update state
@@ -39,6 +42,7 @@ The shared `known_hashes` ensures cross-group dedup: any image already downloade
 ### 1. Read current state
 
 Read `scripts/whatsapp-gallery/pull-state.json` to get:
+
 - `last_pull` — ISO timestamp of the last successful pull (per-group, see `groups` object)
 - `total_downloaded` — number of unique images in the gallery (across both groups)
 - `known_hashes` — MD5 hashes of ALL images ever downloaded from ANY group (the authoritative dedup list, shared across groups)
@@ -56,15 +60,19 @@ Read the current gallery page `src/pages/galleria.astro` to understand the exist
 Use Chrome DevTools MCP tools to:
 
 1. **Check if WhatsApp is already open:**
+
    ```
    mcp chrome-devtools list_pages
    ```
+
    Look for a page with `web.whatsapp.com` in the URL.
 
 2. **If not open, navigate to it:**
+
    ```
    mcp chrome-devtools navigate_page url="https://web.whatsapp.com"
    ```
+
    Then ask the user to log in and confirm when ready.
 
 3. **Navigate to the target group:**
@@ -94,12 +102,14 @@ Use Chrome DevTools MCP tools to:
 ### 4. Determine what to download
 
 **Default mode (new images only):**
+
 - The media panel shows images newest-first
 - Count the total image listitems: `dialog.querySelectorAll('[role="listitem"]')` where `aria-label` includes "Image"
 - Compare with `pull-state.json.total_downloaded`
 - The difference = new images to download (they'll be at the top of the panel)
 
 **Backfill mode (`--backfill`):**
+
 - Download ALL images, deduplicating against existing files by MD5 hash
 - Will need multiple scroll passes since virtual scroll only renders ~85 items at once
 
@@ -132,7 +142,7 @@ async () => {
     }
   }
   return { count: Object.keys(blobMap).length, blobs: blobMap };
-}
+};
 ```
 
 **Download script** (inject via `evaluate_script`):
@@ -140,13 +150,17 @@ async () => {
 ```javascript
 async (blobMap, startIndex) => {
   const entries = Object.entries(blobMap);
-  let downloaded = 0, errors = 0;
+  let downloaded = 0,
+    errors = 0;
 
   for (let i = 0; i < entries.length; i++) {
     const [blobUrl, label] = entries[i];
     try {
-      const sender = (label.match(/from\s+(.+?)(?:$)/) || ['','unknown'])[1]
-        .replace(/[^a-zA-Z0-9 ]/g, '').trim().replace(/\s+/g, '_').substring(0, 20);
+      const sender = (label.match(/from\s+(.+?)(?:$)/) || ['', 'unknown'])[1]
+        .replace(/[^a-zA-Z0-9 ]/g, '')
+        .trim()
+        .replace(/\s+/g, '_')
+        .substring(0, 20);
       const idx = String(startIndex + i).padStart(3, '0');
       const filename = `estebike_${idx}_${sender}.jpg`;
 
@@ -154,18 +168,25 @@ async (blobMap, startIndex) => {
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = filename; a.style.display = 'none';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      a.href = url;
+      a.download = filename;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
       setTimeout(() => URL.revokeObjectURL(url), 500);
       downloaded++;
-      if (i % 10 === 9) await new Promise(r => setTimeout(r, 500));
-    } catch (e) { errors++; }
+      if (i % 10 === 9) await new Promise((r) => setTimeout(r, 500));
+    } catch (e) {
+      errors++;
+    }
   }
   return { downloaded, errors, total: entries.length };
-}
+};
 ```
 
 **For backfill mode**, after the first pass:
+
 1. Store collected blob URLs
 2. Scroll the media panel container (find div with `scrollHeight > 5000`) from top to bottom in 200px steps with 250ms delays
 3. Collect any NEW blob URLs not in the first pass
@@ -182,6 +203,7 @@ for f in estebike_*.jpg; do [[ "$f" == *"("* ]] && continue; md5sum "$f"; done
 ```
 
 For each downloaded file:
+
 1. Compute its MD5 hash
 2. Check if the hash exists in `pull-state.json`'s `known_hashes` array
 3. **If hash is known → DELETE the downloaded file** (it was either already in the gallery or was intentionally removed by the user — either way, skip it)
@@ -190,6 +212,7 @@ For each downloaded file:
 Move unique new files to `public/images/gallery/YYYY/MM/` based on their month, renumbering sequentially from the current max index + 1 within that month folder.
 
 **Folder structure**: `public/images/gallery/{year}/{month}/estebike_NNN_sender.jpg`
+
 - Example: `public/images/gallery/2026/03/estebike_046_Gloria.jpg`
 - The gallery page auto-scans this directory structure — no need to edit `galleria.astro` for new images.
 
@@ -202,8 +225,9 @@ The media panel organizes images by month with headers (MARCH, FEBRUARY, JANUARY
 - **For backfill**: Use the snapshot data from the media panel to map positions to month headers
 
 Month name mapping for Italian gallery labels:
+
 - JANUARY → Gennaio
-- FEBRUARY → Febbraio  
+- FEBRUARY → Febbraio
 - MARCH → Marzo
 - APRIL → Aprile
 - MAY → Maggio
@@ -229,7 +253,7 @@ For each new image, generate an Italian alt-text description and store it in `sc
 
 - ALL descriptions MUST be in Italian
 - Replace any profanity/vulgar words with `***`. Common Italian profanity to catch:
-  `cazzo`, `minchia`, `merda`, `stronzo/a`, `vaffanculo`, `coglione`, `porca/porco` (when used as expletive), `madonna` (when used as expletive), `dio` (when used as expletive, e.g. "dio ***"), `azz` (euphemism)
+  `cazzo`, `minchia`, `merda`, `stronzo/a`, `vaffanculo`, `coglione`, `porca/porco` (when used as expletive), `madonna` (when used as expletive), `dio` (when used as expletive, e.g. "dio \*\*\*"), `azz` (euphemism)
 - Also check for English profanity: `fuck`, `shit`, `damn`, `ass`, `bitch`, `hell` (when used as expletive)
 - Keep descriptions concise: max 80 characters
 - Use sentence case, no trailing period
@@ -259,6 +283,7 @@ json.dump(descriptions, open(desc_path, 'w'), indent=2, ensure_ascii=False)
 ### 9. Gallery page auto-updates
 
 The gallery page (`src/pages/galleria.astro`) auto-scans `public/images/gallery/YYYY/MM/` at build time. **No manual editing needed** — just placing files in the right folder is enough. The page:
+
 - Reads `scripts/whatsapp-gallery/descriptions.json` for alt text (if entry exists for a filename)
 - Falls back to generating alt text from the sender name in the filename
 - Generates month sections from folder names (e.g., `2026/03` → "Marzo 2026")
@@ -268,6 +293,7 @@ The gallery page (`src/pages/galleria.astro`) auto-scans `public/images/gallery/
 ### 10. Update pull state
 
 Update `scripts/whatsapp-gallery/pull-state.json`:
+
 - Set top-level `last_pull` to current ISO timestamp
 - Update `total_downloaded` with new total count (across both groups)
 - Add new hashes to `known_hashes` (never remove existing ones)
@@ -286,6 +312,7 @@ Update `scripts/whatsapp-gallery/pull-state.json`:
 Run `npx astro build 2>&1 | tail -5` to ensure the site builds without errors.
 
 Report to the user:
+
 - Number of new images downloaded **per group** (e.g., "Estebike: 5 new, AGONISTI TEAM: 3 new")
 - Number of cross-group duplicates skipped
 - Which months they were added to
@@ -297,6 +324,7 @@ Report to the user:
 ### 12. Clean up Downloads
 
 After successful copy and verification:
+
 ```bash
 rm ~/Downloads/estebike_*.jpg
 ```

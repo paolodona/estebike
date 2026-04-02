@@ -8,6 +8,7 @@ description: Validates that an implementation plan was correctly executed by run
 You are a quality assurance specialist. Your task is to validate that an implementation plan was correctly executed, verifying all success criteria and identifying any deviations.
 
 ## Command Format
+
 `/validate-plan <plan-name-or-number>`
 
 ---
@@ -15,6 +16,7 @@ You are a quality assurance specialist. Your task is to validate that an impleme
 ## Validation Process
 
 ### Step 1: Find and Understand the Plan
+
 1.  **Find Plan Files**: Use the `<plan-name-or-number>` to find all plan files:
     - `.agent_session/<NNN>_<name>_prompt.md` - Original mission/task
     - `.agent_session/<NNN>_<name>_context.md` - Research findings
@@ -26,6 +28,7 @@ You are a quality assurance specialist. Your task is to validate that an impleme
 3.  **Review Code**: Use `git diff main...HEAD` to review the code that was changed.
 
 ### Step 2: Automated Verification
+
 Your most important job is to run the automated checks defined in the plan.
 
 1.  **Locate Checks**: Open the `..._plan.md` file and find the `#### Automated Verification` section.
@@ -88,6 +91,7 @@ Your most important job is to run the automated checks defined in the plan.
     - Verify the mitigation was implemented
     - Grep for similar patterns that might have been missed
 3.  **Search for Common Patterns**: Run these searches across changed files:
+
     ```bash
     # Optional chaining on critical operations
     grep -n "?\." [changed files] | grep -v "// ok:"
@@ -96,6 +100,7 @@ Your most important job is to run the automated checks defined in the plan.
     grep -n "|| ''" [changed files]
     grep -n "?? \[\]" [changed files]
     ```
+
 4.  **Fail if Silent Failures Remain**: If critical operations can fail silently:
     ```
     ❌ VALIDATION FAILED: Silent Failure Pattern
@@ -206,12 +211,14 @@ Ensure documentation reflects the implementation. Missing documentation leads to
     - For each changed file, ask: "Is this change reflected in documentation?"
 
 5.  **Update Front Matter**: After updating any doc file, update its YAML front matter:
+
     ```yaml
     ---
     GitRef: <current-HEAD-sha>
     LastUpdatedAt: <today-YYYY-MM-DD>
     ---
     ```
+
     Run `git rev-parse --short HEAD` to get the current commit SHA.
     Use today's date in YYYY-MM-DD format.
 
@@ -220,6 +227,7 @@ Ensure documentation reflects the implementation. Missing documentation leads to
 **CRITICAL**: Do not proceed to Step 8 until documentation is updated. Stale documentation causes future planning errors.
 
 ### Step 8: Manual Verification Checklist
+
 Since you cannot see the UI, you must generate a clear, step-by-step checklist for the **user** to perform.
 
 1.  **Locate Criteria**: Find the `#### Manual Verification` section in the plan file.
@@ -230,6 +238,7 @@ Since you cannot see the UI, you must generate a clear, step-by-step checklist f
 If all verification steps pass:
 
 1.  **Update Plan Status**: In the plan file (`..._plan.md`), update the status header from `Status: IMPLEMENTED` to `Status: VALIDATED`. The header format is:
+
     ```
     Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | Status: VALIDATED | GitRef: <sha>
     ```
@@ -249,58 +258,71 @@ ValidatedOn: [YYYY-MM-DD]
 ## Validation Report for Plan <NNN>: <plan-name>
 
 ### ✅ Automated Verification: PASSED
+
 - All commands listed in the plan's `Automated Verification` section passed successfully.
 
 ### Manual Verification Checklist for User
+
 Please perform the following checks to complete validation:
 
 **Across all affected platforms/apps:**
+
 1. [Test step 1, e.g., "Navigate to the main screen and confirm the new component renders correctly."]
 2. [Test step 2, e.g., "Click the 'Save' button and verify the data is persisted."]
 3. [Test step 3, e.g., "Go offline, make a change, go back online, and verify the change syncs."]
 
 ### Platform Implementation Matrix
+
 - [✅ / ❌] All platforms with checkmarks have been implemented
 - [List any missing implementations]
 
 ### Assumption Verification
+
 - [✅ / ❌] Assumption: [description] - Verified via [method]
 - [List each assumption and its verification result]
 
 ### Call Graph Verification
+
 - [✅ / ❌] Fix reaches bug location via: [entry] → [intermediate] → [target]
 - [Note any gaps found]
 
 ### Silent Failure Analysis
+
 - [✅ / ❌] No critical operations use optional chaining without fallback
 - [✅ / ❌] All API calls have error handling
 - [List any silent failure patterns found]
 
 ### Edge Case Verification
+
 - [✅ / ❌] Behavior specified for offline/disconnected states
 - [✅ / ❌] Race conditions handled (e.g., HTTP before WS)
 - [List any unhandled edge cases]
 
 ### Critical vs Optional Classification
+
 - [✅ / ❌] No critical features mislabeled as "optimization"
 - [List any mislabeled features]
 
 ### Original Mission Verification
+
 - **Original request**: "[exact text from _prompt.md]"
 - [✅ / ⚠️] Implementation addresses the original user request
 - [List any gaps or deviations, with justification]
 
 ### Architectural Review
+
 - **Domain**: [Client / API / Tooling]
 - **Duplication Check**: [✅ No duplication found / ⚠️ Similar code in X - added to BACKLOG]
 - **Shared-First**: [✅ Logic in shared modules / ⚠️ Logic duplicated - added to BACKLOG]
 
 ### Documentation Updates
+
 - [✅ / ⚠️] Architecture documentation - [Updated / No changes needed / N/A]
 - [✅ / ⚠️] API/Protocol documentation - [Updated / No changes needed / N/A]
 - [✅ / ⚠️] Module documentation - [Updated / No changes needed / N/A]
 
 ### Implementation Notes
+
 - **Deviations**: [Note any discovered deviations from the plan]
 - **Potential Issues**: [Note any potential issues found]
 - **Backlog Items Added**: [List any items added to BACKLOG.md, or "None"]
@@ -311,6 +333,7 @@ Please perform the following checks to complete validation:
 ### Step 10: Final Output
 
 After successfully updating the context file, present the following to the user:
+
 ```
 Plan `<plan-name>` has passed all automated verification steps.
 
@@ -327,6 +350,7 @@ Please perform the manual checks. Once complete, you can commit the documentatio
 ## IMPORTANT: No Version Bumping
 
 **Validation does NOT warrant a version bump.** Version changes (MAJOR, MINOR, PATCH) reflect actual code changes:
+
 - **PATCH** - Bug fixes (implementation)
 - **MINOR** - New features (implementation)
 - **MAJOR** - Breaking changes (implementation)
@@ -334,7 +358,7 @@ Please perform the manual checks. Once complete, you can commit the documentatio
 Validation is verification only—no new features, no bug fixes, no code changes. The version bump happened when the plan was **implemented**, not when it was validated.
 
 **Do NOT:**
+
 - Update `package.json` version
 - Add entries to `CHANGELOG.md`
 - Bump any version numbers
-

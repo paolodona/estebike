@@ -1,13 +1,13 @@
 ---
-title: "Ricognizione percorso XC Monte Cecilia"
+title: 'Ricognizione percorso XC Monte Cecilia'
 date: 2014-09-17
 author: admin
 category: Coppa Colli Euganei
 tags:
   - Coppa Colli Euganei
   - XC del Monte Cecilia
-image: "/images/blog/2014/09/montececilia-percorso3.jpg"
-excerpt: "Edizione 2014 dell’XC Monte Cecilia con un circuito Monte Cecilia Light con soli 2 giri di 13,5 chilometri e divertimento assicurato, ma soprattutto studiato per evitare i doppiaggi. Un ringraziame..."
+image: '/images/blog/2014/09/montececilia-percorso3.jpg'
+excerpt: 'Edizione 2014 dell’XC Monte Cecilia con un circuito Monte Cecilia Light con soli 2 giri di 13,5 chilometri e divertimento assicurato, ma soprattutto studiato per evitare i doppiaggi. Un ringraziame...'
 ---
 
 Edizione 2014 dell’XC Monte Cecilia con un circuito Monte Cecilia Light con soli 2 giri di 13,5 chilometri e divertimento assicurato, ma soprattutto studiato per evitare i doppiaggi.  

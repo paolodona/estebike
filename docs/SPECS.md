@@ -12,19 +12,20 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 
 ### Pages
 
-| Page | Purpose |
-|------|---------|
-| **Homepage** | Hero section, event highlight, announcements, club intro, sponsors |
-| **Chi Siamo (About)** | Club history, mission, team/board members |
-| **Magna & Pedala** | Event landing page with full details |
-| **Percorsi (Routes)** | Route options with maps and GPX downloads |
-| **Iscrizioni (Registration)** | Eventbrite link and QR code for event registration |
-| **Galleria (Gallery)** | Photo galleries and video embeds |
-| **Tesseramento (Membership)** | Annual club membership registration |
-| **Contatti (Contact)** | Contact information and WhatsApp |
-| **Blog/News** | News archive, announcements, club updates |
+| Page                          | Purpose                                                            |
+| ----------------------------- | ------------------------------------------------------------------ |
+| **Homepage**                  | Hero section, event highlight, announcements, club intro, sponsors |
+| **Chi Siamo (About)**         | Club history, mission, team/board members                          |
+| **Magna & Pedala**            | Event landing page with full details                               |
+| **Percorsi (Routes)**         | Route options with maps and GPX downloads                          |
+| **Iscrizioni (Registration)** | Eventbrite link and QR code for event registration                 |
+| **Galleria (Gallery)**        | Photo galleries and video embeds                                   |
+| **Tesseramento (Membership)** | Annual club membership registration                                |
+| **Contatti (Contact)**        | Contact information and WhatsApp                                   |
+| **Blog/News**                 | News archive, announcements, club updates                          |
 
 ### Language
+
 - **Italian only** - single language implementation
 
 ---
@@ -32,16 +33,19 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 ## Technical Stack
 
 ### Framework & Hosting
+
 - **Static Site Generator:** Astro
 - **Hosting:** GitHub Pages (free)
 - **Domain:** estebike.it (existing)
 - **SSL:** Provided by GitHub Pages
 
 ### Content Management
+
 - **Primary:** Markdown files in Git repository
 - **Updates:** Edit markdown, push to GitHub, automatic rebuild
 
 ### Ticketing
+
 - **Provider:** Eventbrite
 - **URL:** https://estebikemangnaepedala2026.eventbrite.com/
 - **Use Cases:** Event registration (Magna & Pedala)
@@ -52,6 +56,7 @@ New website for EsteBike cycling club featuring the annual "Magna & Pedala" spor
 ## Event Registration (Magna & Pedala)
 
 Registration is handled entirely via Eventbrite. The site provides:
+
 - A dedicated `/iscrizioni` page with a link to the Eventbrite event
 - A QR code (`/images/eventbrite-qr.svg`) for quick mobile access
 - Eventbrite URL: https://estebikemangnaepedala2026.eventbrite.com/
@@ -62,12 +67,14 @@ Registration is handled entirely via Eventbrite. The site provides:
 ## Routes
 
 ### Display
+
 - Multiple route options (distances TBD)
 - **Map integration:** Strava route embeds
 - Elevation profiles visible in embed
 - **GPX downloads:** Downloadable GPX file per route
 
 ### Route Information Per Route
+
 - Distance (km)
 - Elevation gain (m)
 - Difficulty level
@@ -80,15 +87,18 @@ Registration is handled entirely via Eventbrite. The site provides:
 ## Media Features
 
 ### Photo Galleries
+
 - Grid layout with lightbox
 - Organized by event/year
 - Lazy loading for performance
 
 ### Video Integration
+
 - YouTube video embeds
 - Embedded on homepage and gallery
 
 ### Social Integration
+
 - **Instagram feed:** Embedded feed showing recent posts
 - **Strava club feed:** Display recent club activities
 
@@ -97,6 +107,7 @@ Registration is handled entirely via Eventbrite. The site provides:
 ## Club Membership
 
 ### Tesseramento
+
 - Annual club membership information page at `/tesseramento`
 - Contact club directly for membership registration
 
@@ -105,40 +116,44 @@ Registration is handled entirely via Eventbrite. The site provides:
 ## Blog / News
 
 ### Purpose
+
 - Club announcements and updates
 - Event recaps and reports
 - Community news
 - Migration of historical posts from the old website (2013-2018)
 
 ### Content Structure
+
 Each blog post is a markdown file with frontmatter:
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 date: 2026-01-15
-author: "admin"
-category: "Comunicato del direttivo"
-tags: ["tesseramento", "divise"]
-image: "/images/blog/post-image.jpg"  # optional
-excerpt: "Brief summary for listings"  # optional, auto-generated if missing
+author: 'admin'
+category: 'Comunicato del direttivo'
+tags: ['tesseramento', 'divise']
+image: '/images/blog/post-image.jpg' # optional
+excerpt: 'Brief summary for listings' # optional, auto-generated if missing
 ---
-
 Post content in markdown...
 ```
 
 ### Categories (from legacy site)
+
 - Comunicato del direttivo
 - News
 - Coppa Colli Euganei
 - Convenzioni
 
 ### Display
+
 - **Homepage:** Latest 3-5 posts as cards with date, title, excerpt
 - **Blog archive page:** Paginated list of all posts (10 per page)
 - **Individual post page:** Full content with metadata, previous/next navigation
 
 ### Authoring Workflow
+
 - Create new `.md` file in `/src/content/blog/`
 - Filename format: `YYYY-MM-DD-slug.md` (e.g., `2026-01-15-tesseramento-2026.md`)
 - Push to GitHub → automatic rebuild and deploy
@@ -149,12 +164,14 @@ Post content in markdown...
 ## Sponsors Section
 
 ### Display
+
 - **Prominent placement** on homepage
 - Sponsor tiers (e.g., Gold, Silver, Bronze) if applicable
 - Logo grid with links
 - Dedicated section, not just footer
 
 ### Management
+
 - Logos stored in `/public/sponsors/`
 - Configured via markdown/frontmatter
 
@@ -163,6 +180,7 @@ Post content in markdown...
 ## Contact Options
 
 ### Channels
+
 - **WhatsApp button:** Click-to-chat with club number
 - **Email address:** Displayed email for inquiries
 - **Social links:** Instagram, Facebook, Strava
@@ -211,22 +229,26 @@ Post content in markdown...
 ## Non-Functional Requirements
 
 ### Performance
+
 - Lighthouse score > 90
 - Image optimization (WebP, lazy loading)
 - Minimal JavaScript
 
 ### SEO
+
 - Semantic HTML
 - Meta tags per page
 - Open Graph tags for social sharing
 - Sitemap.xml
 
 ### Accessibility
+
 - WCAG 2.1 AA compliance
 - Keyboard navigation
 - Alt text on images
 
 ### Mobile-First (PRIMARY REQUIREMENT)
+
 **The site MUST be designed mobile-first.** Mobile is the primary design target, not an afterthought.
 
 - **Design for mobile screens first**, then progressively enhance for larger screens
@@ -241,18 +263,19 @@ Post content in markdown...
 
 ## Integrations Summary
 
-| Service | Purpose | Cost |
-|---------|---------|------|
-| GitHub Pages | Static site hosting | Free |
-| Eventbrite | Event ticketing & registration | Per Eventbrite pricing |
-| YouTube | Video hosting | Free |
-| Instagram | Feed embed | Free |
-| Strava | Route embeds, club feed | Free |
-| WhatsApp | Contact button | Free |
+| Service      | Purpose                        | Cost                   |
+| ------------ | ------------------------------ | ---------------------- |
+| GitHub Pages | Static site hosting            | Free                   |
+| Eventbrite   | Event ticketing & registration | Per Eventbrite pricing |
+| YouTube      | Video hosting                  | Free                   |
+| Instagram    | Feed embed                     | Free                   |
+| Strava       | Route embeds, club feed        | Free                   |
+| WhatsApp     | Contact button                 | Free                   |
 
 **Estimated monthly cost: €0** (Eventbrite fees apply per ticket)
 
 ### Architecture Diagram
+
 ```
 ┌─────────────────┐
 │   Astro Site    │────▶  Eventbrite (registration & ticketing)

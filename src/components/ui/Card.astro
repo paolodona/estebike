@@ -13,25 +13,28 @@ const {
   class: className = '',
 } = Astro.props;
 
-const href = rawHref && rawHref.startsWith('/') && !rawHref.startsWith('//') ? url(rawHref) : rawHref;
+const href =
+  rawHref && rawHref.startsWith('/') && !rawHref.startsWith('//')
+    ? url(rawHref)
+    : rawHref;
 
 const Tag = href ? 'a' : 'article';
-const classes = [
-  'card',
-  `card--${variant}`,
-  className,
-].filter(Boolean).join(' ');
+const classes = ['card', `card--${variant}`, className]
+  .filter(Boolean)
+  .join(' ');
 ---
 
-{href ? (
-  <a href={href} class={classes}>
-    <slot />
-  </a>
-) : (
-  <article class={classes}>
-    <slot />
-  </article>
-)}
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <article class={classes}>
+      <slot />
+    </article>
+  )
+}
 
 <style>
   .card {

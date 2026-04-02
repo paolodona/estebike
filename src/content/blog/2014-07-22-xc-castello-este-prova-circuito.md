@@ -1,5 +1,5 @@
 ---
-title: "XC Castello di Este prova circuito"
+title: 'XC Castello di Este prova circuito'
 date: 2014-07-22
 author: admin
 category: Coppa Colli Euganei
@@ -7,8 +7,8 @@ tags:
   - Coppa Colli Euganei
   - video
   - XC Circuito del Castello
-image: "/images/blog/2014/07/video-xc-castello.jpg"
-excerpt: "Coppa Colli Euganei, SELLE SMP 2014 26 Luglio 2014, XC Castello di Este In questo video è possibile prendere visione del circuito. Il video amatoriale non è stato girato in condizioni da gara, le q..."
+image: '/images/blog/2014/07/video-xc-castello.jpg'
+excerpt: 'Coppa Colli Euganei, SELLE SMP 2014 26 Luglio 2014, XC Castello di Este In questo video è possibile prendere visione del circuito. Il video amatoriale non è stato girato in condizioni da gara, le q...'
 ---
 
 ## Coppa Colli Euganei, SELLE SMP 2014

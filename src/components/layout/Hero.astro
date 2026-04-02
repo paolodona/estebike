@@ -30,7 +30,10 @@ const {
   overlay = 'gradient',
 } = Astro.props;
 
-const image = rawImage.startsWith('/') && !rawImage.startsWith('//') ? url(rawImage) : rawImage;
+const image =
+  rawImage.startsWith('/') && !rawImage.startsWith('//')
+    ? url(rawImage)
+    : rawImage;
 
 const sizeClasses = {
   full: 'hero--full',
@@ -61,28 +64,36 @@ const overlayClasses = {
       {subtitle && <p class="hero__subtitle">{subtitle}</p>}
       <h1 class="hero__title">{title}</h1>
 
-      {(date || location) && (
-        <div class="hero__meta">
-          {date && <span class="hero__date">{date}</span>}
-          {date && location && <span class="hero__separator" aria-hidden="true">•</span>}
-          {location && <span class="hero__location">{location}</span>}
-        </div>
-      )}
+      {
+        (date || location) && (
+          <div class="hero__meta">
+            {date && <span class="hero__date">{date}</span>}
+            {date && location && (
+              <span class="hero__separator" aria-hidden="true">
+                •
+              </span>
+            )}
+            {location && <span class="hero__location">{location}</span>}
+          </div>
+        )
+      }
 
-      {(ctaText || secondaryCtaText) && (
-        <div class="hero__actions">
-          {ctaText && ctaHref && (
-            <Button href={ctaHref} variant="accent" size="lg">
-              {ctaText}
-            </Button>
-          )}
-          {secondaryCtaText && secondaryCtaHref && (
-            <Button href={secondaryCtaHref} variant="ghost" size="lg">
-              {secondaryCtaText}
-            </Button>
-          )}
-        </div>
-      )}
+      {
+        (ctaText || secondaryCtaText) && (
+          <div class="hero__actions">
+            {ctaText && ctaHref && (
+              <Button href={ctaHref} variant="accent" size="lg">
+                {ctaText}
+              </Button>
+            )}
+            {secondaryCtaText && secondaryCtaHref && (
+              <Button href={secondaryCtaHref} variant="ghost" size="lg">
+                {secondaryCtaText}
+              </Button>
+            )}
+          </div>
+        )
+      }
 
       <slot />
     </div>

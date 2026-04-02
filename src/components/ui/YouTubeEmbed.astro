@@ -13,18 +13,18 @@ export interface Props {
   class?: string;
 }
 
-const {
-  videoId,
-  title,
-  thumbnail,
-  class: className = '',
-} = Astro.props;
+const { videoId, title, thumbnail, class: className = '' } = Astro.props;
 
 // Generate thumbnail URL if not provided
-const thumbnailUrl = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+const thumbnailUrl =
+  thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 ---
 
-<div class:list={['youtube-embed', className]} data-youtube-embed data-video-id={videoId}>
+<div
+  class:list={['youtube-embed', className]}
+  data-youtube-embed
+  data-video-id={videoId}
+>
   <button
     class="youtube-embed__button"
     aria-label={`Riproduci video: ${title}`}
@@ -40,8 +40,10 @@ const thumbnailUrl = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.j
     />
     <span class="youtube-embed__play">
       <svg viewBox="0 0 68 48" width="68" height="48">
-        <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
-        <path d="M 45,24 27,14 27,34" fill="#fff"/>
+        <path
+          d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"
+          fill="#f00"></path>
+        <path d="M 45,24 27,14 27,34" fill="#fff"></path>
       </svg>
     </span>
     <span class="youtube-embed__title">{title}</span>
@@ -87,7 +89,9 @@ const thumbnailUrl = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.j
   .youtube-embed__play {
     position: relative;
     z-index: 1;
-    transition: transform var(--transition-base), filter var(--transition-base);
+    transition:
+      transform var(--transition-base),
+      filter var(--transition-base);
   }
 
   .youtube-embed__button:hover .youtube-embed__play {
@@ -130,7 +134,8 @@ const thumbnailUrl = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.j
     button?.addEventListener('click', () => {
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
 
       embed.appendChild(iframe);

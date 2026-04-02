@@ -1,5 +1,5 @@
 ---
-title: "XC Cronoscalata del Frantoio: un inizio col botto per la Coppa Colli 2014!"
+title: 'XC Cronoscalata del Frantoio: un inizio col botto per la Coppa Colli 2014!'
 date: 2014-03-17
 author: admin
 category: Coppa Colli Euganei
@@ -8,8 +8,8 @@ tags:
   - MTB
   - squadra corse femminile
   - XC Cronoscalata del Frantoio
-image: "/images/blog/2014/03/cronoscalata-del-frantoio1.jpg"
-excerpt: "I colori giallorossi spiccano tra gli ulivi, con ottimi posizionamenti dei nostri (tra gli assoluti, un grande 10o posto di Luca Selmin, che si mette dietro campioni di 20 anni più giovani, e confe..."
+image: '/images/blog/2014/03/cronoscalata-del-frantoio1.jpg'
+excerpt: 'I colori giallorossi spiccano tra gli ulivi, con ottimi posizionamenti dei nostri (tra gli assoluti, un grande 10o posto di Luca Selmin, che si mette dietro campioni di 20 anni più giovani, e confe...'
 ---
 
 I colori giallorossi spiccano tra gli ulivi, con ottimi posizionamenti dei nostri (tra gli assoluti, un grande 10o posto di Luca Selmin, che si mette dietro campioni di 20 anni più giovani, e confermandosi specialista della salita!) e piacevoli ritorni alle competizioni (il grimpeur di razza Silvano Marmai ed una splendida Luisa Betto).

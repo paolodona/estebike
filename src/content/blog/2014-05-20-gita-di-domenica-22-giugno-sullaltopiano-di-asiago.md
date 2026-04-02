@@ -1,12 +1,12 @@
 ---
-title: "Gita di domenica 22 giugno sull’Altopiano di Asiago"
+title: 'Gita di domenica 22 giugno sull’Altopiano di Asiago'
 date: 2014-05-20
 author: admin
 category: Comunicato del direttivo
 tags:
   - gita
-image: "/images/blog/2014/05/gita-verena1.jpg"
-excerpt: "Aperte le iscrizioni per la gita di domenica 22 giugno sull’Altopiano di Asiago: affrettatevi perchè dobbiamo prenotare la corriera! Il programma in sintesi: Partenza h. 7 circa da Este, arrivo al ..."
+image: '/images/blog/2014/05/gita-verena1.jpg'
+excerpt: 'Aperte le iscrizioni per la gita di domenica 22 giugno sull’Altopiano di Asiago: affrettatevi perchè dobbiamo prenotare la corriera! Il programma in sintesi: Partenza h. 7 circa da Este, arrivo al ...'
 ---
 
 [![gita-verena3](/images/blog/2014/05/gita-verena3.jpg)](/images/blog/2014/05/gita-verena3.jpg)Aperte le iscrizioni per la **gita di domenica 22 giugno sull’Altopiano di Asiago**: affrettatevi perchè dobbiamo prenotare la corriera!

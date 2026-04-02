@@ -1,5 +1,5 @@
 ---
-title: "7 Guadi: “alla vecchia signora” mettono il sigillo Terrin e Squarcina"
+title: '7 Guadi: “alla vecchia signora” mettono il sigillo Terrin e Squarcina'
 date: 2014-04-29
 author: admin
 category: Coppa Colli Euganei
@@ -7,8 +7,8 @@ tags:
   - 7 guadi
   - Coppa Colli Euganei
   - MTB
-image: "/images/blog/2014/04/7guadi2014-1.jpg"
-excerpt: "A Valsanzibio di Galzignano Terme è andata di scena l’ennesima edizione della “7 Guadi”. Nonostante il cattivo tempo in tutto il nord Italia 200 bikers si sono sfidati in un percorso di altissimo l..."
+image: '/images/blog/2014/04/7guadi2014-1.jpg'
+excerpt: 'A Valsanzibio di Galzignano Terme è andata di scena l’ennesima edizione della “7 Guadi”. Nonostante il cattivo tempo in tutto il nord Italia 200 bikers si sono sfidati in un percorso di altissimo l...'
 ---
 
 A Valsanzibio di Galzignano Terme è andata di scena l’ennesima edizione della “**7 Guadi**”. Nonostante il cattivo tempo in tutto il nord Italia 200 bikers si sono sfidati in un percorso di altissimo livello e molto divertente. Un vero peccato sapere che un po’ in tutto il Veneto pioveva mentre a Valsanzibio no.
@@ -29,4 +29,4 @@ Ora bisognerà attendere la stesura delle classifiche di circuito per vedere gli
 
 Prossimo appuntamento di Coppa Colli a Villa Draghi col Trofeo Racing Bike il 25 maggio prossimo. Un altro appuntamento sui Colli Euganei che trascinerà i bikers su sentieri innovativi e divertenti.
 
-*Fonte [Ciclocolor](http://www.ciclocolor.com/2014/04/2014-04-27-acsi-mtb-coppa-colli-euganei.html).*
+_Fonte [Ciclocolor](http://www.ciclocolor.com/2014/04/2014-04-27-acsi-mtb-coppa-colli-euganei.html)._

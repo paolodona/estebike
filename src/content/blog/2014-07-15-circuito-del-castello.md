@@ -1,13 +1,13 @@
 ---
-title: "XC Circuito del Castello 2014"
+title: 'XC Circuito del Castello 2014'
 date: 2014-07-15
 author: admin
 category: Coppa Colli Euganei
 tags:
   - Coppa Colli Euganei
   - XC Circuito del Castello
-image: "/images/blog/2014/07/circuitocastello-dep.jpg"
-excerpt: "Il circuito del castello è una gara di mountain bike inserita nel calendario di Coppa Colli Euganei Selle SMP 2014"
+image: '/images/blog/2014/07/circuitocastello-dep.jpg'
+excerpt: 'Il circuito del castello è una gara di mountain bike inserita nel calendario di Coppa Colli Euganei Selle SMP 2014'
 ---
 
 XC Circuito del Castello “short track in notturna”, 8° tappa della Coppa Colli Euganei 2014, sabato 26 luglio.

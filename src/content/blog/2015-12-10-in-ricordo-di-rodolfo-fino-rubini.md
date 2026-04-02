@@ -1,10 +1,10 @@
 ---
-title: "IN RICORDO DI RODOLFO “FINO” RUBINI"
+title: 'IN RICORDO DI RODOLFO “FINO” RUBINI'
 date: 2015-12-10
 author: Lorenzo Rinaldo
 category: News
-image: "/images/blog/2015/11/citta-speranza2.jpg"
-excerpt: "Pubblichiamo, per i soci partecipanti e per coloro che volessero in futuro aderire a simili devoluzioni in beneficenza, quanto pervenutoci dalla Fondazione Città della Speranza. Il contributo racco..."
+image: '/images/blog/2015/11/citta-speranza2.jpg'
+excerpt: 'Pubblichiamo, per i soci partecipanti e per coloro che volessero in futuro aderire a simili devoluzioni in beneficenza, quanto pervenutoci dalla Fondazione Città della Speranza. Il contributo racco...'
 ---
 
 Pubblichiamo, per i soci partecipanti e per coloro che volessero in futuro aderire a simili devoluzioni in beneficenza, quanto pervenutoci dalla **Fondazione Città della Speranza**.  

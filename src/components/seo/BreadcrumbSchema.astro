@@ -31,7 +31,9 @@ if (!breadcrumbs && segments.length > 0) {
     path += `/${seg}`;
     const isLast = i === segments.length - 1;
     breadcrumbs!.push({
-      name: slugNames[seg] || seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+      name:
+        slugNames[seg] ||
+        seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
       url: isLast ? undefined : `${siteUrl}${path}/`,
     });
   });
@@ -50,4 +52,5 @@ const data = breadcrumbs
     }
   : null;
 ---
+
 {data && <JsonLd data={data} />}

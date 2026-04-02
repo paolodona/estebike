@@ -15,10 +15,19 @@ export function rehypeBaseUrl() {
     if (!base) return;
 
     visit(tree, 'element', (node) => {
-      if (node.properties?.src && typeof node.properties.src === 'string' && node.properties.src.startsWith('/')) {
+      if (
+        node.properties?.src &&
+        typeof node.properties.src === 'string' &&
+        node.properties.src.startsWith('/')
+      ) {
         node.properties.src = base + node.properties.src;
       }
-      if (node.properties?.href && typeof node.properties.href === 'string' && node.properties.href.startsWith('/') && !node.properties.href.startsWith('//')) {
+      if (
+        node.properties?.href &&
+        typeof node.properties.href === 'string' &&
+        node.properties.href.startsWith('/') &&
+        !node.properties.href.startsWith('//')
+      ) {
         node.properties.href = base + node.properties.href;
       }
     });

@@ -1,12 +1,12 @@
 ---
-title: "BIKE TOUR DELTA DEL PO"
+title: 'BIKE TOUR DELTA DEL PO'
 date: 2015-07-04
 author: admin
 category: Comunicato del direttivo
 tags:
   - gita
-image: "/images/blog/2015/07/mesola.jpg"
-excerpt: "26 Luglio 2015 ESTE BIKE ZORDAN Alla scoperta del Delta giornata intera in MTB Da Mesola a Boccasette e ritorno, km.90 circa Ritrovo ore 8:15 a Mesola davanti al castello (parcheggio) Da Este a Mes..."
+image: '/images/blog/2015/07/mesola.jpg'
+excerpt: '26 Luglio 2015 ESTE BIKE ZORDAN Alla scoperta del Delta giornata intera in MTB Da Mesola a Boccasette e ritorno, km.90 circa Ritrovo ore 8:15 a Mesola davanti al castello (parcheggio) Da Este a Mes...'
 ---
 
 26 Luglio 2015 ESTE BIKE ZORDAN
@@ -26,12 +26,12 @@ Il ritorno è in fase di organizzazione, raggiungeremo il porto di Boccasette e 
 
 Ci attendono paesaggi magnifici, dove il cielo incontra la terra e l’acqua riflette la natura, chi ha partecipato alle edizioni precedenti potrà testimoniarlo.
 
--   TOTALE KM. 90 CIRCA (andata e ritorno) da definire.
--   PERCORSO TOTALMENTE PIANEGGIANTE
--   30% STERRATO
--   20% ACQUA
--   PICCOLE STRADE ASFALTATE PRIVE DI TRAFFICO
--   SOLE , SOLE E ANCORA SOLE (ATTENZIONE ALLE SCOTTATURE)
+- TOTALE KM. 90 CIRCA (andata e ritorno) da definire.
+- PERCORSO TOTALMENTE PIANEGGIANTE
+- 30% STERRATO
+- 20% ACQUA
+- PICCOLE STRADE ASFALTATE PRIVE DI TRAFFICO
+- SOLE , SOLE E ANCORA SOLE (ATTENZIONE ALLE SCOTTATURE)
 
 La data concordata è Domenica 26 Luglio 2015.
 

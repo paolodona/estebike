@@ -1,12 +1,12 @@
 ---
-title: "Importante incidente stradale per Monica Squarcina"
+title: 'Importante incidente stradale per Monica Squarcina'
 date: 2014-08-27
 author: admin
 category: Coppa Colli Euganei
 tags:
   - Coppa Colli Euganei
   - squadra corse femminile
-image: "/images/blog/2014/08/monica-squarcina.jpg"
+image: '/images/blog/2014/08/monica-squarcina.jpg'
 excerpt: "Monica Squarcina, bikers portacolori del Team Estebike Zordan, leader di Coppa Colli Euganei, investita da un'auto mentre guidava la sua motocicletta"
 ---
 

@@ -19,6 +19,7 @@ gh issue view <issue-number> --json number,title,body,labels,state
 ```
 
 Parse the response to extract:
+
 - Issue number
 - Issue title
 - Issue body (for plan context)
@@ -30,6 +31,7 @@ If the issue doesn't exist or is closed, inform the user and stop.
 ### Step 2: Generate Branch Name
 
 Create branch name from issue:
+
 - Format: `<issue-number>-<slugified-title>`
 - Slugify: lowercase, replace spaces with hyphens, remove special chars, max 50 chars
 - Example: Issue #45 "Echo bug causes title flickering" → `45-echo-bug-causes-title-flickering`
@@ -41,6 +43,7 @@ git checkout -b <branch-name>
 ```
 
 If the branch already exists, ask user if they want to:
+
 - Switch to existing branch: `git checkout <branch-name>`
 - Delete and recreate: `git branch -D <branch-name> && git checkout -b <branch-name>`
 
@@ -53,6 +56,7 @@ gh issue edit <issue-number> --add-label "in-progress"
 ```
 
 If the label doesn't exist, create it first:
+
 ```bash
 gh label create "in-progress" --color "fbca04" --description "Currently being worked on" 2>/dev/null || true
 ```
@@ -64,16 +68,19 @@ If the `--plan` flag was provided, delegate to the full `/create-plan` workflow:
 1. Extract a short plan name from the issue title (e.g., "fix-echo-bug")
 
 2. Invoke the `/create-plan` skill with the issue number prefix:
+
    ```
    /create-plan <issue-number>-<plan-name>: <issue-title>
    ```
 
    Example: For Issue #45 "Echo bug causes title flickering":
+
    ```
    /create-plan 45-fix-echo: Echo bug causes title flickering
    ```
 
 This ensures the full planning workflow is used, including:
+
 - EnterPlanMode for user approval
 - Comprehensive research with specialized agents
 - All three plan files (prompt, context, plan)

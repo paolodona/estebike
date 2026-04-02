@@ -1,13 +1,13 @@
 ---
-title: "Invito al pranzo sociale e all’assemblea ordinaria dei soci 2014"
+title: 'Invito al pranzo sociale e all’assemblea ordinaria dei soci 2014'
 date: 2014-10-24
 author: admin
 category: Comunicato del direttivo
 tags:
   - assemblea
   - pranzo sociale
-image: "/images/blog/2014/10/pranzo-sociale.jpg"
-excerpt: "Avviso a tutti i soci, L’Assemblea Ordinaria dei soci per l’anno 2014, che si terrà presso il Leon d’oro in Viale Fiume ad Este, martedì 11 novembre dalle ore 21 e avrà ad oggetto la presentazione ..."
+image: '/images/blog/2014/10/pranzo-sociale.jpg'
+excerpt: 'Avviso a tutti i soci, L’Assemblea Ordinaria dei soci per l’anno 2014, che si terrà presso il Leon d’oro in Viale Fiume ad Este, martedì 11 novembre dalle ore 21 e avrà ad oggetto la presentazione ...'
 ---
 
 Avviso a tutti i soci,  

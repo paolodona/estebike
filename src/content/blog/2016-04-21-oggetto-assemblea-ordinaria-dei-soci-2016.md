@@ -1,12 +1,12 @@
 ---
-title: "Oggetto: Assemblea Ordinaria dei Soci 2016"
+title: 'Oggetto: Assemblea Ordinaria dei Soci 2016'
 date: 2016-04-21
 author: Lorenzo Rinaldo
 category: News
 tags:
   - assemblea
-image: "/images/blog/2016/04/soci_oo.jpg"
-excerpt: "Gentile socia, caro socio, con la presente si desidera comunicare la data dell’importante evento del nostro sodalizio: L’Assemblea Ordinaria dei soci per l’anno 2016, che si terrà presso il Leon d’..."
+image: '/images/blog/2016/04/soci_oo.jpg'
+excerpt: 'Gentile socia, caro socio, con la presente si desidera comunicare la data dell’importante evento del nostro sodalizio: L’Assemblea Ordinaria dei soci per l’anno 2016, che si terrà presso il Leon d’...'
 ---
 
 Gentile socia, caro socio,  

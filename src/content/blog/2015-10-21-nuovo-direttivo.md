@@ -1,10 +1,10 @@
 ---
-title: "Nuovo direttivo"
+title: 'Nuovo direttivo'
 date: 2015-10-21
 author: Lorenzo Rinaldo
 category: Comunicato del direttivo
-image: "/images/blog/2015/10/elezioni3n.jpg"
-excerpt: "Assemblea ordinaria dei soci 2015: presentati ed approvati il bilancio e la relazione sull’attività svolta dal Direttivo nel quadriennio trascorso; discussione sul futuro del team, riconferma per a..."
+image: '/images/blog/2015/10/elezioni3n.jpg'
+excerpt: 'Assemblea ordinaria dei soci 2015: presentati ed approvati il bilancio e la relazione sull’attività svolta dal Direttivo nel quadriennio trascorso; discussione sul futuro del team, riconferma per a...'
 ---
 
 Assemblea ordinaria dei soci 2015: presentati ed approvati il bilancio e la relazione sull’attività svolta dal Direttivo nel quadriennio trascorso; discussione sul futuro del team, riconferma per acclamazione del Presidente e votazione del nuovo Direttivo (con una importante new entry..!). Risultati nella foto del cartellone.  

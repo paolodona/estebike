@@ -1,7 +1,9 @@
 # Implementation Plan: Blog Migration Script
+
 Plan: 002 | Name: blog-migration | Created: 2026-01-25 | Status: IMPLEMENTED | GitRef: 0238b1e
 
 ## Related Files
+
 - **Prompt**: `.agent_session/002_blog-migration_prompt.md` - Original mission/task
 - **Context**: `.agent_session/002_blog-migration_context.md` - Research findings
 
@@ -13,14 +15,15 @@ Create a Node.js migration script to convert 74 legacy WordPress blog posts from
 
 ## Affected Areas
 
-| Area | Affected | Scope |
-|------|----------|-------|
-| `scripts/migrate-blog/` | Yes | New migration script (6 files) |
-| `src/content/blog/` | Yes | Output: 74 Markdown files |
-| `public/images/blog/` | Yes | Output: ~250 optimized images |
-| `src/content/config.ts` | No | Existing schema (unchanged) |
+| Area                    | Affected | Scope                          |
+| ----------------------- | -------- | ------------------------------ |
+| `scripts/migrate-blog/` | Yes      | New migration script (6 files) |
+| `src/content/blog/`     | Yes      | Output: 74 Markdown files      |
+| `public/images/blog/`   | Yes      | Output: ~250 optimized images  |
+| `src/content/config.ts` | No       | Existing schema (unchanged)    |
 
 ## What We're NOT Doing
+
 - Manual content editing/cleanup
 - SEO redirects from old URLs
 - Gallery/sponsor image migration (separate scripts)
@@ -37,6 +40,7 @@ Create a Node.js migration script to convert 74 legacy WordPress blog posts from
 **Goal**: Initialize the migration script
 
 **Files**:
+
 - `scripts/migrate-blog/index.ts` - Main entry point
 - `scripts/migrate-blog/parsers.ts` - HTML parsing
 - `scripts/migrate-blog/images.ts` - Image processing
@@ -74,12 +78,14 @@ Create a Node.js migration script to convert 74 legacy WordPress blog posts from
 **Goal**: Copy, resize, optimize images
 
 **Rules**:
+
 - Max width: 1600px (maintain aspect ratio)
 - Keep original format (JPG/PNG)
 - Output: `/public/images/blog/{year}/{month}/{filename}`
 - Skip WordPress thumbnail variants (regex: `-\d+x\d+\.[a-z]+$`)
 
 **Path Rewrite**:
+
 ```
 ../wp-content/uploads/2015/06/image.jpg
 → /images/blog/2015/06/image.jpg
@@ -94,6 +100,7 @@ Create a Node.js migration script to convert 74 legacy WordPress blog posts from
 **Goal**: Convert content to clean Markdown using Turndown
 
 **Custom Rules**:
+
 - Rewrite image paths
 - Remove WordPress shortcodes
 - Strip srcset attributes
@@ -107,23 +114,27 @@ Create a Node.js migration script to convert 74 legacy WordPress blog posts from
 **Goal**: Generate Astro content files
 
 **Output Format**:
+
 ```markdown
 ---
-title: "Post Title"
+title: 'Post Title'
 date: 2015-06-12
-author: "admin"
-category: "News"
-tags: ["tag1", "tag2"]
-image: "/images/blog/2015/06/image.jpg"
+author: 'admin'
+category: 'News'
+tags: ['tag1', 'tag2']
+image: '/images/blog/2015/06/image.jpg'
 ---
+
 Content...
 ```
 
 **Filename**: `YYYY-MM-DD-slug.md`
+
 - **Slug source**: Extract from legacy directory name (e.g., `atestina-superbike-2015/` → `atestina-superbike-2015`)
 - **Location**: `src/content/blog/`
 
 **Featured Image Logic** (for `image` frontmatter):
+
 1. `meta[property="og:image"]` (primary)
 2. First `<img>` in `.entry-content` (fallback)
 3. `null` if no images found
@@ -137,6 +148,7 @@ Content...
 **Goal**: Orchestrate migration with reporting
 
 **CLI**:
+
 ```bash
 npx tsx scripts/migrate-blog/index.ts [--dry-run] [--slug <name>]
 ```
@@ -148,6 +160,7 @@ npx tsx scripts/migrate-blog/index.ts [--dry-run] [--slug <name>]
 ## Verification
 
 ### Automated
+
 ```bash
 cd scripts/migrate-blog && npm install
 npx tsx index.ts
@@ -155,6 +168,7 @@ cd ../.. && npm run build
 ```
 
 ### Manual
+
 1. Check 74 .md files in `src/content/blog/`
 2. Check images in `public/images/blog/`
 3. Visit /blog - posts render

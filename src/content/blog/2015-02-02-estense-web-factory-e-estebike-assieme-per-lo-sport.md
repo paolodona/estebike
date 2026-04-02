@@ -1,12 +1,12 @@
 ---
-title: "Estense Web Factory e Estebike assieme per lo sport"
+title: 'Estense Web Factory e Estebike assieme per lo sport'
 date: 2015-02-02
 author: admin
 category: Convenzioni
 tags:
   - sponsor
-image: "/images/blog/2015/02/logo-estensewebfactory.jpg"
-excerpt: "Estense Web Factory è sponsor tecnico del Team Estebike Zordan, per la visibilità della squadra, dei suoi atleti e dei suoi sponsor."
+image: '/images/blog/2015/02/logo-estensewebfactory.jpg'
+excerpt: 'Estense Web Factory è sponsor tecnico del Team Estebike Zordan, per la visibilità della squadra, dei suoi atleti e dei suoi sponsor.'
 ---
 
 Dal 2013 è sponsor tecnico del Team Estebike Zordan l’azienda [Estense Web Factory](http://www.estensewebfactory.it/) specializzata nella promozione e nella visibilità dei siti web.  

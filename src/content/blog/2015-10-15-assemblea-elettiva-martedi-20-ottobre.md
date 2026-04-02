@@ -1,10 +1,10 @@
 ---
-title: "Assemblea elettiva martedì 20 ottobre"
+title: 'Assemblea elettiva martedì 20 ottobre'
 date: 2015-10-15
 author: Lorenzo Rinaldo
 category: Comunicato del direttivo
-image: "/images/blog/2015/10/squadra_1.jpg"
-excerpt: "IMPORTANTE! Con la scadenza del quadriennio 2011-2015, ed in occasione dell’annuale Assemblea ordinaria (necessaria per l’approvazione del bilancio, ricordiamo), verranno rinnovate le cariche socie..."
+image: '/images/blog/2015/10/squadra_1.jpg'
+excerpt: 'IMPORTANTE! Con la scadenza del quadriennio 2011-2015, ed in occasione dell’annuale Assemblea ordinaria (necessaria per l’approvazione del bilancio, ricordiamo), verranno rinnovate le cariche socie...'
 ---
 
 IMPORTANTE!  

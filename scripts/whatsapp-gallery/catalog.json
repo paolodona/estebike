@@ -22,7 +22,13 @@
         "has_estebike_kit": false,
         "kit_confidence": 0,
         "website_relevance": 4,
-        "suggested_tags": ["snow", "landscape", "winter", "village", "mountain"],
+        "suggested_tags": [
+          "snow",
+          "landscape",
+          "winter",
+          "village",
+          "mountain"
+        ],
         "faces_detected": 0,
         "scene_type": "landscape",
         "analyzed_at": "2026-01-25T20:08:00Z"
@@ -50,7 +56,13 @@
         "has_estebike_kit": false,
         "kit_confidence": 0.9,
         "website_relevance": 7,
-        "suggested_tags": ["cyclist", "road_bike", "portrait", "Specialized", "parking"],
+        "suggested_tags": [
+          "cyclist",
+          "road_bike",
+          "portrait",
+          "Specialized",
+          "parking"
+        ],
         "faces_detected": 1,
         "scene_type": "outdoor_cycling",
         "analyzed_at": "2026-01-26T09:51:00Z"

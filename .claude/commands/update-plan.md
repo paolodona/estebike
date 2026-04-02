@@ -34,6 +34,7 @@ You are tasked with refreshing a stale implementation plan. Plans track the git 
 4. **Note the original mission**: The `_prompt.md` file contains what the user originally asked for - keep this in mind when updating
 
 If the plan has no GitRef (older plan format):
+
 ```
 ⚠️ This plan was created before GitRef tracking was added.
 Cannot determine what changed. Options:
@@ -44,11 +45,13 @@ Cannot determine what changed. Options:
 ### Step 2: Analyze Code Changes
 
 1. **Count commits behind**:
+
    ```bash
    git rev-list --count <gitref>..HEAD
    ```
 
 2. **Get changed files since plan creation**:
+
    ```bash
    git diff --name-only <gitref>..HEAD
    ```
@@ -76,10 +79,12 @@ Present the analysis to the user:
 ### Files Modified Since Plan Creation
 
 **Directly mentioned in plan (REQUIRES REVIEW):**
+
 - `path/to/file.ts` - [summary of changes from diff]
 - `path/to/other.rs` - [summary of changes from diff]
 
 **Other files changed (may affect plan):**
+
 - `related/file.ts` - [brief description]
 
 ### Recommended Actions
@@ -94,15 +99,18 @@ Present the analysis to the user:
 Ask the user how to proceed:
 
 **Option A: Update the existing plan**
+
 - Walk through each phase, highlighting what needs to change
 - Update file paths, line numbers, and code snippets
 - Update the `GitRef` in the header to current HEAD
 
 **Option B: Mark as obsolete and create new plan**
+
 - Rename existing plan: `<NNN>_<name>_plan.md` → `<NNN>_<name>_plan.obsolete.md`
 - Suggest running `/create-plan <name>: <updated description>`
 
 **Option C: Plan is still valid**
+
 - Just update the `GitRef` to current HEAD
 - No other changes needed
 
@@ -112,10 +120,12 @@ After any update, update the plan header with the new GitRef:
 
 ```markdown
 # Implementation Plan: [Feature Name]
+
 Plan: <NNN> | Name: <plan-name> | Created: YYYY-MM-DD | Status: PLANNED | GitRef: <new-sha>
 ```
 
 Also update `.agent_session/SUMMARY.md`:
+
 - Find the row for this plan
 - Update GitRef column to `<new-sha>`
 - Update Last Updated column to current date
@@ -124,6 +134,7 @@ Also add a note to the context file:
 
 ```markdown
 ## Update History
+
 - **YYYY-MM-DD**: Updated from GitRef `<old-sha>` to `<new-sha>`. [Brief description of changes]
 ```
 

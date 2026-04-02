@@ -55,7 +55,8 @@ function createTurndownService(): TurndownService {
 
       if (img) {
         const src = img.getAttribute('src') || '';
-        const alt = caption?.textContent?.trim() || img.getAttribute('alt') || '';
+        const alt =
+          caption?.textContent?.trim() || img.getAttribute('alt') || '';
         return `![${alt}](${src})${caption ? `\n*${caption.textContent?.trim()}*` : ''}\n\n`;
       }
 
@@ -78,7 +79,10 @@ function createTurndownService(): TurndownService {
   // Handle gallery elements
   turndown.addRule('gallery', {
     filter: (node) => {
-      return node.className?.includes('gallery') || node.className?.includes('carousel');
+      return (
+        node.className?.includes('gallery') ||
+        node.className?.includes('carousel')
+      );
     },
     replacement: (content, node) => {
       // Extract images from gallery
@@ -187,7 +191,9 @@ export function generateFrontmatter(post: {
   if (post.image) {
     // Rewrite image path and remove thumbnail suffix
     let imagePath = post.image;
-    const match = imagePath.match(/wp-content\/uploads\/(\d{4})\/(\d{2})\/([^"'\s?]+)/);
+    const match = imagePath.match(
+      /wp-content\/uploads\/(\d{4})\/(\d{2})\/([^"'\s?]+)/
+    );
     if (match) {
       const filename = match[3].replace(/-\d+x\d+(\.[a-z]+)$/i, '$1');
       imagePath = `/images/blog/${match[1]}/${match[2]}/${filename}`;
