@@ -8,18 +8,17 @@ export interface Sponsor {
   url: string;
   description: string;
   discounts: SponsorDiscount[];
-  tier: 'gold' | 'silver' | 'bronze';
 }
 
 /**
  * Sponsor data for EsteBike.
+ * Sponsors are displayed in the order they appear here.
  *
  * To add a new sponsor:
  * 1. Place the logo in /public/images/sponsors/ (recommended: 400×200 PNG/SVG)
- * 2. Add an entry below with name, logo path, url, description, discounts, and tier
+ * 2. Add an entry below with name, logo path, url, description, and discounts
  */
 export const sponsors: Sponsor[] = [
-  // === GOLD SPONSORS ===
   {
     name: 'Cicli Zordan',
     logo: '/images/sponsors/cicli-zordan.png',
@@ -31,7 +30,6 @@ export const sponsors: Sponsor[] = [
       { description: '5% su accessori e abbigliamento' },
       { description: 'Controllo bici stagionale gratuito' },
     ],
-    tier: 'gold',
   },
   {
     name: 'Sport & Salute Centro Medico',
@@ -43,9 +41,7 @@ export const sponsors: Sponsor[] = [
       { description: '15% su visite mediche sportive' },
       { description: '10% su percorsi di fisioterapia' },
     ],
-    tier: 'gold',
   },
-  // === SILVER SPONSORS ===
   {
     name: 'Bar Ristorante Al Parco',
     logo: '/images/sponsors/al-parco.png',
@@ -56,7 +52,6 @@ export const sponsors: Sponsor[] = [
       { description: '10% sul menù del giorno' },
       { description: 'Caffè omaggio dopo le uscite domenicali' },
     ],
-    tier: 'silver',
   },
   {
     name: 'Farmacia Este Centro',
@@ -68,7 +63,6 @@ export const sponsors: Sponsor[] = [
       { description: '15% su integratori sportivi' },
       { description: '10% su prodotti per la cura del corpo' },
     ],
-    tier: 'silver',
   },
   {
     name: 'Ottica Vision',
@@ -77,9 +71,7 @@ export const sponsors: Sponsor[] = [
     description:
       'Ottica specializzata in occhiali sportivi e lenti per ciclismo con protezione UV.',
     discounts: [{ description: '20% su occhiali da ciclismo' }],
-    tier: 'silver',
   },
-  // === BRONZE SPONSORS ===
   {
     name: 'Panificio Da Mario',
     logo: '/images/sponsors/panificio-mario.png',
@@ -87,7 +79,6 @@ export const sponsors: Sponsor[] = [
     description:
       'Panificio artigianale di Este, fornitore ufficiale del Magna & Pedala.',
     discounts: [{ description: '10% su tutti i prodotti da forno' }],
-    tier: 'bronze',
   },
   {
     name: 'AutoOfficina Rossi',
@@ -96,6 +87,5 @@ export const sponsors: Sponsor[] = [
     description:
       'Officina meccanica auto e moto con servizio portabici e trasporto.',
     discounts: [{ description: '10% su tagliando auto' }],
-    tier: 'bronze',
   },
 ];
