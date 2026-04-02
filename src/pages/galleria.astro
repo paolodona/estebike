@@ -111,7 +111,7 @@ function bundleSmallSections(sections: typeof whatsappGallery) {
       // Merge into previous section within same year
       const prevMonth = prev.month.match(/^(\S+?)(?:-\S+)?\s+/)?.[1] || prev.month;
       const curMonth = section.month.match(/^(\S+)/)?.[1] || section.month;
-      prev.month = `${prevMonth}-${curMonth} ${curYear}`;
+      prev.month = `${curMonth}-${prevMonth} ${curYear}`;
       prev.images.push(...section.images);
     } else {
       bundled.push({ ...section });
