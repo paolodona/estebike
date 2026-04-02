@@ -78,6 +78,15 @@ export const sponsors: Sponsor[] = [
     ],
     tier: 'gold',
   },
+  {
+    name: 'Obiettivo Casa',
+    logo: '/images/sponsors/obiettivo-casa.png',
+    url: 'https://www.obiettivo-casa.info',
+    description:
+      'Agenzia immobiliare di riferimento a Este e Ospedaletto Euganeo, con oltre 20 anni di esperienza nella compravendita e locazione di immobili residenziali e commerciali.',
+    discounts: [],
+    tier: 'gold',
+  },
   // === SILVER SPONSORS ===
   {
     name: 'Bar Ristorante Al Parco',
