@@ -31,13 +31,13 @@ The site will be available at `http://localhost:4321`.
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm run dev`     | Start development server |
+| `npm run build`   | Build for production     |
 | `npm run preview` | Preview production build |
-| `npm run lint` | Check code formatting |
-| `npm run format` | Fix code formatting |
+| `npm run lint`    | Check code formatting    |
+| `npm run format`  | Fix code formatting      |
 
 ### Backend (Cloudflare Worker)
 

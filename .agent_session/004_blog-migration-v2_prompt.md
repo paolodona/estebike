@@ -1,7 +1,9 @@
 # Original Prompt: Blog Migration Script (v2)
+
 Plan: 004 | Name: blog-migration-v2 | Created: 2026-04-02 | GitRef: 985cde6
 
 ## Related Files
+
 - **Context**: `.agent_session/004_blog-migration-v2_context.md` - Research findings
 - **Plan**: `.agent_session/004_blog-migration-v2_plan.md` - Implementation steps
 
@@ -18,6 +20,7 @@ Plan: 004 | Name: blog-migration-v2 | Created: 2026-04-02 | GitRef: 985cde6
 Create a Node.js script to scan the crawled WordPress site (crawled-site/www.estebike.it/) and produce clean Astro-compatible blog posts in src/content/blog/ with properly migrated images.
 
 Key requirements:
+
 - Blog images MUST be independent copies in public/images/blog/ — never reference /images/gallery/
 - Gallery images may be deleted without affecting blog posts
 - Script must be idempotent with --dry-run and --force flags

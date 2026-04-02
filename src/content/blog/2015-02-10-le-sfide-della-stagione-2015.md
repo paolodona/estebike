@@ -1,5 +1,5 @@
 ---
-title: "Le sfide della stagione MTB 2015"
+title: 'Le sfide della stagione MTB 2015'
 date: 2015-02-10
 author: admin
 category: Comunicato del direttivo
@@ -8,8 +8,8 @@ tags:
   - Lessinia Tour
   - TRENTINO MTB
   - ZERO Wind
-image: "/images/blog/2015/02/sfide-b.jpg"
-excerpt: "Le sfide della stagione MTB 2015 per gli Agonisti del TEAM EsteBike con la partecipazione a Lessinia Tour, AHEAD MTB, ZERO Wind, TRENTINO MTB"
+image: '/images/blog/2015/02/sfide-b.jpg'
+excerpt: 'Le sfide della stagione MTB 2015 per gli Agonisti del TEAM EsteBike con la partecipazione a Lessinia Tour, AHEAD MTB, ZERO Wind, TRENTINO MTB'
 ---
 
 Manca meno di un mese all’inizio della stagione 2015 dove in vari circuiti del Veneto, Trentino , Emilia Romagna e Lombardia vedrà presenti gli Agonisti del TEAM EsteBike, riportiamo qui di seguito alcune delle gare dove potrete seguire i nostri ragazzi e ragazze:

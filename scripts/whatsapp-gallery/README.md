@@ -39,6 +39,7 @@ Interactive workflow to extract images from WhatsApp Web using Chrome DevTools M
 Each image in `catalog.json` has:
 
 ### Basic Info
+
 - `id`: Unique identifier (e.g., "img_001")
 - `filename`: Local filename in downloads/
 - `downloaded_at`: ISO timestamp
@@ -46,6 +47,7 @@ Each image in `catalog.json` has:
 - `dimensions`: Width x height
 
 ### AI Analysis
+
 - `description`: 1-2 sentence scene description
 - `has_estebike_kit`: Boolean - subjects wearing EsteBike jersey?
 - `kit_confidence`: 0-1 confidence score
@@ -55,6 +57,7 @@ Each image in `catalog.json` has:
 - `scene_type`: outdoor_cycling, event, group_photo, landscape, etc.
 
 ### Curation (User-Edited)
+
 - `approved`: null (pending), true (use on website), false (rejected)
 - `target_gallery`: e.g., "magna-pedala-2024", "general"
 - `notes`: Curator comments
@@ -62,6 +65,7 @@ Each image in `catalog.json` has:
 ## Kit Detection
 
 EsteBike kit identification:
+
 - Yellow jersey with red cross pattern
 - High confidence: Kit clearly visible
 - Medium confidence: Partially visible or uncertain
@@ -70,6 +74,7 @@ EsteBike kit identification:
 ## Resuming After Interruption
 
 If the scraping is interrupted:
+
 1. Existing `catalog.json` preserves progress
 2. Images already downloaded are tracked by SHA256 hash
 3. Re-running will automatically skip duplicates

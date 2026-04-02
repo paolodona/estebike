@@ -28,7 +28,8 @@ const sortedPosts = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
-const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const prevPost =
+  currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
 const formatDate = (date: Date) => {
@@ -63,9 +64,7 @@ const postUrl = new URL(`/blog/${post.slug}/`, siteUrl).href;
       url={postUrl}
     />
   </Fragment>
-  <PageHeader
-    title={post.data.title}
-  />
+  <PageHeader title={post.data.title} />
 
   <article class="article section">
     <div class="container">
@@ -75,51 +74,79 @@ const postUrl = new URL(`/blog/${post.slug}/`, siteUrl).href;
           <Icon name="calendar" size={16} />
           {formatDate(post.data.date)}
         </time>
-        {post.data.author && (
-          <span class="article__author">
-            di {post.data.author}
-          </span>
-        )}
+        {
+          post.data.author && (
+            <span class="article__author">di {post.data.author}</span>
+          )
+        }
       </div>
 
-      {post.data.image && (
-        <figure class="article__hero">
-          <img src={post.data.image?.startsWith('/') ? url(post.data.image) : post.data.image} alt={post.data.title} loading="eager" />
-        </figure>
-      )}
+      {
+        post.data.image && (
+          <figure class="article__hero">
+            <img
+              src={
+                post.data.image?.startsWith('/')
+                  ? url(post.data.image)
+                  : post.data.image
+              }
+              alt={post.data.title}
+              loading="eager"
+            />
+          </figure>
+        )
+      }
 
       <div class="article__content prose">
         <Content />
       </div>
 
-      {post.data.tags && post.data.tags.length > 0 && (
-        <div class="article__tags">
-          <span class="article__tags-label">Tag:</span>
-          {post.data.tags.map((tag) => (
-            <Badge variant="neutral" size="sm">{tag}</Badge>
-          ))}
-        </div>
-      )}
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="article__tags">
+            <span class="article__tags-label">Tag:</span>
+            {post.data.tags.map((tag) => (
+              <Badge variant="neutral" size="sm">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )
+      }
 
       <nav class="article__nav" aria-label="Navigazione articoli">
-        {prevPost ? (
-          <a href={url(`/blog/${prevPost.slug}`)} class="article__nav-link article__nav-link--prev">
-            <Icon name="chevron-left" size={20} />
-            <span>
-              <small>Articolo precedente</small>
-              <strong>{prevPost.data.title}</strong>
-            </span>
-          </a>
-        ) : <div />}
-        {nextPost ? (
-          <a href={url(`/blog/${nextPost.slug}`)} class="article__nav-link article__nav-link--next">
-            <span>
-              <small>Articolo successivo</small>
-              <strong>{nextPost.data.title}</strong>
-            </span>
-            <Icon name="chevron-right" size={20} />
-          </a>
-        ) : <div />}
+        {
+          prevPost ? (
+            <a
+              href={url(`/blog/${prevPost.slug}`)}
+              class="article__nav-link article__nav-link--prev"
+            >
+              <Icon name="chevron-left" size={20} />
+              <span>
+                <small>Articolo precedente</small>
+                <strong>{prevPost.data.title}</strong>
+              </span>
+            </a>
+          ) : (
+            <div />
+          )
+        }
+        {
+          nextPost ? (
+            <a
+              href={url(`/blog/${nextPost.slug}`)}
+              class="article__nav-link article__nav-link--next"
+            >
+              <span>
+                <small>Articolo successivo</small>
+                <strong>{nextPost.data.title}</strong>
+              </span>
+              <Icon name="chevron-right" size={20} />
+            </a>
+          ) : (
+            <div />
+          )
+        }
       </nav>
     </div>
   </article>

@@ -1,17 +1,17 @@
 ---
-title: "Nereo Rocco: presentazione del libro 19 febbraio 2016"
+title: 'Nereo Rocco: presentazione del libro 19 febbraio 2016'
 date: 2016-02-12
 author: Lorenzo Rinaldo
 category: News
-image: "/images/blog/2016/02/copertinalibro_nereo_rocco.jpg"
-excerpt: "Gli anni padovani di Nereo Rocco da Trieste, protagonista del nostro calcio dalla metà degli anni ’50 alla metà degli anni ’70, raccontanti in un libro."
+image: '/images/blog/2016/02/copertinalibro_nereo_rocco.jpg'
+excerpt: 'Gli anni padovani di Nereo Rocco da Trieste, protagonista del nostro calcio dalla metà degli anni ’50 alla metà degli anni ’70, raccontanti in un libro.'
 ---
 
 ## [![presentazione del libro su Nereo Rocco](/images/blog/2016/02/LOCANDINA_libro-nereo-rocco.jpg)](/images/blog/2016/02/LOCANDINA_libro-nereo-rocco.jpg)Nereo Rocco “Vinca il migliore? Speriamo di no!”
 
 **Presentazione del libro su Nereo Rocco Presso Aula Magna – Ex Collegio Vescovile, venerdì 19 febbraio ore 21**
 
-(*Cleup, prima edizione dicembre 2015, pag. 232, 16,00 €*)
+(_Cleup, prima edizione dicembre 2015, pag. 232, 16,00 €_)
 
 Nereo Rocco, un personaggio dello sport carismatico, simpatico, astuto. Una squadra di calcio che guidata da lui raggiunse risultati esaltanti.
 
@@ -31,6 +31,6 @@ Una pagina di storia che andava raccontata ai giovanissimi che non l’hanno con
 
 Link utili:
 
--   [Pagina Facebook dell’evento](https://www.facebook.com/events/1070388606356160/)
--   [Wikipedia](https://it.wikipedia.org/wiki/Nereo_Rocco)
--   (sito ufficiale del [calcio Padova](http://www.padovacalcio.it/))
+- [Pagina Facebook dell’evento](https://www.facebook.com/events/1070388606356160/)
+- [Wikipedia](https://it.wikipedia.org/wiki/Nereo_Rocco)
+- (sito ufficiale del [calcio Padova](http://www.padovacalcio.it/))

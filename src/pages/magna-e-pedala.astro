@@ -52,7 +52,8 @@ const routes = [
     ristori: 3,
     difficulty: 'Impegnativo',
     type: 'Mountain Bike',
-    description: 'I sentieri più belli dei Colli Euganei per ciclisti allenati.',
+    description:
+      'I sentieri più belli dei Colli Euganei per ciclisti allenati.',
     color: 'error',
     barColor: '#C41E3A',
   },
@@ -123,43 +124,52 @@ const routes = [
       </div>
 
       <div class="routes-grid">
-        {routes.map((route) => (
-          <Card variant="event">
-            <div class="route-color-bar" style={`background-color: ${route.barColor};`}></div>
-            <CardBody>
-              <div class="route-head">
-                <Badge variant={route.color as 'error' | 'warning' | 'success'} size="sm">
-                  {route.difficulty}
-                </Badge>
-                <span class="route-type">{route.type}</span>
-              </div>
-              <h3 class="route-title">{route.name}</h3>
-              <div class="route-stats">
-                <div class="route-stat">
-                  <span class="route-stat__value">{route.distance}</span>
-                  <span class="route-stat__label">Distanza</span>
+        {
+          routes.map((route) => (
+            <Card variant="event">
+              <div
+                class="route-color-bar"
+                style={`background-color: ${route.barColor};`}
+              />
+              <CardBody>
+                <div class="route-head">
+                  <Badge
+                    variant={route.color as 'error' | 'warning' | 'success'}
+                    size="sm"
+                  >
+                    {route.difficulty}
+                  </Badge>
+                  <span class="route-type">{route.type}</span>
                 </div>
-                <div class="route-stat">
-                  <span class="route-stat__value">{route.elevation}</span>
-                  <span class="route-stat__label">Dislivello</span>
+                <h3 class="route-title">{route.name}</h3>
+                <div class="route-stats">
+                  <div class="route-stat">
+                    <span class="route-stat__value">{route.distance}</span>
+                    <span class="route-stat__label">Distanza</span>
+                  </div>
+                  <div class="route-stat">
+                    <span class="route-stat__value">{route.elevation}</span>
+                    <span class="route-stat__label">Dislivello</span>
+                  </div>
+                  <div class="route-stat">
+                    <span class="route-stat__value">{route.price}</span>
+                    <span class="route-stat__label">Iscrizione</span>
+                  </div>
                 </div>
-                <div class="route-stat">
-                  <span class="route-stat__value">{route.price}</span>
-                  <span class="route-stat__label">Iscrizione</span>
-                </div>
-              </div>
-              <p class="route-description">{route.description}</p>
-              <p class="route-ristori">
-                <Icon name="mountain" size={14} />
-                {route.ristori} ristori con prodotti locali
-              </p>
-            </CardBody>
-          </Card>
-        ))}
+                <p class="route-description">{route.description}</p>
+                <p class="route-ristori">
+                  <Icon name="mountain" size={14} />
+                  {route.ristori} ristori con prodotti locali
+                </p>
+              </CardBody>
+            </Card>
+          ))
+        }
       </div>
 
       <p class="gps-note text-center">
-        Le tracce GPS digitali saranno disponibili il giorno dell'evento tramite QR code.
+        Le tracce GPS digitali saranno disponibili il giorno dell'evento tramite
+        QR code.
       </p>
     </div>
   </section>
@@ -171,10 +181,22 @@ const routes = [
         <div class="included-content">
           <h2>Cosa include</h2>
           <ul class="included-list">
-            <li><Icon name="route" size={20} /> <span>Percorsi segnalati con tracce GPS</span></li>
-            <li><Icon name="mountain" size={20} /> <span>Ristori con prodotti locali</span></li>
-            <li><Icon name="calendar" size={20} /> <span>Pasta party finale</span></li>
-            <li><Icon name="users" size={20} /> <span>Parcheggio gratuito</span></li>
+            <li>
+              <Icon name="route" size={20} />
+              <span>Percorsi segnalati con tracce GPS</span>
+            </li>
+            <li>
+              <Icon name="mountain" size={20} />
+              <span>Ristori con prodotti locali</span>
+            </li>
+            <li>
+              <Icon name="calendar" size={20} />
+              <span>Pasta party finale</span>
+            </li>
+            <li>
+              <Icon name="users" size={20} />
+              <span>Parcheggio gratuito</span>
+            </li>
           </ul>
         </div>
         <div class="included-image">
@@ -199,17 +221,26 @@ const routes = [
         <div class="practical-item">
           <Icon name="clock" size={24} />
           <h3>Orari</h3>
-          <p>Apertura: 07:30<br />Partenza libera: 08:00 — 09:30<br />Dall'Arena del Castello</p>
+          <p>
+            Apertura: 07:30<br />Partenza libera: 08:00 — 09:30<br />Dall'Arena
+            del Castello
+          </p>
         </div>
         <div class="practical-item">
           <Icon name="shield" size={24} />
           <h3>Sicurezza</h3>
-          <p>Casco obbligatorio per i ciclisti. Percorsi non sorvegliati: rispettare il codice della strada.</p>
+          <p>
+            Casco obbligatorio per i ciclisti. Percorsi non sorvegliati:
+            rispettare il codice della strada.
+          </p>
         </div>
         <div class="practical-item">
           <Icon name="map-pin" size={24} />
           <h3>Come arrivare</h3>
-          <p>Castello Carrarese, Via G. Negri, Este (PD). Parcheggio gratuito disponibile.</p>
+          <p>
+            Castello Carrarese, Via G. Negri, Este (PD). Parcheggio gratuito
+            disponibile.
+          </p>
         </div>
         <div class="practical-item">
           <Icon name="users" size={24} />
@@ -242,17 +273,30 @@ const routes = [
         </div>
 
         <div class="cta-actions">
-          <Button href={eventbriteUrl} variant="accent" size="lg" target="_blank" rel="noopener noreferrer">
+          <Button
+            href={eventbriteUrl}
+            variant="accent"
+            size="lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Iscriviti su Eventbrite
           </Button>
-          <Button href="/downloads/volantino-magna-pedala-2026.pdf" variant="ghost" size="lg" target="_blank">
+          <Button
+            href="/downloads/volantino-magna-pedala-2026.pdf"
+            variant="ghost"
+            size="lg"
+            target="_blank"
+          >
             <Icon name="download" size={18} />
             Scarica il volantino
           </Button>
         </div>
 
         <p class="cta-email">
-          Domande? Scrivi a <a href="mailto:eventi@estebike.it">eventi@estebike.it</a>
+          Domande? Scrivi a <a href="mailto:eventi@estebike.it"
+            >eventi@estebike.it</a
+          >
         </p>
       </div>
     </div>

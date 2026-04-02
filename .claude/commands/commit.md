@@ -30,6 +30,7 @@ You are tasked with creating git commits for the changes made during this sessio
     - Show the result to the user with `git log -n [N] --oneline`, where `[N]` is the number of commits you just created.
 
 ## CRITICAL Rules:
+
 - **NEVER add co-author information or any form of AI attribution.**
 - Commits MUST be authored solely by the user.
 - Do not add `Co-Authored-By:` lines or any "Generated with..." text.

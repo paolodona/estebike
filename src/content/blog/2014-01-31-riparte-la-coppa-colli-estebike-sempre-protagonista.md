@@ -1,16 +1,16 @@
 ---
-title: "Riparte la Coppa Colli: Estebike sempre protagonista"
+title: 'Riparte la Coppa Colli: Estebike sempre protagonista'
 date: 2014-01-31
 author: admin
 category: Coppa Colli Euganei
 tags:
   - Coppa Colli Euganei
   - MTB
-image: "/images/blog/2014/01/ripartecc14-1.jpg"
-excerpt: "Grosse novità per il 2014, che verranno via via svelate. Per ora, eccovi un anticipo succoso: Una Coppa Colli Euganei stellare che ripassa tra le “due mura”. Grande fermento e numerosi commenti per..."
+image: '/images/blog/2014/01/ripartecc14-1.jpg'
+excerpt: 'Grosse novità per il 2014, che verranno via via svelate. Per ora, eccovi un anticipo succoso: Una Coppa Colli Euganei stellare che ripassa tra le “due mura”. Grande fermento e numerosi commenti per...'
 ---
 
-*Grosse novità per il 2014, che verranno via via svelate. Per ora, eccovi un anticipo succoso:*
+_Grosse novità per il 2014, che verranno via via svelate. Per ora, eccovi un anticipo succoso:_
 
 **Una Coppa Colli Euganei stellare che ripassa tra le “due mura”.**  
 **Grande fermento e numerosi commenti per una Coppa Colli Euganei in grande movimento che metterà sul piatto importantissime novità e graditi ritorni.**

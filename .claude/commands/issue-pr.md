@@ -19,6 +19,7 @@ git branch --show-current
 ```
 
 Parse the issue number:
+
 - Branch `45-echo-fix` → Issue #45
 - Branch `123-add-pdf-export` → Issue #123
 - If no number prefix, ask user: "Which issue does this PR close?"
@@ -30,6 +31,7 @@ git status --porcelain
 ```
 
 If there are uncommitted changes, ask user:
+
 - "You have uncommitted changes. Commit them first?"
 - If yes, run `/commit` flow
 - If no, continue (changes won't be in PR)
@@ -64,6 +66,7 @@ git diff main..<branch> --stat
 ```
 
 Generate a summary of:
+
 - What changed (based on commits and files)
 - Key files modified
 - Type of change (fix, feature, refactor)
@@ -91,6 +94,7 @@ Create the PR body:
 Fixes #<issue-number>
 
 ---
+
 Generated with [Claude Code](https://claude.ai/code)
 ```
 

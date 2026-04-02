@@ -20,10 +20,7 @@ export interface Props {
   sponsors?: Sponsor[];
 }
 
-const {
-  title = 'I nostri sponsor',
-  sponsors = [],
-} = Astro.props;
+const { title = 'I nostri sponsor', sponsors = [] } = Astro.props;
 
 // Group sponsors by tier
 const goldSponsors = sponsors.filter((s) => s.tier === 'gold');
@@ -35,62 +32,73 @@ const otherSponsors = sponsors.filter((s) => !s.tier);
 <section class="sponsors-section">
   <h2 class="sponsors-title">{title}</h2>
 
-  {goldSponsors.length > 0 && (
-    <div class="sponsors-tier sponsors-tier--gold">
-      <span class="sponsors-tier__label">Gold Sponsor</span>
-      <div class="sponsors-grid sponsors-grid--gold">
-        {goldSponsors.map((sponsor) => (
-          <Card variant="sponsor" href={sponsor.url}>
-            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-          </Card>
-        ))}
+  {
+    goldSponsors.length > 0 && (
+      <div class="sponsors-tier sponsors-tier--gold">
+        <span class="sponsors-tier__label">Gold Sponsor</span>
+        <div class="sponsors-grid sponsors-grid--gold">
+          {goldSponsors.map((sponsor) => (
+            <Card variant="sponsor" href={sponsor.url}>
+              <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
 
-  {silverSponsors.length > 0 && (
-    <div class="sponsors-tier sponsors-tier--silver">
-      <span class="sponsors-tier__label">Silver Sponsor</span>
-      <div class="sponsors-grid sponsors-grid--silver">
-        {silverSponsors.map((sponsor) => (
-          <Card variant="sponsor" href={sponsor.url}>
-            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-          </Card>
-        ))}
+  {
+    silverSponsors.length > 0 && (
+      <div class="sponsors-tier sponsors-tier--silver">
+        <span class="sponsors-tier__label">Silver Sponsor</span>
+        <div class="sponsors-grid sponsors-grid--silver">
+          {silverSponsors.map((sponsor) => (
+            <Card variant="sponsor" href={sponsor.url}>
+              <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
 
-  {bronzeSponsors.length > 0 && (
-    <div class="sponsors-tier sponsors-tier--bronze">
-      <span class="sponsors-tier__label">Bronze Sponsor</span>
-      <div class="sponsors-grid sponsors-grid--bronze">
-        {bronzeSponsors.map((sponsor) => (
-          <Card variant="sponsor" href={sponsor.url}>
-            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-          </Card>
-        ))}
+  {
+    bronzeSponsors.length > 0 && (
+      <div class="sponsors-tier sponsors-tier--bronze">
+        <span class="sponsors-tier__label">Bronze Sponsor</span>
+        <div class="sponsors-grid sponsors-grid--bronze">
+          {bronzeSponsors.map((sponsor) => (
+            <Card variant="sponsor" href={sponsor.url}>
+              <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
 
-  {otherSponsors.length > 0 && (
-    <div class="sponsors-tier">
-      <div class="sponsors-grid">
-        {otherSponsors.map((sponsor) => (
-          <Card variant="sponsor" href={sponsor.url}>
-            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-          </Card>
-        ))}
+  {
+    otherSponsors.length > 0 && (
+      <div class="sponsors-tier">
+        <div class="sponsors-grid">
+          {otherSponsors.map((sponsor) => (
+            <Card variant="sponsor" href={sponsor.url}>
+              <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
 
-  {sponsors.length === 0 && (
-    <p class="sponsors-empty">
-      Interessato a diventare sponsor? <a href={url('/contatti')}>Contattaci</a>
-    </p>
-  )}
+  {
+    sponsors.length === 0 && (
+      <p class="sponsors-empty">
+        Interessato a diventare sponsor?{' '}
+        <a href={url('/contatti')}>Contattaci</a>
+      </p>
+    )
+  }
 </section>
 
 <style>
@@ -133,7 +141,7 @@ const otherSponsors = sponsors.filter((s) => !s.tier);
   }
 
   .sponsors-tier--bronze .sponsors-tier__label {
-    background-color: #CD7F32;
+    background-color: #cd7f32;
     color: var(--color-white);
   }
 
@@ -152,7 +160,7 @@ const otherSponsors = sponsors.filter((s) => !s.tier);
   }
 
   .sponsors-grid--bronze,
-  .sponsors-grid:not([class*="--"]) {
+  .sponsors-grid:not([class*='--']) {
     grid-template-columns: repeat(auto-fit, minmax(120px, 160px));
   }
 

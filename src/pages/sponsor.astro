@@ -1,0 +1,347 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import Badge from '../components/ui/Badge.astro';
+import { url } from '../utils/base';
+import { sponsors } from '../data/sponsors';
+
+const tierLabels = {
+  gold: 'Gold Partner',
+  silver: 'Silver Partner',
+  bronze: 'Bronze Partner',
+};
+
+const tierOrder = ['gold', 'silver', 'bronze'] as const;
+
+const sponsorsByTier = tierOrder
+  .map((tier) => ({
+    tier,
+    label: tierLabels[tier],
+    items: sponsors.filter((s) => s.tier === tier),
+  }))
+  .filter((group) => group.items.length > 0);
+---
+
+<BaseLayout
+  title="Sponsor & Partner"
+  description="I partner di EsteBike: scopri le convenzioni e gli sconti riservati ai soci del club ciclistico di Este."
+>
+  <PageHeader
+    title="Sponsor & Partner"
+    subtitle="Le convenzioni riservate ai soci EsteBike"
+  />
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container">
+      <div class="intro text-center animate-on-scroll">
+        <h2>I nostri partner</h2>
+        <p>
+          Grazie ai nostri sponsor e partner, i soci EsteBike possono usufruire
+          di sconti e convenzioni esclusive. Tessera alla mano, presentati in
+          negozio e approfitta delle agevolazioni!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors by Tier -->
+  {
+    sponsorsByTier.map((group) => (
+      <section
+        class:list={[
+          'section',
+          group.tier === 'silver' ? 'section--light' : '',
+        ]}
+      >
+        <div class="container">
+          <div class="tier-header animate-on-scroll">
+            <Badge
+              variant={group.tier === 'gold' ? 'accent' : 'primary'}
+              size="sm"
+            >
+              {group.label}
+            </Badge>
+          </div>
+
+          <div class="sponsors-grid">
+            {group.items.map((sponsor) => (
+              <article class="sponsor-card animate-on-scroll">
+                <div class="sponsor-card__logo">
+                  <img
+                    src={url(sponsor.logo)}
+                    alt={`Logo ${sponsor.name}`}
+                    loading="lazy"
+                    width="200"
+                    height="100"
+                  />
+                </div>
+
+                <div class="sponsor-card__body">
+                  <h3 class="sponsor-card__name">{sponsor.name}</h3>
+                  <p class="sponsor-card__desc">{sponsor.description}</p>
+
+                  <div class="sponsor-card__discounts">
+                    <h4>
+                      <Icon name="tag" size={16} />
+                      Sconti per i soci
+                    </h4>
+                    <ul>
+                      {sponsor.discounts.map((d) => (
+                        <li>
+                          <Icon name="check" size={14} />
+                          <span>{d.description}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="sponsor-card__footer">
+                  <a
+                    href={sponsor.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sponsor-link"
+                  >
+                    Visita il sito
+                    <Icon name="external-link" size={14} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- CTA Section -->
+  <section class="section section--primary">
+    <div class="container">
+      <div class="cta text-center animate-on-scroll">
+        <h2>Vuoi diventare partner di EsteBike?</h2>
+        <p>
+          Entra a far parte della rete di partner del club ciclistico più attivo
+          dei Colli Euganei. Contattaci per scoprire le opportunità di
+          sponsorizzazione.
+        </p>
+        <div class="cta__actions">
+          <Button href={url('/contatti')} variant="accent" size="lg">
+            Contattaci
+            <Icon name="arrow-right" size={18} />
+          </Button>
+          <Button href={url('/tesseramento')} variant="ghost" size="lg">
+            Diventa socio
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Intro */
+  .intro {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .intro h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .intro p {
+    color: var(--color-gray-600);
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Tier Header */
+  .tier-header {
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+
+  /* Sponsors Grid */
+  .sponsors-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .sponsors-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sponsors-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Sponsor Card */
+  .sponsor-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition:
+      box-shadow var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .sponsor-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+  }
+
+  /* Logo */
+  .sponsor-card__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    background-color: var(--color-off-white);
+    border-bottom: 1px solid var(--color-gray-200);
+    min-height: 120px;
+  }
+
+  .sponsor-card__logo img {
+    max-width: 180px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(30%);
+    transition: filter var(--transition-base);
+  }
+
+  .sponsor-card:hover .sponsor-card__logo img {
+    filter: grayscale(0%);
+  }
+
+  /* Body */
+  .sponsor-card__body {
+    flex: 1;
+    padding: var(--space-5);
+  }
+
+  .sponsor-card__name {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-2);
+  }
+
+  .sponsor-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Discounts */
+  .sponsor-card__discounts {
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+  }
+
+  .sponsor-card__discounts h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .sponsor-card__discounts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .sponsor-card__discounts li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-charcoal);
+    line-height: var(--leading-relaxed);
+  }
+
+  .sponsor-card__discounts li :global(.icon) {
+    color: var(--color-success);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  /* Footer / Link */
+  .sponsor-card__footer {
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .sponsor-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .sponsor-link:hover {
+    color: var(--color-primary-dark);
+  }
+
+  .sponsor-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* CTA Section */
+  .cta {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .cta h2 {
+    color: var(--color-white);
+    margin-bottom: var(--space-4);
+  }
+
+  .cta p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-6);
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  @media (min-width: 480px) {
+    .cta__actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+</style>

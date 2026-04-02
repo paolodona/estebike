@@ -1,12 +1,12 @@
 ---
-title: "4° nel circuito Ahead MTB Tour"
+title: '4° nel circuito Ahead MTB Tour'
 date: 2016-10-05
 author: Lorenzo Rinaldo
 category: News
 tags:
   - Ahead MTB Tour
-image: "/images/blog/2016/10/classifica_n3.jpg"
-excerpt: "Quale modo migliore per festeggiare il 4° posto del Team nell’importante circuito Ahead MTB Tour, di una festa in Città?!? Nel congratularci con i nostri agonisti, e tenendo fede ad una promessa fa..."
+image: '/images/blog/2016/10/classifica_n3.jpg'
+excerpt: 'Quale modo migliore per festeggiare il 4° posto del Team nell’importante circuito Ahead MTB Tour, di una festa in Città?!? Nel congratularci con i nostri agonisti, e tenendo fede ad una promessa fa...'
 ---
 
 Quale modo migliore per festeggiare il 4° posto del Team nell’importante **circuito Ahead MTB Tour**, di una festa in Città?!?  

@@ -1,12 +1,12 @@
 ---
-title: "Assemblea Ordinaria dei Soci 2018"
+title: 'Assemblea Ordinaria dei Soci 2018'
 date: 2018-04-18
 author: Lorenzo Rinaldo
 category: Comunicato del direttivo
 tags:
   - assemblea
-image: "/images/blog/2018/04/assemblea-soci_b.jpg"
-excerpt: "Gentile socia, caro socio, con la presente si desidera comunicare la data dell’importante evento del nostro sodalizio: L’Assemblea Ordinaria dei soci per l’anno 2018, che si terrà presso l’Albergo ..."
+image: '/images/blog/2018/04/assemblea-soci_b.jpg'
+excerpt: 'Gentile socia, caro socio, con la presente si desidera comunicare la data dell’importante evento del nostro sodalizio: L’Assemblea Ordinaria dei soci per l’anno 2018, che si terrà presso l’Albergo ...'
 ---
 
 Gentile socia, caro socio,  

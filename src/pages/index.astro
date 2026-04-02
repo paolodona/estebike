@@ -23,8 +23,6 @@ const formatDate = (date: Date) => {
     year: 'numeric',
   }).format(date);
 };
-
-
 ---
 
 <BaseLayout
@@ -42,7 +40,11 @@ const formatDate = (date: Date) => {
     secondaryCtaText="Scopri i Percorsi"
     secondaryCtaHref="/magna-e-pedala#percorsi"
   >
-    <div class="countdown" id="countdown" aria-label="Conto alla rovescia per l'evento">
+    <div
+      class="countdown"
+      id="countdown"
+      aria-label="Conto alla rovescia per l'evento"
+    >
       <div class="countdown__item">
         <span class="countdown__value" id="cd-days">--</span>
         <span class="countdown__label">Giorni</span>
@@ -70,14 +72,14 @@ const formatDate = (date: Date) => {
           <Badge variant="accent">Dal 1996</Badge>
           <h2>Passione per il ciclismo nel cuore dei Colli Euganei</h2>
           <p>
-            EsteBike nasce dalla passione condivisa per le due ruote. Da quasi 30 anni
-            organizziamo eventi ciclistici, uscite in gruppo e promuoviamo la cultura
-            del ciclismo nel nostro territorio.
+            EsteBike nasce dalla passione condivisa per le due ruote. Da quasi
+            30 anni organizziamo eventi ciclistici, uscite in gruppo e
+            promuoviamo la cultura del ciclismo nel nostro territorio.
           </p>
           <p>
-            Il nostro evento principale, il <strong>Magna & Pedala</strong>, celebra
-            la tradizione ciclistica locale con percorsi adatti a tutti i livelli,
-            immersi nel paesaggio unico dei Colli Euganei.
+            Il nostro evento principale, il <strong>Magna & Pedala</strong>,
+            celebra la tradizione ciclistica locale con percorsi adatti a tutti
+            i livelli, immersi nel paesaggio unico dei Colli Euganei.
           </p>
           <Button href="/chi-siamo" variant="secondary">
             Scopri chi siamo
@@ -101,8 +103,9 @@ const formatDate = (date: Date) => {
       <div class="event-cta text-center animate-on-scroll">
         <h2>Partecipa al Magna & Pedala 2026</h2>
         <p>
-          Unisciti a centinaia di ciclisti per una giornata di sport, natura e buon cibo.
-          Ristori lungo il percorso, pasta party finale e tanto divertimento!
+          Unisciti a centinaia di ciclisti per una giornata di sport, natura e
+          buon cibo. Ristori lungo il percorso, pasta party finale e tanto
+          divertimento!
         </p>
         <div class="event-cta__actions">
           <Button href="/magna-e-pedala#iscrizioni" variant="accent" size="lg">
@@ -128,23 +131,53 @@ const formatDate = (date: Date) => {
       </div>
 
       <div class="gallery-mosaic animate-on-scroll">
-        <a href={url('/galleria')} class="gallery-mosaic__item gallery-mosaic__item--tall">
-          <img src={url('/images/about-preview.jpg')} alt="Ciclisti in gruppo" loading="lazy" />
+        <a
+          href={url('/galleria')}
+          class="gallery-mosaic__item gallery-mosaic__item--tall"
+        >
+          <img
+            src={url('/images/about-preview.jpg')}
+            alt="Ciclisti in gruppo"
+            loading="lazy"
+          />
         </a>
         <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img src={url('/images/blog/2018/05/magnaepedala.jpg')} alt="Magna e Pedala 2018" loading="lazy" />
+          <img
+            src={url('/images/blog/2018/05/magnaepedala.jpg')}
+            alt="Magna e Pedala 2018"
+            loading="lazy"
+          />
         </a>
         <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img src={url('/images/about-team.jpg')} alt="Team EsteBike" loading="lazy" />
+          <img
+            src={url('/images/about-team.jpg')}
+            alt="Team EsteBike"
+            loading="lazy"
+          />
         </a>
         <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img src={url('/images/blog/2017/02/team-agonisti-2017.jpg')} alt="Team agonisti 2017" loading="lazy" />
+          <img
+            src={url('/images/blog/2017/02/team-agonisti-2017.jpg')}
+            alt="Team agonisti 2017"
+            loading="lazy"
+          />
         </a>
-        <a href={url('/galleria')} class="gallery-mosaic__item gallery-mosaic__item--tall">
-          <img src={url('/images/pasta-party.jpg')} alt="Pasta party finale" loading="lazy" />
+        <a
+          href={url('/galleria')}
+          class="gallery-mosaic__item gallery-mosaic__item--tall"
+        >
+          <img
+            src={url('/images/pasta-party.jpg')}
+            alt="Pasta party finale"
+            loading="lazy"
+          />
         </a>
         <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img src={url('/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg')} alt="Gruppo EsteBike" loading="lazy" />
+          <img
+            src={url('/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg')}
+            alt="Gruppo EsteBike"
+            loading="lazy"
+          />
         </a>
       </div>
     </div>
@@ -161,27 +194,34 @@ const formatDate = (date: Date) => {
         </Button>
       </div>
 
-      {latestPosts.length > 0 ? (
-        <div class="news-grid">
-          {latestPosts.map((post) => (
-            <Card variant="blog" href={`/blog/${post.slug}`}>
-              <CardImage src={post.data.image} alt={post.data.title} />
-              <CardBody>
-                <Badge variant="primary" size="sm">{post.data.category}</Badge>
-                <h3 class="post-title">{post.data.title}</h3>
-                <time class="post-date" datetime={post.data.date.toISOString()}>
-                  {formatDate(post.data.date)}
-                </time>
-                {post.data.excerpt && (
-                  <p class="post-excerpt">{post.data.excerpt}</p>
-                )}
-              </CardBody>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <p class="text-center text-muted">Nessun articolo pubblicato.</p>
-      )}
+      {
+        latestPosts.length > 0 ? (
+          <div class="news-grid">
+            {latestPosts.map((post) => (
+              <Card variant="blog" href={`/blog/${post.slug}`}>
+                <CardImage src={post.data.image} alt={post.data.title} />
+                <CardBody>
+                  <Badge variant="primary" size="sm">
+                    {post.data.category}
+                  </Badge>
+                  <h3 class="post-title">{post.data.title}</h3>
+                  <time
+                    class="post-date"
+                    datetime={post.data.date.toISOString()}
+                  >
+                    {formatDate(post.data.date)}
+                  </time>
+                  {post.data.excerpt && (
+                    <p class="post-excerpt">{post.data.excerpt}</p>
+                  )}
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <p class="text-center text-muted">Nessun articolo pubblicato.</p>
+        )
+      }
     </div>
   </section>
 
@@ -190,9 +230,7 @@ const formatDate = (date: Date) => {
     <div class="container">
       <div class="contact-cta text-center animate-on-scroll">
         <h2>Resta in contatto</h2>
-        <p>
-          Organizziamo uscite settimanali in bicicletta:
-        </p>
+        <p>Organizziamo uscite settimanali in bicicletta:</p>
         <div class="rides-info">
           <div class="ride-detail">
             <Icon name="calendar" size={20} />
@@ -216,14 +254,15 @@ const formatDate = (date: Date) => {
           </div>
         </div>
         <p class="rides-note">
-          Le uscite vengono organizzate tramite il gruppo WhatsApp,
-          accessibile previo <a href={url('/tesseramento')}>tesseramento</a>.
+          Le uscite vengono organizzate tramite il gruppo WhatsApp, accessibile
+          previo <a href={url('/tesseramento')}>tesseramento</a>.
         </p>
         <div class="contact-actions">
-          <Button href="/contatti" variant="primary">
-            Contattaci
-          </Button>
-          <Button href="https://www.instagram.com/team_estebike/" variant="secondary">
+          <Button href="/contatti" variant="primary"> Contattaci </Button>
+          <Button
+            href="https://www.instagram.com/team_estebike/"
+            variant="secondary"
+          >
             <Icon name="instagram" size={18} />
             Seguici
           </Button>
@@ -451,7 +490,11 @@ const formatDate = (date: Date) => {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(196, 30, 58, 0.85), rgba(139, 21, 40, 0.92));
+    background: linear-gradient(
+      to bottom,
+      rgba(196, 30, 58, 0.85),
+      rgba(139, 21, 40, 0.92)
+    );
   }
 
   .event-cta-section > .container {
@@ -607,7 +650,9 @@ const formatDate = (date: Date) => {
 
     if (diff <= 0) {
       const el = document.getElementById('countdown');
-      if (el) el.innerHTML = '<p style="color: var(--color-accent); font-size: var(--text-xl); font-weight: bold;">L\'evento è oggi!</p>';
+      if (el)
+        el.innerHTML =
+          '<p style="color: var(--color-accent); font-size: var(--text-xl); font-weight: bold;">L\'evento è oggi!</p>';
       return;
     }
 

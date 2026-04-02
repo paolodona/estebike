@@ -28,41 +28,53 @@ const formatDate = (date: Date) => {
   title="Blog"
   description="News, comunicati e aggiornamenti dal mondo EsteBike. Resta informato sulle nostre attività e eventi."
 >
-  <PageHeader
-    title="Blog"
-    subtitle="News e aggiornamenti dal mondo EsteBike"
-  />
+  <PageHeader title="Blog" subtitle="News e aggiornamenti dal mondo EsteBike" />
 
   <section class="section">
     <div class="container">
-      {sortedPosts.length > 0 ? (
-        <div class="blog-grid" id="blog-grid" data-batch={BATCH_SIZE}>
-          {sortedPosts.map((post, i) => (
-            <Card variant="blog" href={`/blog/${post.slug}`} class:list={[{ 'blog-hidden': i >= BATCH_SIZE }]}>
-              <CardImage src={post.data.image} alt={post.data.title} />
-              <CardBody>
-                <Badge variant="primary" size="sm">{post.data.category}</Badge>
-                <h2 class="post-title">{post.data.title}</h2>
-                <time class="post-date" datetime={post.data.date.toISOString()}>
-                  {formatDate(post.data.date)}
-                </time>
-                {post.data.excerpt && (
-                  <p class="post-excerpt">{post.data.excerpt}</p>
-                )}
-                <span class="post-link">Leggi tutto &rarr;</span>
-              </CardBody>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <p class="no-posts">Nessun articolo pubblicato.</p>
-      )}
+      {
+        sortedPosts.length > 0 ? (
+          <div class="blog-grid" id="blog-grid" data-batch={BATCH_SIZE}>
+            {sortedPosts.map((post, i) => (
+              <Card
+                variant="blog"
+                href={`/blog/${post.slug}`}
+                class:list={[{ 'blog-hidden': i >= BATCH_SIZE }]}
+              >
+                <CardImage src={post.data.image} alt={post.data.title} />
+                <CardBody>
+                  <Badge variant="primary" size="sm">
+                    {post.data.category}
+                  </Badge>
+                  <h2 class="post-title">{post.data.title}</h2>
+                  <time
+                    class="post-date"
+                    datetime={post.data.date.toISOString()}
+                  >
+                    {formatDate(post.data.date)}
+                  </time>
+                  {post.data.excerpt && (
+                    <p class="post-excerpt">{post.data.excerpt}</p>
+                  )}
+                  <span class="post-link">Leggi tutto &rarr;</span>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <p class="no-posts">Nessun articolo pubblicato.</p>
+        )
+      }
 
       <div id="blog-sentinel" class="blog-sentinel" aria-hidden="true"></div>
 
-      {sortedPosts.length > BATCH_SIZE && (
-        <p class="blog-loading" id="blog-loading">Caricamento...</p>
-      )}
+      {
+        sortedPosts.length > BATCH_SIZE && (
+          <p class="blog-loading" id="blog-loading">
+            Caricamento...
+          </p>
+        )
+      }
     </div>
   </section>
 </BaseLayout>
@@ -81,20 +93,23 @@ const formatDate = (date: Date) => {
       loading.remove();
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
 
-      const end = Math.min(revealed + batch, hidden.length);
-      for (let i = revealed; i < end; i++) {
-        hidden[i].classList.remove('blog-hidden');
-      }
-      revealed = end;
+        const end = Math.min(revealed + batch, hidden.length);
+        for (let i = revealed; i < end; i++) {
+          hidden[i].classList.remove('blog-hidden');
+        }
+        revealed = end;
 
-      if (revealed >= hidden.length) {
-        observer.disconnect();
-        if (loading) loading.remove();
-      }
-    }, { rootMargin: '400px 0px' });
+        if (revealed >= hidden.length) {
+          observer.disconnect();
+          if (loading) loading.remove();
+        }
+      },
+      { rootMargin: '400px 0px' }
+    );
 
     observer.observe(sentinel);
   }

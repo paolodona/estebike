@@ -1,12 +1,12 @@
 ---
-title: "Vademecum per la gita!"
+title: 'Vademecum per la gita!'
 date: 2014-06-18
 author: admin
 category: Comunicato del direttivo
 tags:
   - gita
-image: "/images/blog/2014/06/asiagopanorama_b.jpg"
-excerpt: "Ritrovo e partenza per le h. 6:30-6:45 di domenica mattina 22/6 presso: parcheggio Vivo/distributore via martiri della Libertà ad Este, vicino al castello. Portarsi coperta per riporre la bici in p..."
+image: '/images/blog/2014/06/asiagopanorama_b.jpg'
+excerpt: 'Ritrovo e partenza per le h. 6:30-6:45 di domenica mattina 22/6 presso: parcheggio Vivo/distributore via martiri della Libertà ad Este, vicino al castello. Portarsi coperta per riporre la bici in p...'
 ---
 
 **Ritrovo e partenza** per le h. 6:30-6:45 di domenica mattina 22/6 presso:  

@@ -13,7 +13,10 @@ import type { ImageInfo } from './types.js';
 /**
  * Extract image information from content HTML
  */
-export function extractImages(htmlContent: string, postSlug: string): ImageInfo[] {
+export function extractImages(
+  htmlContent: string,
+  postSlug: string
+): ImageInfo[] {
   const images: ImageInfo[] = [];
   const seen = new Set<string>();
 
@@ -101,7 +104,11 @@ export async function processImage(
     imageInfo.filename
   );
 
-  const destDir = path.join(config.imageOutputPath, imageInfo.year, imageInfo.month);
+  const destDir = path.join(
+    config.imageOutputPath,
+    imageInfo.year,
+    imageInfo.month
+  );
   const destPath = path.join(destDir, imageInfo.filename);
 
   if (dryRun) {
@@ -110,7 +117,11 @@ export async function processImage(
       await fs.access(sourcePath);
       return { processed: true, resized: false };
     } catch {
-      return { processed: false, resized: false, error: `Source not found: ${sourcePath}` };
+      return {
+        processed: false,
+        resized: false,
+        error: `Source not found: ${sourcePath}`,
+      };
     }
   }
 

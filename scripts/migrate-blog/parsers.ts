@@ -73,7 +73,9 @@ function extractDate($: cheerio.CheerioAPI): string {
   }
 
   // Try article:published_time
-  const articleTime = $('meta[property="article:published_time"]').attr('content');
+  const articleTime = $('meta[property="article:published_time"]').attr(
+    'content'
+  );
   if (articleTime) {
     return formatDate(articleTime);
   }
@@ -246,7 +248,9 @@ function extractExcerpt($: cheerio.CheerioAPI): string | undefined {
   const ogDesc = $('meta[property="og:description"]').attr('content');
   if (ogDesc) {
     // Clean up WordPress ellipsis
-    let cleaned = ogDesc.replace(/&hellip;/g, '...').replace(/\s*\.\.\.\s*$/, '');
+    let cleaned = ogDesc
+      .replace(/&hellip;/g, '...')
+      .replace(/\s*\.\.\.\s*$/, '');
     // Truncate if too long
     if (cleaned.length > 200) {
       cleaned = cleaned.substring(0, 197) + '...';

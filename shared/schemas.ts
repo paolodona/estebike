@@ -26,8 +26,8 @@ export const registrationSchema = z.object({
 
   email: z
     .string()
-    .min(1, 'L\'email è obbligatoria')
-    .email('Inserisci un\'email valida'),
+    .min(1, "L'email è obbligatoria")
+    .email("Inserisci un'email valida"),
 
   telefono: z
     .string()
@@ -50,11 +50,9 @@ export const registrationSchema = z.object({
 
   consensoLista: z.boolean().default(false),
 
-  consensoPrivacy: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: 'Devi accettare l\'informativa sulla privacy',
-    }),
+  consensoPrivacy: z.boolean().refine((val) => val === true, {
+    message: "Devi accettare l'informativa sulla privacy",
+  }),
 });
 
 export type RegistrationData = z.infer<typeof registrationSchema>;
@@ -73,8 +71,8 @@ export const membershipSchema = z.object({
 
   email: z
     .string()
-    .min(1, 'L\'email è obbligatoria')
-    .email('Inserisci un\'email valida'),
+    .min(1, "L'email è obbligatoria")
+    .email("Inserisci un'email valida"),
 
   telefono: z
     .string()
@@ -83,8 +81,8 @@ export const membershipSchema = z.object({
 
   indirizzo: z
     .string()
-    .min(1, 'L\'indirizzo è obbligatorio')
-    .max(200, 'L\'indirizzo non può superare 200 caratteri'),
+    .min(1, "L'indirizzo è obbligatorio")
+    .max(200, "L'indirizzo non può superare 200 caratteri"),
 
   cap: z
     .string()
@@ -101,13 +99,14 @@ export const membershipSchema = z.object({
     .string()
     .min(16, 'Il codice fiscale deve essere di 16 caratteri')
     .max(16, 'Il codice fiscale deve essere di 16 caratteri')
-    .regex(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i, 'Inserisci un codice fiscale valido'),
+    .regex(
+      /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i,
+      'Inserisci un codice fiscale valido'
+    ),
 
-  consensoPrivacy: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: 'Devi accettare l\'informativa sulla privacy',
-    }),
+  consensoPrivacy: z.boolean().refine((val) => val === true, {
+    message: "Devi accettare l'informativa sulla privacy",
+  }),
 });
 
 export type MembershipData = z.infer<typeof membershipSchema>;
@@ -122,7 +121,7 @@ export const routeLabels: Record<RouteOption, string> = {
 // Italian error messages for common validation errors
 export const italianErrors = {
   required: 'Questo campo è obbligatorio',
-  email: 'Inserisci un\'email valida',
+  email: "Inserisci un'email valida",
   phone: 'Inserisci un numero di telefono valido',
   minLength: (min: number) => `Minimo ${min} caratteri`,
   maxLength: (max: number) => `Massimo ${max} caratteri`,

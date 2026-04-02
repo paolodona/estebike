@@ -1,5 +1,5 @@
 ---
-title: "Calendario Coppa Colli Euganei 2014 e accordo con Atestina Superbike – G.F. Colli Euganei"
+title: 'Calendario Coppa Colli Euganei 2014 e accordo con Atestina Superbike – G.F. Colli Euganei'
 date: 2014-03-12
 author: admin
 category: Coppa Colli Euganei
@@ -7,8 +7,8 @@ tags:
   - Atestina Superbike
   - Coppa Colli Euganei
   - MTB
-image: "/images/blog/2014/01/loghi-cce-atestina-gf-ce-estebike-1.jpg"
-excerpt: "Ecco il calendario 2014: 16 Marzo: XC Cronoscalata del Frantoio – Little Mountain ad Arquà Petrarca (Valsanzibio) org. Asd 7Guadi Team 30 Marzo: XC Fornaci Bike a Porto Viro org. Asd Ciclo Delta – ..."
+image: '/images/blog/2014/01/loghi-cce-atestina-gf-ce-estebike-1.jpg'
+excerpt: 'Ecco il calendario 2014: 16 Marzo: XC Cronoscalata del Frantoio – Little Mountain ad Arquà Petrarca (Valsanzibio) org. Asd 7Guadi Team 30 Marzo: XC Fornaci Bike a Porto Viro org. Asd Ciclo Delta – ...'
 ---
 
 Ecco il calendario 2014:

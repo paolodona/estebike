@@ -23,7 +23,10 @@ const {
   ...rest
 } = Astro.props;
 
-const href = rawHref && rawHref.startsWith('/') && !rawHref.startsWith('//') ? url(rawHref) : rawHref;
+const href =
+  rawHref && rawHref.startsWith('/') && !rawHref.startsWith('//')
+    ? url(rawHref)
+    : rawHref;
 
 const Tag = href ? 'a' : 'button';
 const baseClass = `btn btn--${variant} btn--${size}`;
@@ -32,18 +35,22 @@ const classes = [
   fullWidth && 'btn--full-width',
   disabled && 'btn--disabled',
   className,
-].filter(Boolean).join(' ');
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
-{href ? (
-  <a href={href} class={classes} aria-disabled={disabled} {...rest}>
-    <slot />
-  </a>
-) : (
-  <button type={type} class={classes} disabled={disabled}>
-    <slot />
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={classes} aria-disabled={disabled} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} disabled={disabled}>
+      <slot />
+    </button>
+  )
+}
 
 <style>
   .btn {

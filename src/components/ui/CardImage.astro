@@ -17,21 +17,49 @@ const {
   placeholder = false,
 } = Astro.props;
 
-const src = rawSrc && rawSrc.startsWith('/') && !rawSrc.startsWith('//') ? url(rawSrc) : rawSrc;
+const src =
+  rawSrc && rawSrc.startsWith('/') && !rawSrc.startsWith('//')
+    ? url(rawSrc)
+    : rawSrc;
 
 const showPlaceholder = !src || placeholder;
 ---
 
-<div class:list={['card-image', `card-image--${aspectRatio.replace('/', '-')}`, overlay && 'card-image--overlay', showPlaceholder && 'card-image--placeholder']}>
-  {showPlaceholder ? (
-    <div class="card-image__placeholder">
-      <svg viewBox="0 0 120 40" width="120" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="60" y="28" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="22" fill="rgba(255,255,255,0.7)">ESTEBIKE</text>
-      </svg>
-    </div>
-  ) : (
-    <img src={src} alt={alt} loading="lazy" />
-  )}
+<div
+  class:list={[
+    'card-image',
+    `card-image--${aspectRatio.replace('/', '-')}`,
+    overlay && 'card-image--overlay',
+    showPlaceholder && 'card-image--placeholder',
+  ]}
+>
+  {
+    showPlaceholder ? (
+      <div class="card-image__placeholder">
+        <svg
+          viewBox="0 0 120 40"
+          width="120"
+          height="40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <text
+            x="60"
+            y="28"
+            text-anchor="middle"
+            font-family="Montserrat, sans-serif"
+            font-weight="700"
+            font-size="22"
+            fill="rgba(255,255,255,0.7)"
+          >
+            ESTEBIKE
+          </text>
+        </svg>
+      </div>
+    ) : (
+      <img src={src} alt={alt} loading="lazy" />
+    )
+  }
 </div>
 
 <style>
@@ -70,7 +98,7 @@ const showPlaceholder = !src || placeholder;
 
   /* Placeholder */
   .card-image--placeholder {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #8B1528 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #8b1528 100%);
   }
 
   .card-image__placeholder {

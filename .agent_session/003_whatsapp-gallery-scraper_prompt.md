@@ -1,7 +1,9 @@
 # Original Prompt: WhatsApp Gallery Scraper
+
 Plan: 003 | Name: whatsapp-gallery-scraper | Created: 2026-01-25 | GitRef: 0238b1e
 
 ## Related Files
+
 - **Context**: `.agent_session/003_whatsapp-gallery-scraper_context.md` - Research findings
 - **Plan**: `.agent_session/003_whatsapp-gallery-scraper_plan.md` - Implementation steps
 
@@ -21,12 +23,14 @@ Build a script to extract images from WhatsApp Web (via Chrome DevTools MCP), do
 This is a standalone utility script, not part of the main Astro website. All scraping/cataloging logic MUST reside in a dedicated `/scripts/whatsapp-gallery/` directory. The output catalog (JSON/CSV) should be structured so it can later integrate with the website's gallery system defined in SPECS.md.
 
 **Pre-Implementation Analysis Required**:
+
 1. **Review existing gallery structure**: Check `docs/SPECS.md` and `docs/DESIGN.md` for how the website gallery is planned. The catalog output format MUST be compatible with future gallery integration.
 2. **Analyze Chrome DevTools MCP capabilities**: Understand what tools are available for page interaction, image detection, and file downloading.
 3. **Check for existing image processing utilities**: Look for any existing scripts or patterns in the codebase that handle images.
 
 **Goal**:
 Create a semi-automated pipeline that:
+
 1. Uses Chrome DevTools MCP to navigate WhatsApp Web (user authenticates manually)
 2. Scrolls through chat history to discover all images
 3. Downloads images to a local directory with organized naming
@@ -34,6 +38,7 @@ Create a semi-automated pipeline that:
 5. Outputs a catalog file for human curation
 
 **Scope**:
+
 - **IN**:
   - WhatsApp Web image scraping via Chrome DevTools MCP
   - Image downloading with deduplication (hash-based)
@@ -47,6 +52,7 @@ Create a semi-automated pipeline that:
   - Privacy/consent management (user handles curation)
 
 **Success Criteria**:
+
 - **Manual Testing**:
   1. User logs into WhatsApp Web in Chrome
   2. User navigates to EsteBike group chat
@@ -59,6 +65,7 @@ Create a semi-automated pipeline that:
   - Relevance scores appear reasonable for cycling content
 
 **Output Directory Structure**:
+
 ```
 /scripts/whatsapp-gallery/
   /downloads/           # Raw downloaded images
@@ -69,11 +76,13 @@ Create a semi-automated pipeline that:
 ```
 
 **Privacy Considerations**:
+
 - Downloaded images stay local, never auto-uploaded
 - User must manually curate before any website use
 - Consider adding face-blur utility for non-consenting subjects (backlog item)
 
 **Backlog Items**:
+
 - Video extraction support
 - Face blur utility
 - Direct integration with website gallery component

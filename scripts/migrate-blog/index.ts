@@ -18,7 +18,11 @@ import path from 'path';
 import { glob } from 'glob';
 import { config, excludedDirectories, defaultCategory } from './config.js';
 import { parsePost } from './parsers.js';
-import { extractImages, processPostImages, rewriteImagePaths } from './images.js';
+import {
+  extractImages,
+  processPostImages,
+  rewriteImagePaths,
+} from './images.js';
 import { htmlToMarkdown, generateFrontmatter } from './markdown.js';
 import type { LegacyPost, MigrationReport, ProcessedPost } from './types.js';
 
@@ -52,7 +56,11 @@ async function discoverPosts(singleSlug?: string): Promise<LegacyPost[]> {
   const posts: LegacyPost[] = [];
 
   if (singleSlug) {
-    const filePath = path.join(config.crawledSitePath, singleSlug, 'index.html');
+    const filePath = path.join(
+      config.crawledSitePath,
+      singleSlug,
+      'index.html'
+    );
     try {
       const html = await fs.readFile(filePath, 'utf-8');
       posts.push({ slug: singleSlug, filePath, html });
@@ -63,7 +71,9 @@ async function discoverPosts(singleSlug?: string): Promise<LegacyPost[]> {
   }
 
   // Find all index.html files in subdirectories
-  const pattern = path.join(config.crawledSitePath, '*/index.html').replace(/\\/g, '/');
+  const pattern = path
+    .join(config.crawledSitePath, '*/index.html')
+    .replace(/\\/g, '/');
   const files = await glob(pattern);
 
   for (const filePath of files) {
@@ -100,7 +110,10 @@ async function discoverPosts(singleSlug?: string): Promise<LegacyPost[]> {
         continue;
       }
       // Must be a single post
-      if (!bodyClass.includes('single-post') && !bodyClass.includes('single ')) {
+      if (
+        !bodyClass.includes('single-post') &&
+        !bodyClass.includes('single ')
+      ) {
         continue;
       }
     }
@@ -127,7 +140,10 @@ async function processPost(
 
     // Also check for featured image
     if (parsed.image) {
-      const featuredImages = extractImages(`src="${parsed.image}"`, parsed.slug);
+      const featuredImages = extractImages(
+        `src="${parsed.image}"`,
+        parsed.slug
+      );
       images.push(...featuredImages);
     }
 
@@ -185,7 +201,9 @@ async function writePost(post: ProcessedPost, dryRun: boolean): Promise<void> {
     console.log(`  Title: ${post.title}`);
     console.log(`  Date: ${post.date}`);
     console.log(`  Category: ${post.category}`);
-    console.log(`  Images: ${post.images.filter((i) => !i.isThumbnail).length}`);
+    console.log(
+      `  Images: ${post.images.filter((i) => !i.isThumbnail).length}`
+    );
     return;
   }
 
@@ -252,7 +270,10 @@ async function migrate(): Promise<void> {
     // Check if post already exists (skip unless --force)
     if (!force) {
       const parsed = parsePost(post);
-      const existingFile = path.join(config.blogOutputPath, generateFilename(parsed.date, post.slug));
+      const existingFile = path.join(
+        config.blogOutputPath,
+        generateFilename(parsed.date, post.slug)
+      );
       try {
         await fs.access(existingFile);
         report.skippedCount++;
@@ -278,14 +299,21 @@ async function migrate(): Promise<void> {
 
       // Update image stats
       report.images.total += result.processed.images.length;
-      report.images.processed += result.processed.images.filter((i) => !i.isThumbnail).length;
-      report.images.skipped += result.processed.images.filter((i) => i.isThumbnail).length;
+      report.images.processed += result.processed.images.filter(
+        (i) => !i.isThumbnail
+      ).length;
+      report.images.skipped += result.processed.images.filter(
+        (i) => i.isThumbnail
+      ).length;
 
       report.successCount++;
       console.log('OK');
     } else {
       report.failedCount++;
-      report.failures.push({ slug: post.slug, error: result.error || 'Unknown error' });
+      report.failures.push({
+        slug: post.slug,
+        error: result.error || 'Unknown error',
+      });
       console.log(`FAILED: ${result.error}`);
     }
   }

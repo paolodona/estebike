@@ -27,29 +27,32 @@ const socialLinks = [
   description="Contatta EsteBike per informazioni su eventi, iscrizioni e attività. Scrivici via email, WhatsApp o seguici sui social."
 >
   <Fragment slot="head">
-    <FaqSchema items={[
-      {
-        question: 'Come posso iscrivermi al Magna & Pedala?',
-        answer: 'Puoi iscriverti tramite Eventbrite dalla sezione Iscrizioni del nostro sito.',
-      },
-      {
-        question: 'Devo essere tesserato per partecipare?',
-        answer: 'No, il Magna & Pedala è aperto a tutti i ciclisti. Se vuoi partecipare alle nostre uscite settimanali, ti consigliamo il tesseramento annuale.',
-      },
-      {
-        question: 'Quando si svolgono le uscite settimanali?',
-        answer: 'Organizziamo uscite durante il weekend e occasionalmente infrasettimanali. Seguici su Instagram o Strava per restare aggiornato!',
-      },
-      {
-        question: 'Posso partecipare anche se sono principiante?',
-        answer: 'Assolutamente sì! Il nostro gruppo è aperto a tutti i livelli. Il Magna & Pedala offre anche un percorso corto adatto ai meno esperti.',
-      },
-    ]} />
+    <FaqSchema
+      items={[
+        {
+          question: 'Come posso iscrivermi al Magna & Pedala?',
+          answer:
+            'Puoi iscriverti tramite Eventbrite dalla sezione Iscrizioni del nostro sito.',
+        },
+        {
+          question: 'Devo essere tesserato per partecipare?',
+          answer:
+            'No, il Magna & Pedala è aperto a tutti i ciclisti. Se vuoi partecipare alle nostre uscite settimanali, ti consigliamo il tesseramento annuale.',
+        },
+        {
+          question: 'Quando si svolgono le uscite settimanali?',
+          answer:
+            'Organizziamo uscite durante il weekend e occasionalmente infrasettimanali. Seguici su Instagram o Strava per restare aggiornato!',
+        },
+        {
+          question: 'Posso partecipare anche se sono principiante?',
+          answer:
+            'Assolutamente sì! Il nostro gruppo è aperto a tutti i livelli. Il Magna & Pedala offre anche un percorso corto adatto ai meno esperti.',
+        },
+      ]}
+    />
   </Fragment>
-  <PageHeader
-    title="Contatti"
-    subtitle="Siamo sempre felici di sentirti!"
-  />
+  <PageHeader title="Contatti" subtitle="Siamo sempre felici di sentirti!" />
 
   <section class="section">
     <div class="container">
@@ -58,8 +61,8 @@ const socialLinks = [
         <div class="contact-info">
           <h2>Come raggiungerci</h2>
           <p>
-            Hai domande sul Magna & Pedala, sul tesseramento o vuoi semplicemente
-            saperne di più su di noi? Non esitare a contattarci!
+            Hai domande sul Magna & Pedala, sul tesseramento o vuoi
+            semplicemente saperne di più su di noi? Non esitare a contattarci!
           </p>
 
           <div class="contact-methods">
@@ -70,7 +73,10 @@ const socialLinks = [
               <div class="contact-method__content">
                 <h3>Email</h3>
                 <a href="mailto:info@estebike.it">info@estebike.it</a>
-                <p>Per eventi: <a href="mailto:eventi@estebike.it">eventi@estebike.it</a></p>
+                <p>
+                  Per eventi: <a href="mailto:eventi@estebike.it"
+                    >eventi@estebike.it</a>
+                </p>
               </div>
             </div>
 
@@ -108,26 +114,32 @@ const socialLinks = [
         <div class="social-section">
           <h2>Seguici sui social</h2>
           <p>
-            Resta aggiornato sulle nostre attività, le uscite settimanali
-            e le ultime news dal mondo EsteBike.
+            Resta aggiornato sulle nostre attività, le uscite settimanali e le
+            ultime news dal mondo EsteBike.
           </p>
 
           <div class="social-links">
-            {socialLinks.map((link) => (
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="social-link"
-              >
-                <Icon name={link.icon} size={28} />
-                <div class="social-link__content">
-                  <span class="social-link__name">{link.name}</span>
-                  <span class="social-link__handle">{link.handle}</span>
-                </div>
-                <Icon name="external-link" size={16} class="social-link__arrow" />
-              </a>
-            ))}
+            {
+              socialLinks.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link"
+                >
+                  <Icon name={link.icon} size={28} />
+                  <div class="social-link__content">
+                    <span class="social-link__name">{link.name}</span>
+                    <span class="social-link__handle">{link.handle}</span>
+                  </div>
+                  <Icon
+                    name="external-link"
+                    size={16}
+                    class="social-link__arrow"
+                  />
+                </a>
+              ))
+            }
 
             <a
               href="https://www.strava.com/clubs/Team-Estebike-Zordan"
@@ -135,8 +147,15 @@ const socialLinks = [
               rel="noopener noreferrer"
               class="social-link"
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"
+                ></path>
               </svg>
               <div class="social-link__content">
                 <span class="social-link__name">Strava</span>
@@ -154,7 +173,9 @@ const socialLinks = [
   <section class="section section--light">
     <div class="container">
       <h2 class="text-center">Dove siamo</h2>
-      <p class="map-subtitle text-center">Este (PD), nel cuore dei Colli Euganei</p>
+      <p class="map-subtitle text-center">
+        Este (PD), nel cuore dei Colli Euganei
+      </p>
       <div class="map-container animate-on-scroll">
         <iframe
           title="Mappa di Este, Padova"
@@ -163,8 +184,7 @@ const socialLinks = [
           height="400"
           style="border: 0; border-radius: var(--radius-md);"
           loading="lazy"
-          referrerpolicy="no-referrer"
-        ></iframe>
+          referrerpolicy="no-referrer"></iframe>
       </div>
     </div>
   </section>
@@ -179,7 +199,8 @@ const socialLinks = [
           <h3>Come posso iscrivermi al Magna & Pedala?</h3>
           <p>
             Puoi iscriverti tramite Eventbrite dalla sezione
-            <a href={url('/magna-e-pedala#iscrizioni')}>Iscrizioni</a> del nostro sito.
+            <a href={url('/magna-e-pedala#iscrizioni')}>Iscrizioni</a> del nostro
+            sito.
           </p>
         </div>
 
@@ -195,16 +216,17 @@ const socialLinks = [
         <div class="faq-item">
           <h3>Quando si svolgono le uscite settimanali?</h3>
           <p>
-            Organizziamo uscite durante il weekend e occasionalmente infrasettimanali.
-            Seguici su Instagram o Strava per restare aggiornato!
+            Organizziamo uscite durante il weekend e occasionalmente
+            infrasettimanali. Seguici su Instagram o Strava per restare
+            aggiornato!
           </p>
         </div>
 
         <div class="faq-item">
           <h3>Posso partecipare anche se sono principiante?</h3>
           <p>
-            Assolutamente sì! Il nostro gruppo è aperto a tutti i livelli.
-            Il Magna & Pedala offre anche un percorso corto adatto ai meno esperti.
+            Assolutamente sì! Il nostro gruppo è aperto a tutti i livelli. Il
+            Magna & Pedala offre anche un percorso corto adatto ai meno esperti.
           </p>
         </div>
       </div>
@@ -217,8 +239,8 @@ const socialLinks = [
       <div class="cta-content text-center">
         <h2>Pronto a pedalare con noi?</h2>
         <p>
-          Unisciti alla famiglia EsteBike e scopri il piacere
-          di pedalare insieme nei Colli Euganei.
+          Unisciti alla famiglia EsteBike e scopri il piacere di pedalare
+          insieme nei Colli Euganei.
         </p>
         <Button href="/tesseramento" variant="accent" size="lg">
           Diventa socio

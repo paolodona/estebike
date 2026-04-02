@@ -60,14 +60,13 @@ Blog posts are stored as Markdown files in `/src/content/blog/`. Each post requi
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 date: 2026-01-15
-author: "admin"
-category: "News"
-tags: ["tag1", "tag2"]
-excerpt: "Brief description"
+author: 'admin'
+category: 'News'
+tags: ['tag1', 'tag2']
+excerpt: 'Brief description'
 ---
-
 Post content here...
 ```
 
@@ -124,13 +123,13 @@ stripe listen --forward-to localhost:8787/webhook/stripe
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm run dev`     | Start development server |
+| `npm run build`   | Build for production     |
 | `npm run preview` | Preview production build |
-| `npm run lint` | Check code formatting |
-| `npm run format` | Fix code formatting |
+| `npm run lint`    | Check code formatting    |
+| `npm run format`  | Fix code formatting      |
 
 ## Code Style
 

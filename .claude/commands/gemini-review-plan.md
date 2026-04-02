@@ -9,6 +9,7 @@ allowed-tools: Bash(gemini:*), Read, Glob, Edit
 You are helping the user get a second opinion on an implementation plan from Google's Gemini AI, then critically evaluating that feedback yourself.
 
 ## Command Format
+
 `/gemini-review-plan [plan-name-or-number]`
 
 If no argument provided, use the most recent plan.
@@ -16,6 +17,7 @@ If no argument provided, use the most recent plan.
 ## Process
 
 ### Step 1: Find Plan Files
+
 1. If argument provided:
    - If numeric (e.g., "217"), glob for `.agent_session/217_*_plan.md`
    - If text (e.g., "debug-oauth"), glob for `.agent_session/*_<argument>*_plan.md`
@@ -23,6 +25,7 @@ If no argument provided, use the most recent plan.
 3. Read both the `_plan.md` and corresponding `_context.md` files
 
 ### Step 2: Call Gemini CLI
+
 **IMPORTANT: Call Gemini immediately without asking for user confirmation.** The user invoked this command specifically to get a Gemini review - do not ask "Should I call Gemini?" or similar.
 
 Execute the following bash command (adjust paths based on Step 1):
@@ -80,13 +83,14 @@ After receiving Gemini's feedback, YOU (Claude) must critically evaluate each su
 ```markdown
 ## Quick Decision Table
 
-| # | Suggestion | Gemini | Claude | Action |
-|---|------------|--------|--------|--------|
-| 1 | [title]    | Add X  | ✅ Agree - valid concern | [ ] |
-| 2 | [title]    | Add Y  | ⚠️ Partial - only for Z | [ ] |
-| 3 | [title]    | Add Z  | ❌ Skip - over-engineering | [ ] |
+| #   | Suggestion | Gemini | Claude                     | Action |
+| --- | ---------- | ------ | -------------------------- | ------ |
+| 1   | [title]    | Add X  | ✅ Agree - valid concern   | [ ]    |
+| 2   | [title]    | Add Y  | ⚠️ Partial - only for Z    | [ ]    |
+| 3   | [title]    | Add Z  | ❌ Skip - over-engineering | [ ]    |
 
 **Claude's Summary:** [1-2 sentences on overall assessment]
+
 - **Strong recommendations:** #1, #3
 - **Optional/nice-to-have:** #2
 - **Skip these:** #4, #5
@@ -96,6 +100,7 @@ After receiving Gemini's feedback, YOU (Claude) must critically evaluate each su
 
 After the decision table, ask:
 "Based on my analysis, I recommend accepting suggestions #X and #Y. Would you like me to:
+
 1. **Accept my recommendations** - I'll incorporate the ones I marked ✅
 2. **Review each** - Go through the ⚠️ items together
 3. **Accept all** - Incorporate everything Gemini suggested
@@ -104,31 +109,36 @@ After the decision table, ask:
 Wait for user response.
 
 ### Step 5: Handle User Choice
+
 - **If accept recommendations**: Edit `_plan.md` with Claude-recommended changes only
 - **If review each**: Present ⚠️ items one by one for user decision
 - **If accept all**: Edit `_plan.md` incorporating all Gemini suggestions
 - **If skip**: Proceed to documentation only
 
 ### Step 6: Document the Review
+
 Append to the plan's `_context.md` file:
 
 ```markdown
-
 ---
 
 ## External Review: Gemini + Claude Analysis
+
 **Date**: YYYY-MM-DD
 
 ### Gemini's Feedback
+
 [Full or summarized Gemini response]
 
 ### Claude's Assessment
+
 [Summary of Claude's analysis and recommendations]
 
 ### Decision Summary
-| Suggestion | Verdict | Rationale |
-|------------|---------|-----------|
-| [title] | ✅ Accepted | [why] |
-| [title] | ⚠️ Partial | [what was taken] |
-| [title] | ❌ Declined | [why not] |
+
+| Suggestion | Verdict     | Rationale        |
+| ---------- | ----------- | ---------------- |
+| [title]    | ✅ Accepted | [why]            |
+| [title]    | ⚠️ Partial  | [what was taken] |
+| [title]    | ❌ Declined | [why not]        |
 ```

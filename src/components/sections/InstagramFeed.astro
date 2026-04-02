@@ -31,8 +31,8 @@ const {
       <h3>Seguici su Instagram</h3>
     </div>
     <p>
-      Resta aggiornato sulle nostre attività, le uscite settimanali
-      e i momenti più belli delle nostre pedalate.
+      Resta aggiornato sulle nostre attività, le uscite settimanali e i momenti
+      più belli delle nostre pedalate.
     </p>
     <Button href={profileUrl} variant="secondary">
       Segui {username}
@@ -42,9 +42,7 @@ const {
 
   <div class="instagram-placeholder">
     <div class="instagram-grid">
-      {[1, 2, 3, 4, 5, 6].map(() => (
-        <div class="instagram-placeholder-item"></div>
-      ))}
+      {[1, 2, 3, 4, 5, 6].map(() => <div class="instagram-placeholder-item" />)}
     </div>
     <div class="instagram-placeholder-overlay">
       <Icon name="instagram" size={48} />
@@ -58,7 +56,7 @@ const {
     display: grid;
     gap: var(--space-8);
     padding: var(--space-8);
-    background: linear-gradient(135deg, #833AB4 0%, #E1306C 50%, #F77737 100%);
+    background: linear-gradient(135deg, #833ab4 0%, #e1306c 50%, #f77737 100%);
     border-radius: var(--radius-lg);
     color: var(--color-white);
   }
@@ -97,7 +95,7 @@ const {
 
   .instagram-content :global(.btn:hover) {
     background-color: var(--color-white);
-    color: #E1306C;
+    color: #e1306c;
   }
 
   .instagram-placeholder {

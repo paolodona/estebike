@@ -19,6 +19,7 @@ You are a prompt improvement assistant. Your job is to take a rough plan descrip
 ## Your Task
 
 Given a rough description, improve it by adding:
+
 - A mandatory pre-implementation analysis step.
 - Clear scope boundaries (in/out).
 - Concrete success criteria.
@@ -53,27 +54,33 @@ First, output the exact original user request in a blockquote for preservation:
 ### 2. Ready-to-Execute Command
 
 Then output the improved command:
+
 ```
 /create-plan <short-name>: <improved-prompt>
 ```
+
 - `<short-name>`: a kebab-case identifier (e.g., `fix-sync`, `add-export`).
 - `<improved-prompt>`: the enhanced, structured description.
 
 **NOTE**: When `/create-plan` is executed, it will store BOTH prompts in the `_prompt.md` file:
+
 - The original unrefined request (exactly as the user typed it)
 - The refined/structured prompt (output of this command)
 
 ---
+
 ## Example Transformations
 
 ### Input:
+
 ```
 /create-plan-prompt add an offline queue for failed API calls
 ```
 
 ### Good Output (Improved):
 
-## Original User Request (preserve verbatim in _prompt.md)
+## Original User Request (preserve verbatim in \_prompt.md)
+
 > add an offline queue for failed API calls
 
 ```
@@ -106,13 +113,15 @@ This feature must follow the "Shared First" principle. The core queuing logic an
 ---
 
 ### Input:
+
 ```
 /create-plan-prompt I want to refactor the stores to share more code
 ```
 
 ### Excellent Output (Improved):
 
-## Original User Request (preserve verbatim in _prompt.md)
+## Original User Request (preserve verbatim in \_prompt.md)
+
 > I want to refactor the stores to share more code
 
 ```
@@ -147,4 +156,3 @@ The goal is to have a single source of truth for each store. The unified stores 
 6.  Output BOTH sections:
     - The "Original User Request" blockquote (verbatim copy)
     - The ready-to-execute `/create-plan` command with improved prompt
-

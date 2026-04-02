@@ -3,15 +3,18 @@
 ## Brand Identity
 
 ### Heritage & Theme
+
 EsteBike's visual identity is rooted in the **civic heraldry of Este** (Padova, Veneto). The club's colors directly reference the **Stemma di Este** (Este coat of arms) - a yellow/gold cross on a red field, featuring the iconic castle tower silhouette.
 
 **Brand Story:**
+
 - Founded in **1996** - nearly 30 years of cycling tradition
 - Colors represent **local pride** and deep connection to Este's history
 - The yellow/red combination is instantly recognizable in the local cycling community
 - The jersey design (yellow with red cross) maximizes visibility while honoring tradition
 
 **Brand Personality:**
+
 - **Local & Proud:** Strong connection to Este and the Colli Euganei
 - **Community-focused:** Welcoming to all skill levels
 - **Energetic:** Vibrant colors reflect enthusiasm for cycling
@@ -22,36 +25,43 @@ EsteBike's visual identity is rooted in the **civic heraldry of Este** (Padova, 
 ## Logo Usage
 
 ### Primary Logo
+
 The main logo features "ESTE BIKE" text flanking the Este coat of arms emblem, with "1996" and "zordan" below.
 
 ### Logo Versions Needed
 
 **1. Full Color on Red (Primary):**
+
 - For use on red backgrounds (navigation, hero sections)
 - Text in white with subtle shadow
 - Emblem: yellow cross with castle on lighter background
 - File: `estebike-logo-white.svg`
 
 **2. Full Color on White/Light:**
+
 - For use on white or cream backgrounds
 - Text in charcoal (--color-charcoal)
 - Emblem: full color (yellow and red)
 - File: `estebike-logo.svg` (current)
 
 **3. Monochrome White:**
+
 - For footer and dark backgrounds
 - All-white version
 - File: `estebike-logo-mono-white.svg`
 
 **4. Favicon/Icon:**
+
 - Just the Este coat of arms emblem
 - Works at small sizes
 - File: `estebike-icon.svg`
 
 ### Clear Space
+
 Maintain minimum clear space around logo equal to the height of the "E" in "ESTE".
 
 ### Minimum Size
+
 - Web: 120px width minimum for full logo
 - Favicon: 32x32px minimum for icon version
 
@@ -62,6 +72,7 @@ Maintain minimum clear space around logo equal to the height of the "E" in "ESTE
 A modern, mobile-first design that honors EsteBike's heritage while feeling fresh and contemporary. The design should feel welcoming and approachable, not intimidating or overly competitive.
 
 **Key Principles:**
+
 - **Mobile-first:** Design for phones first, enhance for larger screens. The mobile experience IS the experience.
 - **On-brand:** Colors and visual language reflect the Este civic identity
 - **Clarity:** Easy-to-scan information hierarchy
@@ -73,49 +84,57 @@ A modern, mobile-first design that honors EsteBike's heritage while feeling fres
 ## Color Palette
 
 ### Primary Colors - Este Red
+
 The signature red from the Este coat of arms. Used as the primary brand color for headers, CTAs, and key UI elements.
+
 ```css
---color-primary: #C41E3A;       /* Este Red - heritage, energy, passion */
---color-primary-light: #E63950; /* Lighter red for hover states */
---color-primary-dark: #9A1830;  /* Darker red for active states */
---color-primary-900: #5C0F1E;   /* Very dark red for text on light backgrounds */
+--color-primary: #c41e3a; /* Este Red - heritage, energy, passion */
+--color-primary-light: #e63950; /* Lighter red for hover states */
+--color-primary-dark: #9a1830; /* Darker red for active states */
+--color-primary-900: #5c0f1e; /* Very dark red for text on light backgrounds */
 ```
 
 ### Accent Colors - Este Gold/Yellow
+
 The vibrant yellow from the Este coat of arms. Used sparingly for highlights, badges, and accent elements.
+
 ```css
---color-accent: #F7D000;        /* Este Gold - energy, visibility, optimism */
---color-accent-light: #FFE44D;  /* Light gold for backgrounds */
---color-accent-dark: #D4B000;   /* Darker gold for hover states */
---color-accent-muted: #FFF8CC;  /* Very light gold for subtle highlights */
+--color-accent: #f7d000; /* Este Gold - energy, visibility, optimism */
+--color-accent-light: #ffe44d; /* Light gold for backgrounds */
+--color-accent-dark: #d4b000; /* Darker gold for hover states */
+--color-accent-muted: #fff8cc; /* Very light gold for subtle highlights */
 ```
 
 ### Neutral Colors - Charcoal & Grays
+
 The dark charcoal from the logo text, extended into a full neutral palette for readability.
+
 ```css
---color-charcoal: #2D2D2D;      /* Primary text, from logo */
---color-charcoal-light: #4A4A4A; /* Secondary headings */
---color-white: #FFFFFF;
---color-off-white: #FAFAFA;     /* Background sections */
---color-cream: #FDF9F3;         /* Warm off-white, pairs with yellow */
---color-gray-100: #F0F0F0;      /* Light backgrounds */
---color-gray-200: #E0E0E0;      /* Borders, dividers */
---color-gray-400: #9E9E9E;      /* Muted text, placeholders */
---color-gray-600: #616161;      /* Secondary text */
---color-gray-800: #424242;      /* Body text alternative */
+--color-charcoal: #2d2d2d; /* Primary text, from logo */
+--color-charcoal-light: #4a4a4a; /* Secondary headings */
+--color-white: #ffffff;
+--color-off-white: #fafafa; /* Background sections */
+--color-cream: #fdf9f3; /* Warm off-white, pairs with yellow */
+--color-gray-100: #f0f0f0; /* Light backgrounds */
+--color-gray-200: #e0e0e0; /* Borders, dividers */
+--color-gray-400: #9e9e9e; /* Muted text, placeholders */
+--color-gray-600: #616161; /* Secondary text */
+--color-gray-800: #424242; /* Body text alternative */
 ```
 
 ### Semantic Colors
+
 ```css
---color-success: #2E7D32;       /* Confirmation, available - green that works with red */
---color-warning: #F9A825;       /* Alerts, deadlines - uses accent gold family */
---color-error: #C62828;         /* Errors, sold out - darker than primary red */
---color-info: #1565C0;          /* Information - blue for contrast */
+--color-success: #2e7d32; /* Confirmation, available - green that works with red */
+--color-warning: #f9a825; /* Alerts, deadlines - uses accent gold family */
+--color-error: #c62828; /* Errors, sold out - darker than primary red */
+--color-info: #1565c0; /* Information - blue for contrast */
 ```
 
 ### Color Usage Guidelines
 
 **Primary (Red) - 60%:**
+
 - Navigation bar background
 - Primary buttons and CTAs
 - Hero overlays
@@ -123,6 +142,7 @@ The dark charcoal from the logo text, extended into a full neutral palette for r
 - Footer background
 
 **Accent (Yellow) - 10%:**
+
 - Highlight badges ("Novità", "Iscrizioni Aperte")
 - Icon accents
 - Hover states on dark backgrounds
@@ -130,12 +150,14 @@ The dark charcoal from the logo text, extended into a full neutral palette for r
 - Secondary buttons on red backgrounds
 
 **Neutrals - 30%:**
+
 - Body text (charcoal)
 - Card backgrounds (white/off-white)
 - Content sections
 - Form inputs
 
 **Contrast Considerations:**
+
 - Yellow text should NEVER appear on white backgrounds (poor contrast)
 - Yellow works well as badges/pills on red or dark backgrounds
 - Red text on white: use --color-primary-900 for body text
@@ -144,6 +166,7 @@ The dark charcoal from the logo text, extended into a full neutral palette for r
 ### Sample Color Combinations
 
 **Navigation Bar:**
+
 ```
 Background: --color-primary (#C41E3A)
 Text: white
@@ -151,6 +174,7 @@ CTA Button: --color-accent (#F7D000) with --color-charcoal text
 ```
 
 **Hero Section:**
+
 ```
 Overlay: linear-gradient(rgba(196, 30, 58, 0.8), rgba(154, 24, 48, 0.9))
 Headline: white
@@ -159,6 +183,7 @@ CTA: --color-accent button with --color-charcoal text
 ```
 
 **Content Section (Light):**
+
 ```
 Background: --color-off-white (#FAFAFA)
 Headline: --color-charcoal (#2D2D2D)
@@ -168,6 +193,7 @@ Accent badges: --color-accent on red, or red on light
 ```
 
 **Feature Section (Red):**
+
 ```
 Background: --color-primary (#C41E3A)
 Text: white
@@ -176,6 +202,7 @@ Buttons: white outline or yellow fill
 ```
 
 **Card Component:**
+
 ```
 Background: white
 Border: 1px solid --color-gray-200
@@ -186,6 +213,7 @@ Hover: subtle shadow + optional red left border
 ```
 
 **Footer:**
+
 ```
 Background: --color-primary-dark (#9A1830)
 Text: white
@@ -198,6 +226,7 @@ Links hover: --color-accent
 ## Typography
 
 ### Font Stack
+
 ```css
 /* Headings - Modern, bold, friendly */
 --font-heading: 'Montserrat', 'Segoe UI', sans-serif;
@@ -210,20 +239,22 @@ Links hover: --color-accent
 ```
 
 ### Type Scale
+
 ```css
---text-xs: 0.75rem;     /* 12px - captions */
---text-sm: 0.875rem;    /* 14px - small text */
---text-base: 1rem;      /* 16px - body */
---text-lg: 1.125rem;    /* 18px - lead text */
---text-xl: 1.25rem;     /* 20px - small headings */
---text-2xl: 1.5rem;     /* 24px - h4 */
---text-3xl: 1.875rem;   /* 30px - h3 */
---text-4xl: 2.25rem;    /* 36px - h2 */
---text-5xl: 3rem;       /* 48px - h1 */
---text-6xl: 3.75rem;    /* 60px - hero */
+--text-xs: 0.75rem; /* 12px - captions */
+--text-sm: 0.875rem; /* 14px - small text */
+--text-base: 1rem; /* 16px - body */
+--text-lg: 1.125rem; /* 18px - lead text */
+--text-xl: 1.25rem; /* 20px - small headings */
+--text-2xl: 1.5rem; /* 24px - h4 */
+--text-3xl: 1.875rem; /* 30px - h3 */
+--text-4xl: 2.25rem; /* 36px - h2 */
+--text-5xl: 3rem; /* 48px - h1 */
+--text-6xl: 3.75rem; /* 60px - hero */
 ```
 
 ### Font Weights
+
 ```css
 --font-normal: 400;
 --font-medium: 500;
@@ -236,18 +267,18 @@ Links hover: --color-accent
 ## Spacing System
 
 ```css
---space-1: 0.25rem;   /* 4px */
---space-2: 0.5rem;    /* 8px */
---space-3: 0.75rem;   /* 12px */
---space-4: 1rem;      /* 16px */
---space-5: 1.25rem;   /* 20px */
---space-6: 1.5rem;    /* 24px */
---space-8: 2rem;      /* 32px */
---space-10: 2.5rem;   /* 40px */
---space-12: 3rem;     /* 48px */
---space-16: 4rem;     /* 64px */
---space-20: 5rem;     /* 80px */
---space-24: 6rem;     /* 96px */
+--space-1: 0.25rem; /* 4px */
+--space-2: 0.5rem; /* 8px */
+--space-3: 0.75rem; /* 12px */
+--space-4: 1rem; /* 16px */
+--space-5: 1.25rem; /* 20px */
+--space-6: 1.5rem; /* 24px */
+--space-8: 2rem; /* 32px */
+--space-10: 2.5rem; /* 40px */
+--space-12: 3rem; /* 48px */
+--space-16: 4rem; /* 64px */
+--space-20: 5rem; /* 80px */
+--space-24: 6rem; /* 96px */
 ```
 
 ---
@@ -255,6 +286,7 @@ Links hover: --color-accent
 ## Layout
 
 ### Container Widths
+
 ```css
 --container-sm: 640px;
 --container-md: 768px;
@@ -264,6 +296,7 @@ Links hover: --color-accent
 ```
 
 ### Grid System
+
 - 12-column grid for flexibility
 - Gap: `--space-6` (24px) default
 - Mobile: Single column
@@ -271,11 +304,12 @@ Links hover: --color-accent
 - Desktop: 3-4 columns for galleries, 2 for content
 
 ### Breakpoints
+
 ```css
---breakpoint-sm: 640px;   /* Mobile landscape */
---breakpoint-md: 768px;   /* Tablet */
---breakpoint-lg: 1024px;  /* Desktop */
---breakpoint-xl: 1280px;  /* Large desktop */
+--breakpoint-sm: 640px; /* Mobile landscape */
+--breakpoint-md: 768px; /* Tablet */
+--breakpoint-lg: 1024px; /* Desktop */
+--breakpoint-xl: 1280px; /* Large desktop */
 ```
 
 ---
@@ -285,6 +319,7 @@ Links hover: --color-accent
 ### Navigation
 
 **Desktop:**
+
 - Fixed header with red background (--color-primary)
 - Logo left (white version on red), menu items center/right in white
 - CTA button in yellow accent (--color-accent) with dark text
@@ -292,6 +327,7 @@ Links hover: --color-accent
 - On scroll: subtle shadow added
 
 **Mobile:**
+
 - Red hamburger menu icon on red header
 - Full-screen red overlay navigation
 - Logo centered (white version)
@@ -306,6 +342,7 @@ Links hover: --color-accent
 ### Hero Section
 
 **Layout:**
+
 - Full viewport height (100vh) or 80vh
 - Large background image with **red gradient overlay** (--color-primary at 70% opacity)
 - Centered content in white
@@ -314,6 +351,7 @@ Links hover: --color-accent
 - Yellow accent CTA button for maximum contrast
 
 **Example:**
+
 ```
 ┌─────────────────────────────────────────────┐
 │           Red gradient overlay              │
@@ -335,6 +373,7 @@ Links hover: --color-accent
 ### Buttons
 
 **Primary Button (Red):**
+
 ```css
 background: var(--color-primary);
 color: white;
@@ -346,6 +385,7 @@ transition: all 0.2s ease;
 ```
 
 **Secondary Button (Outlined):**
+
 ```css
 background: transparent;
 border: 2px solid var(--color-primary);
@@ -354,6 +394,7 @@ color: var(--color-primary);
 ```
 
 **Accent Button (Yellow on Red backgrounds):**
+
 ```css
 background: var(--color-accent);
 color: var(--color-charcoal);
@@ -363,6 +404,7 @@ font-weight: var(--font-bold);
 ```
 
 **Ghost Button (on dark/red backgrounds):**
+
 ```css
 background: transparent;
 border: 2px solid white;
@@ -371,6 +413,7 @@ color: white;
 ```
 
 **Ghost Button (on yellow backgrounds):**
+
 ```css
 background: transparent;
 border: 2px solid var(--color-charcoal);
@@ -381,6 +424,7 @@ color: var(--color-charcoal);
 ### Cards
 
 **Event/Route Card:**
+
 ```
 ┌─────────────────────────────┐
 │         [IMAGE]             │
@@ -396,12 +440,14 @@ color: var(--color-charcoal);
 │   (red links)               │
 └─────────────────────────────┘
 ```
+
 - White background, subtle shadow
 - Red accent bar on left edge (optional)
 - Yellow badges for key stats
 - Red text links for actions
 
 **Blog Post Card:**
+
 ```
 ┌─────────────────────────────┐
 │         [IMAGE]             │
@@ -418,12 +464,14 @@ color: var(--color-charcoal);
 │  [Leggi tutto →] (red)      │
 └─────────────────────────────┘
 ```
+
 - Date in muted gray
 - Category tag in red with light red background
 - "Read more" link in primary red
 - Hover: subtle lift and shadow
 
 **Sponsor Card:**
+
 ```
 ┌───────────────┐
 │               │
@@ -431,6 +479,7 @@ color: var(--color-charcoal);
 │ (grayscale)   │
 └───────────────┘
 ```
+
 - Grayscale by default, full color on hover
 - Uniform height, logos centered
 - Optional: subtle red border on hover
@@ -438,6 +487,7 @@ color: var(--color-charcoal);
 ### Gallery
 
 **Grid Layout:**
+
 - Masonry or uniform grid
 - Lightbox on click
 - Lazy loading
@@ -446,6 +496,7 @@ color: var(--color-charcoal);
 ### Forms
 
 **Input Fields:**
+
 ```css
 border: 1px solid var(--color-gray-300);
 border-radius: 4px;
@@ -455,6 +506,7 @@ font-size: var(--text-base);
 ```
 
 **Labels:**
+
 - Above input
 - Font weight: medium
 - Required indicator: orange asterisk
@@ -462,6 +514,7 @@ font-size: var(--text-base);
 ### Footer
 
 **Design:**
+
 - Background: --color-primary-dark (dark red)
 - Text: white and --color-gray-400 for secondary
 - Links: white, hover to --color-accent (yellow)
@@ -565,12 +618,14 @@ font-size: var(--text-base);
 ## Imagery Guidelines
 
 ### Photography Style
+
 - **Natural lighting:** Outdoor shots in golden hour preferred
 - **Community focus:** Group shots, smiling faces, camaraderie
 - **Local landscape:** Este hills, countryside, recognizable landmarks
 - **Action + candid:** Mix of riding shots and rest stop moments
 
 ### Image Specifications
+
 - Hero images: 1920x1080 minimum, 16:9 ratio
 - Card thumbnails: 800x600, 4:3 ratio
 - Gallery images: 1200px width max
@@ -578,6 +633,7 @@ font-size: var(--text-base);
 - Compression: 80% quality
 
 ### Placeholder/Default Images
+
 - Have fallback images for missing content
 - Use blurred/tinted photos as section backgrounds
 
@@ -586,11 +642,13 @@ font-size: var(--text-base);
 ## Animations & Interactions
 
 ### Principles
+
 - Subtle and purposeful
 - No animation for animation's sake
 - Respect reduced-motion preferences
 
 ### Specific Animations
+
 - **Scroll reveal:** Fade up for sections (200ms ease-out)
 - **Button hover:** Background transition (200ms)
 - **Image hover:** Slight scale (1.02) with shadow
@@ -598,6 +656,7 @@ font-size: var(--text-base);
 - **Lightbox:** Fade in overlay, scale image
 
 ### Loading States
+
 - Skeleton screens for dynamic content
 - Spinner for form submissions
 - Progress indicator for image galleries
@@ -609,7 +668,9 @@ font-size: var(--text-base);
 **CRITICAL: This site is mobile-first.** All CSS and components must be written for mobile screens as the baseline, with `min-width` media queries to enhance for larger screens. Never write desktop-first CSS that gets overridden for mobile.
 
 ### Mobile - THE DEFAULT (< 768px)
+
 This is the PRIMARY design. All styles without media queries target mobile.
+
 - Single column layout
 - Hamburger navigation with full-screen overlay
 - Stacked cards, full-width
@@ -620,14 +681,18 @@ This is the PRIMARY design. All styles without media queries target mobile.
 - No hover-dependent interactions
 
 ### Tablet (min-width: 768px)
+
 Progressive enhancement from mobile:
+
 - Two column grids where appropriate
 - Navigation can expand (optional)
 - Hero at 80vh
 - Slightly increased spacing
 
 ### Desktop (min-width: 1024px)
+
 Further enhancement:
+
 - Multi-column layouts (3-4 columns for galleries)
 - Full navigation visible
 - Hover states enabled
@@ -639,17 +704,18 @@ Further enhancement:
 ## Dark Mode (Optional/Future)
 
 If implemented later, maintain brand recognition:
+
 ```css
 /* Dark mode overrides */
---color-background: #1A1A1A;
+--color-background: #1a1a1a;
 --color-surface: #252525;
---color-text: #F0F0F0;
---color-text-muted: #A0A0A0;
+--color-text: #f0f0f0;
+--color-text-muted: #a0a0a0;
 /* Keep brand colors vibrant */
---color-primary: #E63950;        /* Slightly lighter red for dark bg */
---color-accent: #FFD633;         /* Slightly lighter yellow */
+--color-primary: #e63950; /* Slightly lighter red for dark bg */
+--color-accent: #ffd633; /* Slightly lighter yellow */
 /* Red surfaces become darker but stay red */
---color-primary-surface: #3D1520; /* Dark red for sections */
+--color-primary-surface: #3d1520; /* Dark red for sections */
 ```
 
 ---
@@ -720,20 +786,25 @@ If implemented later, maintain brand recognition:
 ## Tools & Resources
 
 ### Fonts
+
 - Google Fonts: Montserrat, Open Sans
 
 ### Icons
+
 - Lucide Icons or Heroicons (lightweight, consistent)
 
 ### CSS Framework
+
 - Tailwind CSS (optional, integrates well with Astro)
 - Or custom CSS with CSS variables
 
 ### Image Optimization
+
 - Astro Image integration
 - Squoosh for manual optimization
 
 ### Testing
+
 - Lighthouse for performance
 - WAVE for accessibility
 - BrowserStack for cross-browser

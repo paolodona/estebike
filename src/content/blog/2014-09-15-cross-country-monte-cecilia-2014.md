@@ -1,13 +1,13 @@
 ---
-title: "Cross Country del Monte Cecilia 2014"
+title: 'Cross Country del Monte Cecilia 2014'
 date: 2014-09-15
 author: admin
 category: Coppa Colli Euganei
 tags:
   - Coppa Colli Euganei
   - XC del Monte Cecilia
-image: "/images/blog/2014/09/baone2014.jpg"
-excerpt: "Cross Country del Monte Cecilia, organizzata dal Team Estebike Zordan, 11° tappa della Coppa Colli Euganei 2014, Domenica 21 settembre a Baone"
+image: '/images/blog/2014/09/baone2014.jpg'
+excerpt: 'Cross Country del Monte Cecilia, organizzata dal Team Estebike Zordan, 11° tappa della Coppa Colli Euganei 2014, Domenica 21 settembre a Baone'
 ---
 
 ### [![baone2014](/images/blog/2014/09/baone2014.jpg)](/images/blog/2014/09/baone2014.jpg)

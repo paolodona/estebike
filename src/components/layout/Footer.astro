@@ -10,6 +10,7 @@ const quickLinks = [
   { label: 'Magna & Pedala', href: '/magna-e-pedala' },
   { label: 'Galleria', href: '/galleria' },
   { label: 'Tesseramento', href: '/tesseramento' },
+  { label: 'Sponsor', href: '/sponsor' },
   { label: 'Blog', href: '/blog' },
   { label: 'Privacy Policy', href: '/privacy' },
 ];
@@ -20,8 +21,16 @@ const eventLinks = [
 ];
 
 const socialLinks = [
-  { icon: 'instagram' as const, label: 'Instagram', href: 'https://www.instagram.com/team_estebike/' },
-  { icon: 'facebook' as const, label: 'Facebook', href: 'https://www.facebook.com/estebike/' },
+  {
+    icon: 'instagram' as const,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/team_estebike/',
+  },
+  {
+    icon: 'facebook' as const,
+    label: 'Facebook',
+    href: 'https://www.facebook.com/estebike/',
+  },
   // { icon: 'youtube' as const, label: 'YouTube', href: '#' },
 ];
 ---
@@ -29,7 +38,11 @@ const socialLinks = [
 <footer class="footer" role="contentinfo">
   <div class="footer__main container">
     <div class="footer__brand">
-      <a href={url('/')} class="footer__logo" aria-label="EsteBike - Torna alla homepage">
+      <a
+        href={url('/')}
+        class="footer__logo"
+        aria-label="EsteBike - Torna alla homepage"
+      >
         <img
           src={logo.src}
           alt="EsteBike"
@@ -55,17 +68,19 @@ const socialLinks = [
       </address>
 
       <div class="footer__social">
-        {socialLinks.map((link) => (
-          <a
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-link"
-            aria-label={`Seguici su ${link.label}`}
-          >
-            <Icon name={link.icon} size={22} />
-          </a>
-        ))}
+        {
+          socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+              aria-label={`Seguici su ${link.label}`}
+            >
+              <Icon name={link.icon} size={22} />
+            </a>
+          ))
+        }
         <a
           href="https://www.strava.com/clubs/Team-Estebike-Zordan"
           target="_blank"
@@ -74,7 +89,9 @@ const socialLinks = [
           aria-label="Seguici su Strava"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+            <path
+              d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"
+            ></path>
           </svg>
         </a>
       </div>
@@ -84,22 +101,26 @@ const socialLinks = [
       <div class="footer__nav-section">
         <h3 class="footer__nav-title">Link Utili</h3>
         <ul class="footer__nav-list">
-          {quickLinks.map((link) => (
-            <li>
-              <a href={url(link.href)}>{link.label}</a>
-            </li>
-          ))}
+          {
+            quickLinks.map((link) => (
+              <li>
+                <a href={url(link.href)}>{link.label}</a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <div class="footer__nav-section">
         <h3 class="footer__nav-title">Magna & Pedala</h3>
         <ul class="footer__nav-list">
-          {eventLinks.map((link) => (
-            <li>
-              <a href={url(link.href)}>{link.label}</a>
-            </li>
-          ))}
+          {
+            eventLinks.map((link) => (
+              <li>
+                <a href={url(link.href)}>{link.label}</a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </nav>

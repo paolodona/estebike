@@ -27,7 +27,9 @@ const inputId = `checkbox-${id}`;
 const errorId = error ? `${inputId}-error` : undefined;
 ---
 
-<div class:list={['checkbox-group', error && 'checkbox-group--error', className]}>
+<div
+  class:list={['checkbox-group', error && 'checkbox-group--error', className]}
+>
   <label class="checkbox-label">
     <input
       type="checkbox"
@@ -42,19 +44,40 @@ const errorId = error ? `${inputId}-error` : undefined;
       class="checkbox-input"
     />
     <span class="checkbox-box" aria-hidden="true">
-      <svg class="checkbox-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        class="checkbox-check"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     </span>
     <span class="checkbox-text">
       {label}
-      {required && <span class="checkbox-required" aria-hidden="true">*</span>}
+      {
+        required && (
+          <span class="checkbox-required" aria-hidden="true">
+            *
+          </span>
+        )
+      }
     </span>
   </label>
 
-  {error && (
-    <p id={errorId} class="checkbox-error" role="alert">{error}</p>
-  )}
+  {
+    error && (
+      <p id={errorId} class="checkbox-error" role="alert">
+        {error}
+      </p>
+    )
+  }
 </div>
 
 <style>
