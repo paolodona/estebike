@@ -56,18 +56,6 @@ export const sponsors: Sponsor[] = [
     tier: 'gold',
   },
   {
-    name: 'Sport & Salute Centro Medico',
-    logo: '/images/sponsors/sport-salute.png',
-    url: 'https://www.example.com',
-    description:
-      'Centro medico sportivo specializzato in visite agonistiche, fisioterapia e medicina dello sport.',
-    discounts: [
-      { description: '15% su visite mediche sportive' },
-      { description: '10% su percorsi di fisioterapia' },
-    ],
-    tier: 'gold',
-  },
-  {
     name: 'Estodent',
     logo: '/images/sponsors/estodent.png',
     url: 'http://www.estodent.it',
@@ -103,57 +91,13 @@ export const sponsors: Sponsor[] = [
     discounts: [],
     tier: 'gold',
   },
-  // === SILVER SPONSORS ===
   {
-    name: 'Bar Ristorante Al Parco',
-    logo: '/images/sponsors/al-parco.png',
-    url: 'https://www.example.com',
+    name: 'THZ Informatica',
+    logo: '/images/sponsors/thz-informatica.png',
+    url: 'https://www.thzinformatica.it',
     description:
-      'Ristorante e bar nel cuore di Este, punto di ritrovo per le partenze e gli arrivi delle uscite del club.',
-    discounts: [
-      { description: '10% sul menù del giorno' },
-      { description: 'Caffè omaggio dopo le uscite domenicali' },
-    ],
-    tier: 'silver',
-  },
-  {
-    name: 'Farmacia Este Centro',
-    logo: '/images/sponsors/farmacia-este.png',
-    url: 'https://www.example.com',
-    description:
-      "Farmacia con reparto dedicato a integratori sportivi e prodotti per il benessere dell'atleta.",
-    discounts: [
-      { description: '15% su integratori sportivi' },
-      { description: '10% su prodotti per la cura del corpo' },
-    ],
-    tier: 'silver',
-  },
-  {
-    name: 'Ottica Vision',
-    logo: '/images/sponsors/ottica-vision.png',
-    url: 'https://www.example.com',
-    description:
-      'Ottica specializzata in occhiali sportivi e lenti per ciclismo con protezione UV.',
-    discounts: [{ description: '20% su occhiali da ciclismo' }],
-    tier: 'silver',
-  },
-  // === BRONZE SPONSORS ===
-  {
-    name: 'Panificio Da Mario',
-    logo: '/images/sponsors/panificio-mario.png',
-    url: 'https://www.example.com',
-    description:
-      'Panificio artigianale di Este, fornitore ufficiale del Magna & Pedala.',
-    discounts: [{ description: '10% su tutti i prodotti da forno' }],
-    tier: 'bronze',
-  },
-  {
-    name: 'AutoOfficina Rossi',
-    logo: '/images/sponsors/officina-rossi.png',
-    url: 'https://www.example.com',
-    description:
-      'Officina meccanica auto e moto con servizio portabici e trasporto.',
-    discounts: [{ description: '10% su tagliando auto' }],
-    tier: 'bronze',
+      'Vendita di prodotti Apple e Samsung ricondizionati, riparazione smartphone, PC e Mac. Laboratorio interno con sede a Este.',
+    discounts: [],
+    tier: 'gold',
   },
 ];
