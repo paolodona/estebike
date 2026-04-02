@@ -94,6 +94,15 @@ export const sponsors: Sponsor[] = [
     discounts: [],
     tier: 'gold',
   },
+  {
+    name: 'Vittoria Assicurazioni Este',
+    logo: '/images/sponsors/vittoria-assicurazioni.svg',
+    url: 'https://www.agenzievittoria.com/este/',
+    description:
+      'Agenzia assicurativa Vittoria a Este, offre soluzioni personalizzate per auto, casa, famiglia, risparmio e protezione legale.',
+    discounts: [],
+    tier: 'gold',
+  },
   // === SILVER SPONSORS ===
   {
     name: 'Bar Ristorante Al Parco',
