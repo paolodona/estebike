@@ -680,12 +680,17 @@ const ssrSections = ssrSectionLimit === -1 ? allGalleries.length : ssrSectionLim
   // ---- Lazy section rendering ----
   // Only the newest sections have images rendered at build time.
   // All other sections load their images when they scroll near the viewport.
+  // KEY: sections are expanded in viewport-proximity order, not document order.
+  // This means fast-scrolling to the bottom loads those images first.
   const lazySections = document.querySelectorAll('[data-lazy-section]');
   const loadedSections = new Set<Element>();
+  const pendingSections = new Set<Element>();
+  let expandScheduled = false;
 
   function expandSection(grid: Element) {
     if (loadedSections.has(grid)) return;
     loadedSections.add(grid);
+    pendingSections.delete(grid);
 
     const placeholder = grid.querySelector('.lazy-placeholder');
     if (!placeholder) return;
@@ -727,13 +732,43 @@ const ssrSections = ssrSectionLimit === -1 ? allGalleries.length : ssrSectionLim
     grid.appendChild(fragment);
   }
 
+  // Process pending sections sorted by distance to viewport center.
+  // Sections closest to what the user is looking at expand first.
+  function flushPending() {
+    expandScheduled = false;
+    if (pendingSections.size === 0) return;
+
+    const viewportCenter = window.scrollY + window.innerHeight / 2;
+    const sorted = [...pendingSections].sort((a, b) => {
+      const aRect = a.getBoundingClientRect();
+      const bRect = b.getBoundingClientRect();
+      const aDist = Math.abs(aRect.top + aRect.height / 2);
+      const bDist = Math.abs(bRect.top + bRect.height / 2);
+      return aDist - bDist; // closest to viewport center first
+    });
+
+    for (const grid of sorted) {
+      expandSection(grid);
+    }
+  }
+
+  function scheduleFlush() {
+    if (expandScheduled) return;
+    expandScheduled = true;
+    // Small delay lets scroll settle so we prioritize the final position
+    requestAnimationFrame(() => {
+      setTimeout(flushPending, 50);
+    });
+  }
+
   const sectionObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (entry.isIntersecting) {
-        expandSection(entry.target);
+        pendingSections.add(entry.target);
         sectionObserver.unobserve(entry.target);
       }
     }
+    if (pendingSections.size > 0) scheduleFlush();
   }, { rootMargin: '600px 0px' }); // Load 600px before visible
 
   lazySections.forEach((s) => {
@@ -1047,7 +1082,12 @@ const ssrSections = ssrSectionLimit === -1 ? allGalleries.length : ssrSectionLim
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const target = document.getElementById(link.getAttribute('data-slider-target') || '');
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        if (target) {
+          // Immediately expand the target section's grid so images load without delay
+          const grid = target.querySelector('[data-lazy-section]');
+          if (grid) expandSection(grid);
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
 
