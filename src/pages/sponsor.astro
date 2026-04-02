@@ -3,25 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
-import Badge from '../components/ui/Badge.astro';
 import { url } from '../utils/base';
 import { sponsors } from '../data/sponsors';
-
-const tierLabels = {
-  gold: 'Gold Partner',
-  silver: 'Silver Partner',
-  bronze: 'Bronze Partner',
-};
-
-const tierOrder = ['gold', 'silver', 'bronze'] as const;
-
-const sponsorsByTier = tierOrder
-  .map((tier) => ({
-    tier,
-    label: tierLabels[tier],
-    items: sponsors.filter((s) => s.tier === tier),
-  }))
-  .filter((group) => group.items.length > 0);
 ---
 
 <BaseLayout
@@ -47,76 +30,60 @@ const sponsorsByTier = tierOrder
     </div>
   </section>
 
-  <!-- Sponsors by Tier -->
-  {
-    sponsorsByTier.map((group) => (
-      <section
-        class:list={[
-          'section',
-          group.tier === 'silver' ? 'section--light' : '',
-        ]}
-      >
-        <div class="container">
-          <div class="tier-header animate-on-scroll">
-            <Badge
-              variant={group.tier === 'gold' ? 'accent' : 'primary'}
-              size="sm"
-            >
-              {group.label}
-            </Badge>
-          </div>
+  <!-- Sponsors -->
+  <section class="section">
+    <div class="container">
+      <div class="sponsors-grid">
+        {sponsors.map((sponsor) => (
+          <article class="sponsor-card animate-on-scroll">
+            <div class="sponsor-card__logo">
+              <img
+                src={url(sponsor.logo)}
+                alt={`Logo ${sponsor.name}`}
+                loading="lazy"
+                width="200"
+                height="100"
+              />
+            </div>
 
-          <div class="sponsors-grid">
-            {group.items.map((sponsor) => (
-              <article class="sponsor-card animate-on-scroll">
-                <div class="sponsor-card__logo">
-                  <img
-                    src={url(sponsor.logo)}
-                    alt={`Logo ${sponsor.name}`}
-                    loading="lazy"
-                    width="200"
-                    height="100"
-                  />
+            <div class="sponsor-card__body">
+              <h3 class="sponsor-card__name">{sponsor.name}</h3>
+              <p class="sponsor-card__desc">{sponsor.description}</p>
+
+              {sponsor.discounts.length > 0 && (
+                <div class="sponsor-card__discounts">
+                  <h4>
+                    <Icon name="tag" size={16} />
+                    Sconti per i soci
+                  </h4>
+                  <ul>
+                    {sponsor.discounts.map((d) => (
+                      <li>
+                        <Icon name="check" size={14} />
+                        <span>{d.description}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              )}
+            </div>
 
-                <div class="sponsor-card__body">
-                  <h3 class="sponsor-card__name">{sponsor.name}</h3>
-                  <p class="sponsor-card__desc">{sponsor.description}</p>
-
-                  <div class="sponsor-card__discounts">
-                    <h4>
-                      <Icon name="tag" size={16} />
-                      Sconti per i soci
-                    </h4>
-                    <ul>
-                      {sponsor.discounts.map((d) => (
-                        <li>
-                          <Icon name="check" size={14} />
-                          <span>{d.description}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="sponsor-card__footer">
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="sponsor-link"
-                  >
-                    Visita il sito
-                    <Icon name="external-link" size={14} />
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    ))
-  }
+            <div class="sponsor-card__footer">
+              <a
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sponsor-link"
+              >
+                Visita il sito
+                <Icon name="external-link" size={14} />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- CTA Section -->
   <section class="section section--primary">
@@ -157,12 +124,6 @@ const sponsorsByTier = tierOrder
     color: var(--color-gray-600);
     font-size: var(--text-lg);
     line-height: var(--leading-relaxed);
-  }
-
-  /* Tier Header */
-  .tier-header {
-    margin-bottom: var(--space-8);
-    text-align: center;
   }
 
   /* Sponsors Grid */
