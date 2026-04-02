@@ -7,8 +7,7 @@ import Badge from '../components/ui/Badge.astro';
 import { url } from '../utils/base';
 import { sponsors } from '../data/sponsors';
 
-const tierLabels = {
-  gold: 'Gold Partner',
+const tierLabels: Record<string, string> = {
   silver: 'Silver Partner',
   bronze: 'Bronze Partner',
 };
@@ -57,14 +56,16 @@ const sponsorsByTier = tierOrder
         ]}
       >
         <div class="container">
-          <div class="tier-header animate-on-scroll">
-            <Badge
-              variant={group.tier === 'gold' ? 'accent' : 'primary'}
-              size="sm"
-            >
-              {group.label}
-            </Badge>
-          </div>
+          {group.label && (
+            <div class="tier-header animate-on-scroll">
+              <Badge
+                variant={group.tier === 'gold' ? 'accent' : 'primary'}
+                size="sm"
+              >
+                {group.label}
+              </Badge>
+            </div>
+          )}
 
           <div class="sponsors-grid">
             {group.items.map((sponsor) => (

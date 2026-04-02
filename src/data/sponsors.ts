@@ -43,19 +43,6 @@ export const sponsors: Sponsor[] = [
     tier: 'gold',
   },
   {
-    name: 'Cicli Zordan',
-    logo: '/images/sponsors/cicli-zordan.png',
-    url: 'https://www.ciclizordan.it',
-    description:
-      'Il punto di riferimento per i ciclisti di Este e dei Colli Euganei. Vendita, assistenza e riparazione bici da corsa, MTB e e-bike.',
-    discounts: [
-      { description: '10% su manutenzione e riparazioni' },
-      { description: '5% su accessori e abbigliamento' },
-      { description: 'Controllo bici stagionale gratuito' },
-    ],
-    tier: 'gold',
-  },
-  {
     name: 'Estodent',
     logo: '/images/sponsors/estodent.png',
     url: 'http://www.estodent.it',
