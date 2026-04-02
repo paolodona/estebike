@@ -85,6 +85,15 @@ export const sponsors: Sponsor[] = [
     discounts: [],
     tier: 'gold',
   },
+  {
+    name: 'Panificio Chiodarelli',
+    logo: '/images/sponsors/panificio-chiodarelli.png',
+    url: 'https://www.facebook.com/people/Panificio-Chiodarelli/100063598359420/',
+    description:
+      'Storico panificio artigianale di Este, rinomato per il pane fresco e gli schissotti. In Via Cavour 33, punto di riferimento per gli estesi.',
+    discounts: [],
+    tier: 'gold',
+  },
   // === SILVER SPONSORS ===
   {
     name: 'Bar Ristorante Al Parco',
