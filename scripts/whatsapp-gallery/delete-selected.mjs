@@ -18,6 +18,7 @@ import path from "path";
 import crypto from "crypto";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
+const GALLERY_PREFIX = "public/images/gallery/";
 const STATE_PATH = path.join(ROOT, "scripts/whatsapp-gallery/pull-state.json");
 const DESC_PATH = path.join(ROOT, "scripts/whatsapp-gallery/descriptions.json");
 
@@ -60,6 +61,13 @@ let notFound = 0;
 let alreadyHashed = 0;
 
 for (const rel of lines) {
+  const normalized = rel.replace(/\\/g, "/");
+  if (!normalized.startsWith(GALLERY_PREFIX)) {
+    console.warn(`  SKIP (not a gallery image): ${rel}`);
+    notFound++;
+    continue;
+  }
+
   const abs = path.resolve(ROOT, rel);
   if (!fs.existsSync(abs)) {
     console.warn(`  SKIP (not found): ${rel}`);
