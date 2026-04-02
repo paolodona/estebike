@@ -67,6 +67,17 @@ export const sponsors: Sponsor[] = [
     ],
     tier: 'gold',
   },
+  {
+    name: 'Estodent',
+    logo: '/images/sponsors/estodent.png',
+    url: 'http://www.estodent.it',
+    description:
+      'Laboratorio odontotecnico con sede a Este, specializzato in protesi fissa, mobile e su impianti con tecnologia CAD-CAM e materiali di ultima generazione.',
+    discounts: [
+      { description: '20% su tutti i servizi per i tesserati EsteBike' },
+    ],
+    tier: 'gold',
+  },
   // === SILVER SPONSORS ===
   {
     name: 'Bar Ristorante Al Parco',
