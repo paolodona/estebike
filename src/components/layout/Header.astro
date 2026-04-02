@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
   { label: 'Chi Siamo', href: '/chi-siamo' },
   { label: 'Magna & Pedala', href: '/magna-e-pedala' },
   { label: 'Galleria', href: '/galleria' },
+  { label: 'Sponsor', href: '/sponsor' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contatti', href: '/contatti' },
 ];
@@ -37,7 +38,11 @@ const isActive = (href: string) => {
   </a>
 
   <div class="header__container container">
-    <a href={url('/')} class="header__logo" aria-label="EsteBike - Torna alla homepage">
+    <a
+      href={url('/')}
+      class="header__logo"
+      aria-label="EsteBike - Torna alla homepage"
+    >
       <img
         src={logo.src}
         alt="EsteBike"
@@ -49,19 +54,29 @@ const isActive = (href: string) => {
 
     <nav class="header__nav hide-mobile" aria-label="Navigazione principale">
       <div class="nav-list">
-        {navItems.map((item) => (
-          <a
-            href={url(item.href)}
-            class:list={['nav-link', isActive(item.href) && 'nav-link--active']}
-          >
-            {item.label}
-          </a>
-        ))}
+        {
+          navItems.map((item) => (
+            <a
+              href={url(item.href)}
+              class:list={[
+                'nav-link',
+                isActive(item.href) && 'nav-link--active',
+              ]}
+            >
+              {item.label}
+            </a>
+          ))
+        }
       </div>
     </nav>
 
     <div class="header__actions">
-      <Button href="/tesseramento" variant="accent" size="sm" class="hide-mobile">
+      <Button
+        href="/tesseramento"
+        variant="accent"
+        size="sm"
+        class="hide-mobile"
+      >
         Tesseramento
       </Button>
 
@@ -82,28 +97,37 @@ const isActive = (href: string) => {
 <div class="mobile-nav-overlay" id="mobile-nav" data-mobile-nav>
   <nav class="mobile-nav" aria-label="Navigazione mobile">
     <ul class="mobile-nav-list">
-      {navItems.map((item) => (
-        <>
-          <li>
-            <a
-              href={url(item.href)}
-              class:list={['mobile-nav-link', isActive(item.href) && 'mobile-nav-link--active']}
-            >
-              {item.label}
-            </a>
-          </li>
-          {item.children?.map((child) => (
+      {
+        navItems.map((item) => (
+          <>
             <li>
               <a
-                href={url(child.href)}
-                class:list={['mobile-nav-link', 'mobile-nav-link--sub', isActive(child.href) && 'mobile-nav-link--active']}
+                href={url(item.href)}
+                class:list={[
+                  'mobile-nav-link',
+                  isActive(item.href) && 'mobile-nav-link--active',
+                ]}
               >
-                {child.label}
+                {item.label}
               </a>
             </li>
-          ))}
-        </>
-      ))}
+            {item.children?.map((child) => (
+              <li>
+                <a
+                  href={url(child.href)}
+                  class:list={[
+                    'mobile-nav-link',
+                    'mobile-nav-link--sub',
+                    isActive(child.href) && 'mobile-nav-link--active',
+                  ]}
+                >
+                  {child.label}
+                </a>
+              </li>
+            ))}
+          </>
+        ))
+      }
     </ul>
     <div class="mobile-nav-cta">
       <Button href="/tesseramento" variant="accent" fullWidth>
@@ -284,11 +308,11 @@ const isActive = (href: string) => {
     display: none;
   }
 
-  .mobile-menu-toggle[aria-expanded="true"] :global(.menu-icon-open) {
+  .mobile-menu-toggle[aria-expanded='true'] :global(.menu-icon-open) {
     display: none;
   }
 
-  .mobile-menu-toggle[aria-expanded="true"] :global(.menu-icon-close) {
+  .mobile-menu-toggle[aria-expanded='true'] :global(.menu-icon-close) {
     display: block;
   }
 
@@ -301,7 +325,9 @@ const isActive = (href: string) => {
     background-color: var(--color-primary);
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--transition-base), visibility var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      visibility var(--transition-base);
     overflow-y: auto;
   }
 

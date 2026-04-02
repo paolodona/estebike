@@ -4,29 +4,33 @@ import PageHeader from '../components/layout/PageHeader.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import Badge from '../components/ui/Badge.astro';
+import { url } from '../utils/base';
 
 const iban = 'IT54X0890462560036015009901';
-const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfPwphvfoCXPuqr9wrAuA-pT9-frl3UsZjALaEfWy2BBc7rnA/viewform';
+const formUrl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSfPwphvfoCXPuqr9wrAuA-pT9-frl3UsZjALaEfWy2BBc7rnA/viewform';
 
 const benefits = [
   'Partecipazione alle uscite settimanali',
   'Copertura assicurativa R.C. verso terzi',
-  'Sconti presso i nostri partner',
+  'Sconti e convenzioni presso i nostri partner e sponsor',
   'Accesso agli eventi riservati ai soci',
-  'Supporto nella scelta dell\'attrezzatura',
+  "Supporto nella scelta dell'attrezzatura",
 ];
 
 const options = [
   {
     name: 'Socio Sostenitore',
     price: 30,
-    description: 'Tessera amatoriale per partecipare a tutte le attività sociali del club.',
+    description:
+      'Tessera amatoriale per partecipare a tutte le attività sociali del club.',
     badge: 'Amatoriale',
   },
   {
     name: 'Tesseramento Agonista FCI',
     price: 55,
-    description: 'Tessera federale per partecipare a gare e competizioni ufficiali FCI.',
+    description:
+      'Tessera federale per partecipare a gare e competizioni ufficiali FCI.',
     badge: 'Agonista',
   },
 ];
@@ -36,10 +40,7 @@ const options = [
   title="Tesseramento 2026"
   description="Tesseramento EsteBike 2026: socio sostenitore (€30) o agonista FCI (€55). Compila il form e effettua il bonifico. Iscrizioni aperte!"
 >
-  <PageHeader
-    title="Tesseramento 2026"
-    subtitle="Iscrizioni aperte!"
-/>
+  <PageHeader title="Tesseramento 2026" subtitle="Iscrizioni aperte!" />
 
   <!-- Options -->
   <section class="section">
@@ -48,22 +49,27 @@ const options = [
         <Badge variant="accent">Anno 2026</Badge>
         <h2>Scegli la tua tessera</h2>
         <p>
-          Due opzioni di tesseramento per entrare a far parte della famiglia EsteBike.
+          Due opzioni di tesseramento per entrare a far parte della famiglia
+          EsteBike.
         </p>
       </div>
 
       <div class="options-grid">
-        {options.map((opt) => (
-          <div class="option-card">
-            <Badge variant="primary" size="sm">{opt.badge}</Badge>
-            <h3>{opt.name}</h3>
-            <div class="option-price">
-              <span class="option-price__amount">&euro;{opt.price}</span>
-              <span class="option-price__label">quota annuale</span>
+        {
+          options.map((opt) => (
+            <div class="option-card">
+              <Badge variant="primary" size="sm">
+                {opt.badge}
+              </Badge>
+              <h3>{opt.name}</h3>
+              <div class="option-price">
+                <span class="option-price__amount">&euro;{opt.price}</span>
+                <span class="option-price__label">quota annuale</span>
+              </div>
+              <p>{opt.description}</p>
             </div>
-            <p>{opt.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -81,9 +87,17 @@ const options = [
           <span class="step-number">1</span>
           <h3>Compila il form</h3>
           <p>
-            Compila il modulo online con i tuoi dati anagrafici. Serve pochi minuti.
+            Compila il modulo online con i tuoi dati anagrafici. Serve pochi
+            minuti.
           </p>
-          <Button href={formUrl} variant="primary" size="lg" fullWidth target="_blank" rel="noopener noreferrer">
+          <Button
+            href={formUrl}
+            variant="primary"
+            size="lg"
+            fullWidth
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Compila il form
             <Icon name="arrow-right" size={18} />
           </Button>
@@ -93,14 +107,19 @@ const options = [
           <span class="step-number">2</span>
           <h3>Effettua il bonifico</h3>
           <p>
-            Effettua un bonifico al conto EsteBike indicando come causale
-            il tuo <strong>cognome/nome</strong> e il tipo di tessera scelta
-            (socio sostenitore o tessera FCI).
+            Effettua un bonifico al conto EsteBike indicando come causale il tuo <strong
+              >cognome/nome</strong
+            > e il tipo di tessera scelta (socio sostenitore o tessera FCI).
           </p>
           <div class="iban-box">
             <span class="iban-label">IBAN (BCC Prealpi San Biagio)</span>
             <code class="iban-value" id="iban-value">{iban}</code>
-            <button class="iban-copy" id="iban-copy" type="button" title="Copia IBAN">
+            <button
+              class="iban-copy"
+              id="iban-copy"
+              type="button"
+              title="Copia IBAN"
+            >
               <Icon name="clipboard" size={18} />
             </button>
           </div>
@@ -127,13 +146,15 @@ const options = [
             <a href="mailto:info@estebike.it">info@estebike.it</a>:
           </p>
           <ul>
-            <li>Copia del certificato medico agonistico in corso di validità</li>
+            <li>
+              Copia del certificato medico agonistico in corso di validità
+            </li>
             <li>I propri dati anagrafici</li>
             <li>Una fototessera (se nuovo tesserato)</li>
           </ul>
           <p class="fci-warning">
-            L'assenza del certificato medico nel sistema informatico FCI
-            non permetterà l'iscrizione a gare e competizioni.
+            L'assenza del certificato medico nel sistema informatico FCI non
+            permetterà l'iscrizione a gare e competizioni.
           </p>
         </div>
       </div>
@@ -146,13 +167,30 @@ const options = [
       <div class="benefits-section">
         <h2>Cosa include il tesseramento</h2>
         <ul class="benefits-list">
-          {benefits.map((benefit) => (
-            <li>
-              <Icon name="chevron-right" size={18} />
-              <span>{benefit}</span>
-            </li>
-          ))}
+          {
+            benefits.map((benefit) => (
+              <li>
+                <Icon name="chevron-right" size={18} />
+                <span>{benefit}</span>
+              </li>
+            ))
+          }
         </ul>
+
+        <div class="sponsor-callout">
+          <Icon name="tag" size={20} />
+          <div>
+            <p>
+              I soci EsteBike hanno accesso a <strong>sconti esclusivi</strong> presso
+              i nostri partner e sponsor: manutenzione bici, visite mediche sportive,
+              integratori e molto altro.
+            </p>
+            <a href={url('/sponsor')} class="sponsor-callout__link">
+              Scopri tutte le convenzioni
+              <Icon name="arrow-right" size={14} />
+            </a>
+          </div>
+        </div>
 
         <div class="insurance-warning">
           <Icon name="alert-triangle" size={20} />
@@ -175,16 +213,16 @@ const options = [
         <div class="faq-item">
           <h3>Quando scade il tesseramento?</h3>
           <p>
-            Il tesseramento ha validità annuale e segue l'anno solare
-            (1 gennaio - 31 dicembre).
+            Il tesseramento ha validità annuale e segue l'anno solare (1 gennaio
+            - 31 dicembre).
           </p>
         </div>
 
         <div class="faq-item">
           <h3>Posso partecipare al Magna & Pedala senza essere tesserato?</h3>
           <p>
-            Sì, l'iscrizione al Magna & Pedala è aperta a tutti.
-            Il tesseramento è richiesto solo per le attività regolari del club.
+            Sì, l'iscrizione al Magna & Pedala è aperta a tutti. Il tesseramento
+            è richiesto solo per le attività regolari del club.
           </p>
         </div>
 
@@ -199,8 +237,8 @@ const options = [
         <div class="faq-item">
           <h3>Posso tesserarmi in qualsiasi momento dell'anno?</h3>
           <p>
-            Sì, puoi tesserarti quando vuoi. La tessera sarà valida fino al
-            31 dicembre dell'anno in corso.
+            Sì, puoi tesserarti quando vuoi. La tessera sarà valida fino al 31
+            dicembre dell'anno in corso.
           </p>
         </div>
       </div>
@@ -492,6 +530,46 @@ const options = [
     flex-shrink: 0;
   }
 
+  /* Sponsor Callout */
+  .sponsor-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: var(--color-accent-muted);
+    border: 1px solid var(--color-accent-dark);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+  }
+
+  .sponsor-callout :global(.icon) {
+    color: var(--color-accent-dark);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sponsor-callout p {
+    font-size: var(--text-sm);
+    color: var(--color-charcoal);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 var(--space-2);
+  }
+
+  .sponsor-callout__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .sponsor-callout__link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
   .insurance-warning {
     display: flex;
     align-items: flex-start;
@@ -556,7 +634,9 @@ const options = [
       try {
         await navigator.clipboard.writeText(ibanVal.textContent?.trim() || '');
         copyBtn.title = 'Copiato!';
-        setTimeout(() => { copyBtn.title = 'Copia IBAN'; }, 2000);
+        setTimeout(() => {
+          copyBtn.title = 'Copia IBAN';
+        }, 2000);
       } catch {
         // fallback: select text
         const range = document.createRange();
