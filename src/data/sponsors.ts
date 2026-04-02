@@ -32,6 +32,17 @@ export const sponsors: Sponsor[] = [
     tier: 'gold',
   },
   {
+    name: 'Ride X-Treme',
+    logo: '/images/sponsors/ride-xtreme.png',
+    url: 'https://ridextreme.it',
+    description:
+      'Ciclofficina multibrand, noleggio e vendita bici, e-bike, MTB, gravel e road bike. Bike fitting biomeccanico, costruzione ruote e diagnostica e-bike nei Colli Euganei e sul Lago di Garda.',
+    discounts: [
+      { description: '20% su prodotti e servizi per i tesserati EsteBike' },
+    ],
+    tier: 'gold',
+  },
+  {
     name: 'Cicli Zordan',
     logo: '/images/sponsors/cicli-zordan.png',
     url: 'https://www.ciclizordan.it',
