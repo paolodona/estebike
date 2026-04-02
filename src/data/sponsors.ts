@@ -8,18 +8,18 @@ export interface Sponsor {
   url: string;
   description: string;
   discounts: SponsorDiscount[];
-  tier: 'gold' | 'silver' | 'bronze';
 }
 
 /**
  * Sponsor data for EsteBike.
  *
+ * Sponsors are displayed in the order listed below.
+ *
  * To add a new sponsor:
  * 1. Place the logo in /public/images/sponsors/ (recommended: 400×200 PNG/SVG)
- * 2. Add an entry below with name, logo path, url, description, discounts, and tier
+ * 2. Add an entry below with name, logo path, url, description, and discounts
  */
 export const sponsors: Sponsor[] = [
-  // === GOLD SPONSORS ===
   {
     name: 'Ristorante Leon d\'Oro',
     logo: '/images/sponsors/leon-doro.jpg',
@@ -29,7 +29,6 @@ export const sponsors: Sponsor[] = [
     discounts: [
       { description: '10% sul menù alla carta per i soci' },
     ],
-    tier: 'gold',
   },
   {
     name: 'Ride X-Treme',
@@ -40,7 +39,6 @@ export const sponsors: Sponsor[] = [
     discounts: [
       { description: '20% su prodotti e servizi per i tesserati EsteBike' },
     ],
-    tier: 'gold',
   },
   {
     name: 'Estodent',
@@ -49,7 +47,6 @@ export const sponsors: Sponsor[] = [
     description:
       'Laboratorio odontotecnico con sede a Este, specializzato in protesi fissa, mobile e su impianti con tecnologia CAD-CAM e materiali di ultima generazione.',
     discounts: [],
-    tier: 'gold',
   },
   {
     name: 'Obiettivo Casa',
@@ -58,7 +55,6 @@ export const sponsors: Sponsor[] = [
     description:
       'Agenzia immobiliare di riferimento a Este e Ospedaletto Euganeo, con oltre 20 anni di esperienza nella compravendita e locazione di immobili residenziali e commerciali.',
     discounts: [],
-    tier: 'gold',
   },
   {
     name: 'Panificio Chiodarelli',
@@ -67,7 +63,6 @@ export const sponsors: Sponsor[] = [
     description:
       'Storico panificio artigianale di Este, rinomato per il pane fresco e gli schissotti. In Via Cavour 33, punto di riferimento per gli estesi.',
     discounts: [],
-    tier: 'gold',
   },
   {
     name: 'Vittoria Assicurazioni Este',
@@ -76,7 +71,6 @@ export const sponsors: Sponsor[] = [
     description:
       'Agenzia assicurativa Vittoria a Este, offre soluzioni personalizzate per auto, casa, famiglia, risparmio e protezione legale.',
     discounts: [],
-    tier: 'gold',
   },
   {
     name: 'THZ Informatica',
@@ -85,6 +79,5 @@ export const sponsors: Sponsor[] = [
     description:
       'Vendita di prodotti Apple e Samsung ricondizionati, riparazione smartphone, PC e Mac. Laboratorio interno con sede a Este.',
     discounts: [],
-    tier: 'gold',
   },
 ];
