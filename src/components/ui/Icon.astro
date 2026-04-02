@@ -29,6 +29,7 @@ import {
   Youtube,
   MessageCircle,
   Bike,
+  Utensils,
 } from '@lucide/astro';
 
 export interface Props {
@@ -60,6 +61,7 @@ const icons = {
   youtube: Youtube,
   whatsapp: MessageCircle,
   bike: Bike,
+  utensils: Utensils,
 } as const;
 
 const { name, size = 24, strokeWidth = 2, class: className = '' } = Astro.props;

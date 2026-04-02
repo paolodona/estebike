@@ -21,6 +21,28 @@ export interface Sponsor {
 export const sponsors: Sponsor[] = [
   // === GOLD SPONSORS ===
   {
+    name: 'Ristorante Leon d\'Oro',
+    logo: '/images/sponsors/leon-doro.jpg',
+    url: 'https://www.leondoroeste.it',
+    description:
+      'Albergo ristorante storico di Este, sede sociale di EsteBike e punto di ritrovo per la cena settimanale del martedì.',
+    discounts: [
+      { description: '10% sul menù alla carta per i soci' },
+    ],
+    tier: 'gold',
+  },
+  {
+    name: 'Ride X-Treme',
+    logo: '/images/sponsors/ride-xtreme.png',
+    url: 'https://ridextreme.it',
+    description:
+      'Ciclofficina multibrand, noleggio e vendita bici, e-bike, MTB, gravel e road bike. Bike fitting biomeccanico, costruzione ruote e diagnostica e-bike nei Colli Euganei e sul Lago di Garda.',
+    discounts: [
+      { description: '20% su prodotti e servizi per i tesserati EsteBike' },
+    ],
+    tier: 'gold',
+  },
+  {
     name: 'Cicli Zordan',
     logo: '/images/sponsors/cicli-zordan.png',
     url: 'https://www.ciclizordan.it',
@@ -34,68 +56,48 @@ export const sponsors: Sponsor[] = [
     tier: 'gold',
   },
   {
-    name: 'Sport & Salute Centro Medico',
-    logo: '/images/sponsors/sport-salute.png',
-    url: 'https://www.example.com',
+    name: 'Estodent',
+    logo: '/images/sponsors/estodent.png',
+    url: 'http://www.estodent.it',
     description:
-      'Centro medico sportivo specializzato in visite agonistiche, fisioterapia e medicina dello sport.',
-    discounts: [
-      { description: '15% su visite mediche sportive' },
-      { description: '10% su percorsi di fisioterapia' },
-    ],
+      'Laboratorio odontotecnico con sede a Este, specializzato in protesi fissa, mobile e su impianti con tecnologia CAD-CAM e materiali di ultima generazione.',
+    discounts: [],
     tier: 'gold',
   },
-  // === SILVER SPONSORS ===
   {
-    name: 'Bar Ristorante Al Parco',
-    logo: '/images/sponsors/al-parco.png',
-    url: 'https://www.example.com',
+    name: 'Obiettivo Casa',
+    logo: '/images/sponsors/obiettivo-casa.png',
+    url: 'https://www.obiettivo-casa.info',
     description:
-      'Ristorante e bar nel cuore di Este, punto di ritrovo per le partenze e gli arrivi delle uscite del club.',
-    discounts: [
-      { description: '10% sul menù del giorno' },
-      { description: 'Caffè omaggio dopo le uscite domenicali' },
-    ],
-    tier: 'silver',
+      'Agenzia immobiliare di riferimento a Este e Ospedaletto Euganeo, con oltre 20 anni di esperienza nella compravendita e locazione di immobili residenziali e commerciali.',
+    discounts: [],
+    tier: 'gold',
   },
   {
-    name: 'Farmacia Este Centro',
-    logo: '/images/sponsors/farmacia-este.png',
-    url: 'https://www.example.com',
+    name: 'Panificio Chiodarelli',
+    logo: '/images/sponsors/panificio-chiodarelli.png',
+    url: 'https://www.facebook.com/people/Panificio-Chiodarelli/100063598359420/',
     description:
-      "Farmacia con reparto dedicato a integratori sportivi e prodotti per il benessere dell'atleta.",
-    discounts: [
-      { description: '15% su integratori sportivi' },
-      { description: '10% su prodotti per la cura del corpo' },
-    ],
-    tier: 'silver',
+      'Storico panificio artigianale di Este, rinomato per il pane fresco e gli schissotti. In Via Cavour 33, punto di riferimento per gli estesi.',
+    discounts: [],
+    tier: 'gold',
   },
   {
-    name: 'Ottica Vision',
-    logo: '/images/sponsors/ottica-vision.png',
-    url: 'https://www.example.com',
+    name: 'Vittoria Assicurazioni Este',
+    logo: '/images/sponsors/vittoria-assicurazioni.svg',
+    url: 'https://www.agenzievittoria.com/este/',
     description:
-      'Ottica specializzata in occhiali sportivi e lenti per ciclismo con protezione UV.',
-    discounts: [{ description: '20% su occhiali da ciclismo' }],
-    tier: 'silver',
-  },
-  // === BRONZE SPONSORS ===
-  {
-    name: 'Panificio Da Mario',
-    logo: '/images/sponsors/panificio-mario.png',
-    url: 'https://www.example.com',
-    description:
-      'Panificio artigianale di Este, fornitore ufficiale del Magna & Pedala.',
-    discounts: [{ description: '10% su tutti i prodotti da forno' }],
-    tier: 'bronze',
+      'Agenzia assicurativa Vittoria a Este, offre soluzioni personalizzate per auto, casa, famiglia, risparmio e protezione legale.',
+    discounts: [],
+    tier: 'gold',
   },
   {
-    name: 'AutoOfficina Rossi',
-    logo: '/images/sponsors/officina-rossi.png',
-    url: 'https://www.example.com',
+    name: 'THZ Informatica',
+    logo: '/images/sponsors/thz-informatica.png',
+    url: 'https://www.thzinformatica.it',
     description:
-      'Officina meccanica auto e moto con servizio portabici e trasporto.',
-    discounts: [{ description: '10% su tagliando auto' }],
-    tier: 'bronze',
+      'Vendita di prodotti Apple e Samsung ricondizionati, riparazione smartphone, PC e Mac. Laboratorio interno con sede a Este.',
+    discounts: [],
+    tier: 'gold',
   },
 ];
