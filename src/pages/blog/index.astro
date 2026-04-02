@@ -8,17 +8,12 @@ import CardBody from '../../components/ui/CardBody.astro';
 import Badge from '../../components/ui/Badge.astro';
 import { url } from '../../utils/base';
 
-// Get all non-draft blog posts, sorted by date
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-// Pagination
-const postsPerPage = 10;
-const currentPage = 1;
-const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
-const posts = sortedPosts.slice(0, postsPerPage);
+const BATCH_SIZE = 10;
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('it-IT', {
@@ -40,10 +35,10 @@ const formatDate = (date: Date) => {
 
   <section class="section">
     <div class="container">
-      {posts.length > 0 ? (
-        <div class="blog-grid">
-          {posts.map((post) => (
-            <Card variant="blog" href={`/blog/${post.slug}`}>
+      {sortedPosts.length > 0 ? (
+        <div class="blog-grid" id="blog-grid" data-batch={BATCH_SIZE}>
+          {sortedPosts.map((post, i) => (
+            <Card variant="blog" href={`/blog/${post.slug}`} class:list={[{ 'blog-hidden': i >= BATCH_SIZE }]}>
               <CardImage src={post.data.image} alt={post.data.title} />
               <CardBody>
                 <Badge variant="primary" size="sm">{post.data.category}</Badge>
@@ -63,21 +58,47 @@ const formatDate = (date: Date) => {
         <p class="no-posts">Nessun articolo pubblicato.</p>
       )}
 
-      {totalPages > 1 && (
-        <nav class="pagination" aria-label="Paginazione">
-          <span class="pagination__info">
-            Pagina {currentPage} di {totalPages}
-          </span>
-          {currentPage < totalPages && (
-            <a href={url(`/blog/page/${currentPage + 1}`)} class="pagination__next">
-              Pagina successiva &rarr;
-            </a>
-          )}
-        </nav>
+      <div id="blog-sentinel" class="blog-sentinel" aria-hidden="true"></div>
+
+      {sortedPosts.length > BATCH_SIZE && (
+        <p class="blog-loading" id="blog-loading">Caricamento...</p>
       )}
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const grid = document.getElementById('blog-grid');
+  const sentinel = document.getElementById('blog-sentinel');
+  const loading = document.getElementById('blog-loading');
+
+  if (grid && sentinel) {
+    const batch = parseInt(grid.dataset.batch || '10', 10);
+    const hidden = grid.querySelectorAll('.blog-hidden');
+    let revealed = 0;
+
+    if (hidden.length === 0 && loading) {
+      loading.remove();
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+
+      const end = Math.min(revealed + batch, hidden.length);
+      for (let i = revealed; i < end; i++) {
+        hidden[i].classList.remove('blog-hidden');
+      }
+      revealed = end;
+
+      if (revealed >= hidden.length) {
+        observer.disconnect();
+        if (loading) loading.remove();
+      }
+    }, { rootMargin: '400px 0px' });
+
+    observer.observe(sentinel);
+  }
+</script>
 
 <style>
   .blog-grid {
@@ -96,6 +117,10 @@ const formatDate = (date: Date) => {
     .blog-grid {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  .blog-hidden {
+    display: none;
   }
 
   .post-title {
@@ -133,27 +158,14 @@ const formatDate = (date: Date) => {
     padding: var(--space-12) 0;
   }
 
-  .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: var(--space-10);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--color-gray-200);
+  .blog-sentinel {
+    height: 1px;
   }
 
-  .pagination__info {
-    font-size: var(--text-sm);
+  .blog-loading {
+    text-align: center;
     color: var(--color-gray-600);
-  }
-
-  .pagination__next {
-    font-weight: var(--font-semibold);
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-
-  .pagination__next:hover {
-    text-decoration: underline;
+    padding: var(--space-6) 0;
+    font-size: var(--text-sm);
   }
 </style>
