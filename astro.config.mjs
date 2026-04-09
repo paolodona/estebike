@@ -15,7 +15,8 @@ function exposeBase() {
 }
 
 export default defineConfig({
-  site: 'https://estebike.it',
+  site: 'https://www.estebike.it',
+  base: '/',
   integrations: [exposeBase(), sitemap()],
   markdown: {
     rehypePlugins: [rehypeBaseUrl],

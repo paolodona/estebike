@@ -36,7 +36,10 @@ import { sponsors } from '../data/sponsors';
       <div class="sponsors-grid">
         {sponsors.map((sponsor) => (
           <article class="sponsor-card animate-on-scroll">
-            <div class="sponsor-card__logo">
+            <div
+              class={`sponsor-card__logo${sponsor.logoBg ? ' sponsor-card__logo--custom' : ''}`}
+              style={sponsor.logoBg ? `background-color: ${sponsor.logoBg}` : undefined}
+            >
               <img
                 src={url(sponsor.logo)}
                 alt={`Logo ${sponsor.name}`}
@@ -181,6 +184,10 @@ import { sponsors } from '../data/sponsors';
     object-fit: contain;
     filter: grayscale(30%);
     transition: filter var(--transition-base);
+  }
+
+  .sponsor-card__logo--custom img {
+    filter: none;
   }
 
   .sponsor-card:hover .sponsor-card__logo img {

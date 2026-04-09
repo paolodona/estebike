@@ -5,6 +5,8 @@ export interface SponsorDiscount {
 export interface Sponsor {
   name: string;
   logo: string;
+  /** Background color for the logo area so logos blend naturally. */
+  logoBg?: string;
   url: string;
   description: string;
   discounts: SponsorDiscount[];
@@ -23,6 +25,7 @@ export const sponsors: Sponsor[] = [
   {
     name: 'Ristorante Leon d\'Oro',
     logo: '/images/sponsors/leon-doro.jpg',
+    logoBg: '#c8c3b8',
     url: 'https://www.leondoroeste.it',
     description:
       'Albergo ristorante storico di Este, sede sociale di EsteBike e punto di ritrovo per la cena settimanale del martedì.',
@@ -33,6 +36,7 @@ export const sponsors: Sponsor[] = [
   {
     name: 'Ride X-Treme',
     logo: '/images/sponsors/ride-xtreme.png',
+    logoBg: '#000000',
     url: 'https://ridextreme.it',
     description:
       'Ciclofficina multibrand, noleggio e vendita bici, e-bike, MTB, gravel e road bike. Bike fitting biomeccanico, costruzione ruote e diagnostica e-bike nei Colli Euganei e sul Lago di Garda.',
@@ -43,6 +47,7 @@ export const sponsors: Sponsor[] = [
   {
     name: 'Estodent',
     logo: '/images/sponsors/estodent.png',
+    logoBg: '#ffffff',
     url: 'http://www.estodent.it',
     description:
       'Laboratorio odontotecnico con sede a Este, specializzato in protesi fissa, mobile e su impianti con tecnologia CAD-CAM e materiali di ultima generazione.',
@@ -67,6 +72,7 @@ export const sponsors: Sponsor[] = [
   {
     name: 'Vittoria Assicurazioni Este',
     logo: '/images/sponsors/vittoria-assicurazioni.svg',
+    logoBg: '#1a5632',
     url: 'https://www.agenzievittoria.com/este/',
     description:
       'Agenzia assicurativa Vittoria a Este, offre soluzioni personalizzate per auto, casa, famiglia, risparmio e protezione legale.',
