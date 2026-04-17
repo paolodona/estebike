@@ -112,6 +112,18 @@ const routes = [
           <span class="info-card__value">3</span>
         </div>
       </div>
+
+      <div class="video-embed">
+        <iframe
+          src="https://www.facebook.com/plugins/video.php?height=415&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F940719178815373%2F&show_text=false&width=560&t=0"
+          title="Magna & Pedala — video"
+          style="border:none;overflow:hidden"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          loading="lazy"></iframe>
+      </div>
     </div>
   </section>
 
@@ -376,6 +388,22 @@ const routes = [
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
     color: var(--color-charcoal);
+  }
+
+  /* Video Embed (Facebook reel plugin: 560x415 box) */
+  .video-embed {
+    margin: var(--space-10) auto 0;
+    width: 100%;
+    aspect-ratio: 560 / 415;
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .video-embed iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   /* Section Header */
