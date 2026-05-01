@@ -8,7 +8,7 @@ tags:
   - eventi
   - colli euganei
 image: '/images/about-preview.jpg'
-excerpt: 'Domenica 10 maggio torna il Magna & Pedala per celebrare il 30° anniversario di EsteBike! Tre circuiti tra i Colli Euganei, ristori con prodotti locali e la tradizionale pasta party finale. Iscrizioni aperte su Eventbrite!'
+excerpt: 'Domenica 10 maggio torna il Magna & Pedala per celebrare il 30° anniversario di EsteBike! Tre circuiti tra i Colli Euganei e ristori con prodotti locali. Iscrizioni aperte su Eventbrite!'
 ---
 
 Ci siamo! **Domenica 10 maggio 2026** torna il **Magna & Pedala**, la manifestazione non competitiva che da trent'anni porta ciclisti e camminatori alla scoperta dei Colli Euganei.
@@ -31,9 +31,9 @@ La partenza è dall'**Arena del Castello Carrarese** di Este (Via G. Negri). Ape
 
 Parcheggio gratuito disponibile nelle vicinanze.
 
-## Ristori e pasta party
+## Ristori
 
-Come da tradizione, lungo ogni percorso troverete ristori con **prodotti tipici locali**. E al termine della giornata, tutti i partecipanti potranno gustare la **pasta party** finale!
+Come da tradizione, lungo ogni percorso troverete ristori con **prodotti tipici locali**.
 
 ## Informazioni pratiche
 
