@@ -21,7 +21,6 @@ export interface Props {
   canonical?: string;
   noindex?: boolean;
   breadcrumbs?: { name: string; url?: string }[];
-  bare?: boolean;
 }
 
 const {
@@ -31,7 +30,6 @@ const {
   canonical,
   noindex = false,
   breadcrumbs,
-  bare = false,
 } = Astro.props;
 
 const siteTitle = title === 'EsteBike' ? title : `${title} | EsteBike`;
@@ -138,15 +136,16 @@ gtag('config', 'G-PBR49XEZX2');`}
   </head>
 
   <body>
-    {!bare && <Header currentPath={Astro.url.pathname} />}
+    <Header currentPath={Astro.url.pathname} />
 
     <main id="main-content">
       <slot />
     </main>
 
-    {!bare && <Footer />}
+    <Footer />
 
-    {!bare && <WhatsAppButton phoneNumber="39XXXXXXXXXX" />}
+    <!-- WhatsApp floating button - replace phone number with actual -->
+    <WhatsAppButton phoneNumber="39XXXXXXXXXX" />
 
     <slot name="footer-scripts" />
 
