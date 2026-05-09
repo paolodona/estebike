@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { url } from '../../utils/base';
+
+export interface Props {
+  name: string;
+  tagline: string;
+  distanceKm: string;
+  elevationGain: string;
+  elevationLoss: string;
+  gpxFile: string;
+  stravaUrl?: string;
+  komootUrl?: string;
+  googleMapsUrl?: string;
+  accentColor?: string;
+}
+
+const {
+  name,
+  tagline,
+  distanceKm,
+  elevationGain,
+  elevationLoss,
+  gpxFile,
+  stravaUrl,
+  komootUrl,
+  googleMapsUrl,
+  accentColor = 'var(--color-primary)',
+} = Astro.props;
+---
+
+<BaseLayout
+  title={`${name} — Magna & Pedala 2026`}
+  description={`Traccia GPS del ${name} — ${distanceKm} km, ${elevationGain} m D+. Scarica il GPX o apri il percorso su Strava, Komoot o Google Maps.`}
+  noindex={true}
+>
+  <section class="route-page" style={`--route-accent: ${accentColor};`}>
+    <div class="container">
+      <div class="route-header">
+        <img
+          src={url('/images/estebike-icon.svg')}
+          alt="EsteBike"
+          class="route-logo"
+          width="56"
+          height="56"
+        />
+        <p class="route-eyebrow">Magna &amp; Pedala 2026</p>
+        <h1 class="route-title">{name}</h1>
+        <p class="route-tagline">{tagline}</p>
+      </div>
+
+      <div class="route-stats">
+        <div class="route-stat">
+          <Icon name="route" size={28} />
+          <span class="route-stat__value">{distanceKm}<small> km</small></span>
+          <span class="route-stat__label">Distanza</span>
+        </div>
+        <div class="route-stat">
+          <Icon name="mountain" size={28} />
+          <span class="route-stat__value">{elevationGain}<small> m</small></span>
+          <span class="route-stat__label">Dislivello +</span>
+        </div>
+        <div class="route-stat">
+          <Icon name="mountain" size={28} class="flip-y" />
+          <span class="route-stat__value">{elevationLoss}<small> m</small></span>
+          <span class="route-stat__label">Dislivello −</span>
+        </div>
+      </div>
+
+      <div class="route-actions">
+        <Button
+          href={gpxFile}
+          variant="primary"
+          size="lg"
+          fullWidth
+          target="_blank"
+        >
+          <Icon name="download" size={22} />
+          Scarica traccia GPX
+        </Button>
+
+        <a
+          href={stravaUrl || '#'}
+          class="route-link route-link--strava"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!stravaUrl}
+        >
+          <span class="route-link__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.599h4.172L10.463 0l-7 13.828h4.169" />
+            </svg>
+          </span>
+          <span>Apri su Strava</span>
+          <Icon name="external-link" size={18} class="route-link__ext" />
+        </a>
+
+        <a
+          href={komootUrl || '#'}
+          class="route-link route-link--komoot"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!komootUrl}
+        >
+          <span class="route-link__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+              <circle cx="12" cy="12" r="4" />
+            </svg>
+          </span>
+          <span>Apri su Komoot</span>
+          <Icon name="external-link" size={18} class="route-link__ext" />
+        </a>
+
+        <a
+          href={googleMapsUrl || '#'}
+          class="route-link route-link--maps"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!googleMapsUrl}
+        >
+          <span class="route-link__icon" aria-hidden="true">
+            <Icon name="map-pin" size={24} />
+          </span>
+          <span>Apri su Google Maps</span>
+          <Icon name="external-link" size={18} class="route-link__ext" />
+        </a>
+      </div>
+
+      <p class="route-note">
+        <Icon name="bike" size={16} />
+        Buon divertimento e attenzione al traffico — rispetta sempre il codice
+        della strada.
+      </p>
+
+      <div class="route-back">
+        <a href={url('/magna-e-pedala')}>← Torna a Magna &amp; Pedala</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .route-page {
+    padding: var(--space-6) 0 var(--space-12);
+    background-color: var(--color-off-white);
+    min-height: calc(100vh - 80px);
+  }
+
+  .route-page .container {
+    max-width: 560px;
+  }
+
+  /* Header */
+  .route-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .route-logo {
+    margin: 0 auto var(--space-3);
+    display: block;
+  }
+
+  .route-eyebrow {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: var(--text-xs);
+    color: var(--color-gray-600);
+    margin: 0 0 var(--space-2);
+  }
+
+  .route-title {
+    font-size: clamp(2.25rem, 8vw, 3rem);
+    line-height: 1.05;
+    color: var(--color-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .route-tagline {
+    margin: var(--space-3) 0 0;
+    color: var(--color-gray-600);
+    font-size: var(--text-base);
+  }
+
+  /* Stats */
+  .route-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-5) var(--space-3);
+    margin-bottom: var(--space-8);
+    border-top: 4px solid var(--route-accent);
+  }
+
+  .route-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-1);
+  }
+
+  .route-stat :global(.icon) {
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .route-stat :global(.flip-y) {
+    transform: scaleY(-1);
+  }
+
+  .route-stat__value {
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    font-size: var(--text-2xl);
+    color: var(--color-charcoal);
+    line-height: 1;
+  }
+
+  .route-stat__value small {
+    font-size: 0.55em;
+    color: var(--color-gray-600);
+    font-weight: var(--font-medium);
+    margin-left: 0.15em;
+  }
+
+  .route-stat__label {
+    font-size: var(--text-xs);
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Actions */
+  .route-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .route-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-sm);
+    color: var(--color-charcoal);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+    min-height: var(--touch-target-min);
+    transition: all var(--transition-base);
+  }
+
+  .route-link:hover {
+    border-color: var(--route-accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .route-link__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    color: var(--color-white);
+  }
+
+  .route-link span:nth-of-type(2),
+  .route-link > span:not(.route-link__icon) {
+    flex: 1;
+  }
+
+  .route-link__ext {
+    color: var(--color-gray-400);
+  }
+
+  .route-link--strava .route-link__icon {
+    background-color: #fc4c02;
+  }
+
+  .route-link--komoot .route-link__icon {
+    background-color: #6aa127;
+  }
+
+  .route-link--maps .route-link__icon {
+    background-color: #1a73e8;
+  }
+
+  .route-link[aria-disabled='true'] {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  /* Note + back */
+  .route-note {
+    margin-top: var(--space-6);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  .route-note :global(.icon) {
+    color: var(--route-accent);
+  }
+
+  .route-back {
+    text-align: center;
+    margin-top: var(--space-6);
+  }
+
+  .route-back a {
+    color: var(--color-gray-500);
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+
+  .route-back a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+</style>
