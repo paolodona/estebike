@@ -9,7 +9,6 @@ export interface Props {
   tagline: string;
   distanceKm: string;
   elevationGain: string;
-  elevationLoss: string;
   gpxFile: string;
   stravaUrl?: string;
   komootUrl?: string;
@@ -23,7 +22,6 @@ const {
   tagline,
   distanceKm,
   elevationGain,
-  elevationLoss,
   gpxFile,
   stravaUrl,
   komootUrl,
@@ -62,12 +60,7 @@ const {
         <div class="route-stat">
           <Icon name="mountain" size={28} />
           <span class="route-stat__value">{elevationGain}<small> m</small></span>
-          <span class="route-stat__label">Dislivello +</span>
-        </div>
-        <div class="route-stat">
-          <Icon name="mountain" size={28} class="flip-y" />
-          <span class="route-stat__value">{elevationLoss}<small> m</small></span>
-          <span class="route-stat__label">Dislivello −</span>
+          <span class="route-stat__label">Dislivello</span>
         </div>
       </div>
 
@@ -142,7 +135,7 @@ const {
           <span class="route-link__icon" aria-hidden="true">
             <Icon name="utensils" size={22} />
           </span>
-          <span>1° Ristoro</span>
+          <span>1° Ristoro — Ponte della Torre</span>
           <Icon name="external-link" size={18} class="route-link__ext" />
         </a>
         {
@@ -156,7 +149,7 @@ const {
               <span class="route-link__icon" aria-hidden="true">
                 <Icon name="utensils" size={22} />
               </span>
-              <span>2° Ristoro</span>
+              <span>2° Ristoro — Tenuta San Zibio</span>
               <Icon name="external-link" size={18} class="route-link__ext" />
             </a>
           )
@@ -170,7 +163,7 @@ const {
           <span class="route-link__icon" aria-hidden="true">
             <Icon name="utensils" size={22} />
           </span>
-          <span>Ristoro finale</span>
+          <span>Ristoro finale — Castello Carrarese</span>
           <Icon name="external-link" size={18} class="route-link__ext" />
         </a>
       </div>
@@ -236,7 +229,7 @@ const {
   /* Stats */
   .route-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-2);
     background-color: var(--color-white);
     border-radius: var(--radius-lg);
