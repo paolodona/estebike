@@ -39,13 +39,6 @@ const {
   <section class="route-page" style={`--route-accent: ${accentColor};`}>
     <div class="container">
       <div class="route-header">
-        <img
-          src={url('/images/estebike-icon.svg')}
-          alt="EsteBike"
-          class="route-logo"
-          width="56"
-          height="56"
-        />
         <p class="route-eyebrow">Magna &amp; Pedala 2026</p>
         <h1 class="route-title">{name}</h1>
         <p class="route-tagline">{tagline}</p>
@@ -183,9 +176,16 @@ const {
 
 <style>
   .route-page {
-    padding: var(--space-6) 0 var(--space-12);
+    padding: calc(var(--header-height-mobile) + var(--space-6)) 0
+      var(--space-12);
     background-color: var(--color-off-white);
-    min-height: calc(100vh - 80px);
+    min-height: 100vh;
+  }
+
+  @media (min-width: 768px) {
+    .route-page {
+      padding-top: calc(var(--header-height-desktop) + var(--space-6));
+    }
   }
 
   .route-page .container {
@@ -196,11 +196,6 @@ const {
   .route-header {
     text-align: center;
     margin-bottom: var(--space-8);
-  }
-
-  .route-logo {
-    margin: 0 auto var(--space-3);
-    display: block;
   }
 
   .route-eyebrow {
