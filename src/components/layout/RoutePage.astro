@@ -167,6 +167,21 @@ const {
         della strada.
       </p>
 
+      <div class="route-share">
+        <button
+          type="button"
+          class="route-share__btn"
+          data-share-btn
+          data-share-title={`${name} — Magna & Pedala 2026`}
+          data-share-text={`Traccia GPS del ${name} per il Magna & Pedala 2026`}
+        >
+          <Icon name="share" size={18} />
+          <span>Condividi questa pagina</span>
+        </button>
+        <span class="route-share__feedback" data-share-feedback aria-live="polite"
+        ></span>
+      </div>
+
       <div class="route-back">
         <a href={url('/magna-e-pedala')}>← Torna a Magna &amp; Pedala</a>
       </div>
@@ -377,6 +392,47 @@ const {
     color: var(--route-accent);
   }
 
+  /* Share */
+  .route-share {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+  }
+
+  .route-share__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: transparent;
+    border: 2px solid var(--color-gray-300);
+    color: var(--color-charcoal);
+    font-family: var(--font-heading);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    min-height: var(--touch-target-min);
+  }
+
+  .route-share__btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .route-share__btn :global(.icon) {
+    color: var(--color-primary);
+  }
+
+  .route-share__feedback {
+    font-size: var(--text-xs);
+    color: var(--color-gray-600);
+    min-height: 1em;
+  }
+
   .route-back {
     text-align: center;
     margin-top: var(--space-6);
@@ -393,3 +449,39 @@ const {
     text-decoration: underline;
   }
 </style>
+
+<script>
+  document.querySelectorAll('[data-share-btn]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const title = btn.getAttribute('data-share-title') || document.title;
+      const text = btn.getAttribute('data-share-text') || '';
+      const url = window.location.href;
+      const feedback = btn.parentElement?.querySelector(
+        '[data-share-feedback]'
+      ) as HTMLElement | null;
+      const setFeedback = (msg: string) => {
+        if (!feedback) return;
+        feedback.textContent = msg;
+        setTimeout(() => {
+          if (feedback.textContent === msg) feedback.textContent = '';
+        }, 3000);
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, text, url });
+        } catch (err) {
+          // User cancelled or share failed silently — no feedback needed
+        }
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(url);
+        setFeedback('Link copiato negli appunti');
+      } catch {
+        setFeedback('Impossibile copiare il link');
+      }
+    });
+  });
+</script>
