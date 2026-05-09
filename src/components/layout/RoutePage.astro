@@ -35,17 +35,20 @@ const {
   title={`${name} — Magna & Pedala 2026`}
   description={`Traccia GPS del ${name} — ${distanceKm} km, ${elevationGain} m D+. Scarica il GPX o apri il percorso su Strava, Komoot o Google Maps.`}
   noindex={true}
+  bare={true}
 >
   <section class="route-page" style={`--route-accent: ${accentColor};`}>
     <div class="container">
       <div class="route-header">
-        <img
-          src={url('/images/estebike-icon.svg')}
-          alt="EsteBike"
-          class="route-logo"
-          width="56"
-          height="56"
-        />
+        <a href={url('/')} class="route-logo-link">
+          <img
+            src={url('/images/estebike-logo.png')}
+            alt="EsteBike"
+            class="route-logo"
+            width="200"
+            height="80"
+          />
+        </a>
         <p class="route-eyebrow">Magna &amp; Pedala 2026</p>
         <h1 class="route-title">{name}</h1>
         <p class="route-tagline">{tagline}</p>
@@ -183,9 +186,9 @@ const {
 
 <style>
   .route-page {
-    padding: var(--space-6) 0 var(--space-12);
+    padding: var(--space-8) 0 var(--space-12);
     background-color: var(--color-off-white);
-    min-height: calc(100vh - 80px);
+    min-height: 100vh;
   }
 
   .route-page .container {
@@ -198,8 +201,15 @@ const {
     margin-bottom: var(--space-8);
   }
 
+  .route-logo-link {
+    display: inline-block;
+    margin: 0 auto var(--space-4);
+  }
+
   .route-logo {
-    margin: 0 auto var(--space-3);
+    height: auto;
+    max-width: 180px;
+    width: 100%;
     display: block;
   }
 
