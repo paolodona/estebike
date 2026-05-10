@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-EsteBike is a website for a cycling club based in Este (Padova, Veneto, Italy). The site is built with **Astro 5** and deployed to **GitHub Pages**. The flagship event is **Magna & Pedala** (30th edition, May 10, 2026), with registration handled via Eventbrite.
+EsteBike is a website for a cycling club based in Este (Padova, Veneto, Italy). The site is built with **Astro 5** and deployed to **GitHub Pages**. The flagship event is **Magna & Pedala** (2026 edition held on May 10, 2026, celebrating the **30th anniversary of the EsteBike club** — note: the 30th anniversary refers to the club's founding in 1996, NOT the event's edition number), with registration handled via Eventbrite.
 
 **Stack:**
 
