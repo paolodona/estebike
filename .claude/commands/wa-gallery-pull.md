@@ -5,241 +5,98 @@ description: Download images from the EsteBike WhatsApp groups (Estebike + AGONI
 
 # WhatsApp Gallery Pull
 
-Download new images from **both** EsteBike WhatsApp groups via Chrome DevTools MCP, save them to the gallery, and update `galleria.astro`.
+Downloads new images from **both** EsteBike WhatsApp groups via Chrome DevTools MCP and saves them to `public/images/gallery/YYYY/MM/`.
 
-**Groups to pull from (in this order):**
+The heavy lifting lives in `scripts/whatsapp-gallery/`:
 
-1. **"Estebike"** — the main group chat
-2. **"AGONISTI TEAM Estebike"** — the agonisti/racing team group
+- `browser/md5.mjs` — MD5 implementation injected into the WhatsApp tab
+- `browser/switch-chat.mjs` — robust chat-switcher (synthetic mouse events, header validation)
+- `browser/open-media-panel.mjs` — opens "Media, links and docs"
+- `browser/scroll-and-hash.mjs` — **Pass 1**: scroll the panel, fetch every blob, return `{ blobUrl, hash, label }` list (no downloads)
+- `browser/download-list.mjs` — **Pass 2**: download a pre-filtered list of new blobs, throttled
+- `process-downloads.mjs` — hash dedup, rename, move, descriptions, state
+- `pull.mjs` — post-pull CLI (process + cleanup + summary, optional build)
 
-Both groups share the same gallery folders, dedup hash list, and descriptions file. Process them sequentially: complete all steps for group 1, then repeat for group 2.
+**Why two passes?** The browser script no longer needs the full `known_hashes` list (~3,800 entries → 120KB inlined). Pass 1 returns the small hash list; the orchestrator filters in Node; Pass 2 downloads only the new ones. Each injected script stays under ~10KB.
+
+Each `browser/*.mjs` exports either `MD5_SOURCE` (a string) or a `toScript(args)` function returning a JS source string ready to pass to `evaluate_script`.
 
 **Arguments:** `$ARGUMENTS`
 
-- No args = pull only NEW images (posted after last pull date)
-- `--backfill` = re-scan all media to capture previously missed images
-- `--dry-run` = scan and report what would be downloaded without saving
+- No args = pull only NEW images, stopping early when a streak of known images is hit
+- `--backfill` = scan all media items in the panel (no streak abort)
+- `--dry-run` = run the processor in dry-run mode after downloads (no state changes)
 
 ## Prerequisites
 
-- Chrome DevTools MCP must be connected
-- User must be logged into WhatsApp Web
-- The EsteBike group chat must be accessible
+- Chrome DevTools MCP connected, WhatsApp Web logged in.
 
-## Overall flow
+## Flow
 
-Steps 1–2 run once at the start. Then steps 3–10 are executed **for each group** in sequence:
+### 1. Check session
 
-1. Read state & connect to WhatsApp (once)
-2. **For "Estebike" group:** navigate → open media → extract → download → move → describe → update state
-3. **For "AGONISTI TEAM Estebike" group:** navigate → open media → extract → download → move → describe → update state
-4. Verify build & report (once)
+Run `mcp chrome-devtools list_pages`. If `web.whatsapp.com` is not listed, navigate to it and ask the user to confirm login.
 
-The shared `known_hashes` ensures cross-group dedup: any image already downloaded from group 1 is automatically skipped in group 2.
+### 2. For each group: switch → open media panel → scroll-and-download
 
-## Step-by-step process
+Groups, in order:
 
-### 1. Read current state
+| groupName                | query           | headerMatch              |
+| ------------------------ | --------------- | ------------------------ |
+| `Estebike`               | `Estebike`      | `Estebike`               |
+| `AGONISTI TEAM Estebike` | `AGONISTI TEAM` | `AGONISTI TEAM Estebike` |
 
-Read `scripts/whatsapp-gallery/pull-state.json` to get:
+For each group:
 
-- `last_pull` — ISO timestamp of the last successful pull (per-group, see `groups` object)
-- `total_downloaded` — number of unique images in the gallery (across both groups)
-- `known_hashes` — MD5 hashes of ALL images ever downloaded from ANY group (the authoritative dedup list, shared across groups)
-- `months_with_images` — which months already have images
-- `groups` — per-group state with `last_pull` and `total_downloaded` for each group
+1. **Switch chat.** Read `scripts/whatsapp-gallery/browser/switch-chat.mjs`, call `toScript({ groupName, query, headerMatch })`, pass the returned source to `evaluate_script`. Verify the result is `{ ok: true, header: ... }`. Retry once on `header-mismatch`.
+2. **Open media panel.** Read `browser/open-media-panel.mjs`, call `toScript()`, inject. Verify `{ ok: true, imageItems: > 0 }`.
+3. **Pass 1 — scroll & hash.** Read `browser/scroll-and-hash.mjs` (also reads `browser/md5.mjs`). Call `toScript()`, inject, await. You get `{ items: [{ blobUrl, hash, label }] }`.
+4. **Filter in Node.** Build the list of `{ blobUrl, hash, label }` whose `hash` is NOT in `pull-state.json#known_hashes`. For default mode, also stop the list as soon as `abortStreak` (default 15) consecutive entries are known — `items` is in newest-first order, so a streak signals we've hit already-downloaded territory. With `--backfill`, do not apply the streak rule.
+5. **Pass 2 — download.** Read `browser/download-list.mjs`. Call `toScript({ group, toDownload })` with the filtered list. Inject and await. You get `{ attempted, downloaded, errors }`.
 
-**Important — deleted image handling:** The `known_hashes` array is the single source of truth for deduplication. If a hash is in `known_hashes`, the image must NEVER be re-downloaded, even if the file no longer exists on disk. A missing file with a known hash means the user intentionally deleted it. Do NOT remove hashes from `known_hashes` and do NOT re-download images whose hash is already known.
+Saved files land in `~/Downloads/` as `wapull_{group}_{md5}_{slug}.jpg`. The naming is idempotent — re-running on the same image always produces the same filename, so any rate-limited Chrome retry overwrites the previous attempt cleanly.
 
-**Important — cross-group dedup:** The same image may be shared in both groups. Since `known_hashes` is shared, once an image is downloaded from the first group, it will be automatically skipped when encountered in the second group. This prevents duplicates in the gallery.
+### 3. Process and report
 
-Read the current gallery page `src/pages/galleria.astro` to understand the existing image entries and month sections.
-
-### 2. Connect to WhatsApp Web
-
-Use Chrome DevTools MCP tools to:
-
-1. **Check if WhatsApp is already open:**
-
-   ```
-   mcp chrome-devtools list_pages
-   ```
-
-   Look for a page with `web.whatsapp.com` in the URL.
-
-2. **If not open, navigate to it:**
-
-   ```
-   mcp chrome-devtools navigate_page url="https://web.whatsapp.com"
-   ```
-
-   Then ask the user to log in and confirm when ready.
-
-3. **Navigate to the target group:**
-
-   Process groups in order. For each group, search and navigate:
-
-   **Group 1 — "Estebike" (main group):**
-   - Use `fill` on the search box to type "Estebike"
-   - Click the "Estebike" group chat (NOT "AGONISTI TEAM Estebike", "@ Dublin", or "ESTEBIKE" contact)
-   - Verify the chat header shows "Estebike" with member list
-
-   **Group 2 — "AGONISTI TEAM Estebike":**
-   - After completing all steps for Group 1 (through step 10), return here
-   - Clear the search box and type "AGONISTI TEAM"
-   - Click the "AGONISTI TEAM Estebike" group chat
-   - Verify the chat header shows "AGONISTI TEAM Estebike" with member list
-   - Then repeat steps 3–10 for this group
-
-### 3. Open the Media Panel
-
-1. Click the group header (use `evaluate_script` to find `[data-testid="contact-info-header"]` or `[title="Profile details"]` and click it)
-2. Wait 1.5s for the Group Info panel to appear
-3. Find and click "Media, links and docs" span (search all `<span>` elements for this exact text, then click the closest parent button/div)
-4. Wait 2s for the media panel dialog to appear
-5. Verify: `document.querySelector('div[role="dialog"]')` should exist
-
-### 4. Determine what to download
-
-**Default mode (new images only):**
-
-- The media panel shows images newest-first
-- Count the total image listitems: `dialog.querySelectorAll('[role="listitem"]')` where `aria-label` includes "Image"
-- Compare with `pull-state.json.total_downloaded`
-- The difference = new images to download (they'll be at the top of the panel)
-
-**Backfill mode (`--backfill`):**
-
-- Download ALL images, deduplicating against existing files by MD5 hash
-- Will need multiple scroll passes since virtual scroll only renders ~85 items at once
-
-### 5. Extract blob URLs AND message captions
-
-The media panel renders image thumbnails as CSS `background-image: url("blob:...")` on `<div>` elements. These blob URLs contain the **full-resolution** images (not just thumbnails).
-
-Each listitem's `aria-label` contains the sender name and any attached message caption (e.g., `" Image from GloriaBel panorama dai colli"`). Extract both the sender AND the caption text for use as image descriptions.
-
-**Collection script** (inject via `evaluate_script`):
-
-```javascript
-async () => {
-  const dialog = document.querySelector('div[role="dialog"]');
-  if (!dialog) return { error: 'No media dialog' };
-
-  const allDivs = document.querySelectorAll('div');
-  const blobMap = {};
-  for (const div of allDivs) {
-    const bg = getComputedStyle(div).backgroundImage;
-    if (bg && bg.includes('blob:')) {
-      const match = bg.match(/url\("(blob:[^"]+)"\)/);
-      if (match) {
-        const li = div.closest('[role="listitem"]');
-        const label = li?.getAttribute('aria-label') || '';
-        if (label.includes('Image')) {
-          blobMap[match[1]] = label.substring(0, 120);
-        }
-      }
-    }
-  }
-  return { count: Object.keys(blobMap).length, blobs: blobMap };
-};
-```
-
-**Download script** (inject via `evaluate_script`):
-
-```javascript
-async (blobMap, startIndex) => {
-  const entries = Object.entries(blobMap);
-  let downloaded = 0,
-    errors = 0;
-
-  for (let i = 0; i < entries.length; i++) {
-    const [blobUrl, label] = entries[i];
-    try {
-      const sender = (label.match(/from\s+(.+?)(?:$)/) || ['', 'unknown'])[1]
-        .replace(/[^a-zA-Z0-9 ]/g, '')
-        .trim()
-        .replace(/\s+/g, '_')
-        .substring(0, 20);
-      const idx = String(startIndex + i).padStart(3, '0');
-      const filename = `estebike_${idx}_${sender}.jpg`;
-
-      const response = await fetch(blobUrl);
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 500);
-      downloaded++;
-      if (i % 10 === 9) await new Promise((r) => setTimeout(r, 500));
-    } catch (e) {
-      errors++;
-    }
-  }
-  return { downloaded, errors, total: entries.length };
-};
-```
-
-**For backfill mode**, after the first pass:
-
-1. Store collected blob URLs
-2. Scroll the media panel container (find div with `scrollHeight > 5000`) from top to bottom in 200px steps with 250ms delays
-3. Collect any NEW blob URLs not in the first pass
-4. Download the new ones
-
-### 6. Process downloads (dedupe + move + describe + update state)
-
-After both groups have been downloaded (browser writes to `~/Downloads/`), run the post-download processor. It hashes each file, skips duplicates against `pull-state.json` `known_hashes` (and intra-batch dupes from cross-group sharing), renames the kept files using the next sequential index in the target month folder, moves them into `public/images/gallery/YYYY/MM/`, generates Italian alt-text in `descriptions.json`, and updates `pull-state.json` (last_pull, total_downloaded, known_hashes, months_with_images, per-group counts).
+Run the post-pull CLI:
 
 ```bash
-# Default: deposit into the current month
-node scripts/whatsapp-gallery/process-downloads.mjs
-
-# Specify a different month (backfill)
-node scripts/whatsapp-gallery/process-downloads.mjs --month 2026-03
-
-# Preview without writing
-node scripts/whatsapp-gallery/process-downloads.mjs --dry-run
+node scripts/whatsapp-gallery/pull.mjs --verify
 ```
 
-The script prints a JSON summary: `seen`, `moved`, `groupCounts`, `skipped` (`knownDup` + `crossDup`), `censored`, and a `sample` of moved files with descriptions.
+`--verify` also runs `astro build` and prints the result. Use `--month YYYY-MM` to deposit into a non-current month (backfill).
 
-**Folder structure** (auto-created by the script): `public/images/gallery/{year}/{month}/estebike_NNN_sender.jpg`. The gallery page auto-scans this directory tree — no need to edit `galleria.astro`.
+The CLI:
 
-**Description quality:** the script falls back to `"{Sender} - uscita in bici"` (or `"Foto dal gruppo EsteBike"` for phone-number senders) when no caption is captured in the filename tail. If the user wants richer descriptions, follow up with a vision pass over the new files: read each image and overwrite its entry in `descriptions.json` with a concise Italian description (max ~80 chars, no emoji, profanity censored to `***`).
+- Hashes each download, skips known/cross-group duplicates, renames to `estebike_NNN_slug.jpg`, moves to the gallery folder
+- Generates an Italian alt-text in `descriptions.json`
+- Updates `pull-state.json` (`last_pull`, `total_downloaded`, `known_hashes`, `months_with_images`, per-group counts)
+- Cleans up any leftover `wapull_*` / `estebike_*` / `agonisti_*` files
+- Optionally runs the build
+- Prints a single-screen summary
 
-### 7. Verify
+### 4. Report to the user
 
-Run `npx astro build 2>&1 | tail -5` to ensure the site builds without errors.
+Take the CLI summary and add per-group context from the `aborted` and `finalStreak` fields returned by each `scroll-and-download` invocation, e.g.:
 
-Report to the user:
+> Estebike: 8 new (stopped after 15-known streak). AGONISTI TEAM: 0 new (panel exhausted). 56 known dupes skipped. Build OK.
 
-- Number of new images downloaded **per group** (e.g., "Estebike: 5 new, AGONISTI TEAM: 3 new")
-- Number of cross-group duplicates skipped
-- Which months they were added to
-- Current total gallery count
-- Number of descriptions generated (from captions vs AI vs fallback)
-- Any profanity that was censored
-- Any errors or skipped items
+## Behavior notes
 
-### 8. Clean up Downloads
+- **Throttling.** `download-list` waits 1.2s between downloads and 2s every 5 to dodge Chrome's silent multi-download rate limit. Don't lower these without testing.
+- **Early stop.** Default abort threshold is 15 consecutive known-hash hits, applied during Node-side filtering of the Pass 1 results. With `--backfill` the streak rule is skipped.
+- **Virtual scroll.** WhatsApp keeps ~95 image blobs hot at any time. The loop scrolls in 400px steps; for older content use `--backfill` (the panel will fetch as you scroll).
+- **Deleted images.** Hashes stay in `known_hashes` even when files are deleted from the gallery — this is intentional: a deleted image is a rejected image.
+- **Blob URL lifetime.** Blob URLs are valid only for the current WhatsApp Web session. The whole flow must run end-to-end without navigating away.
+- **Escape key.** Use the MCP `press_key` tool, not synthetic KeyboardEvents — WhatsApp Web ignores dispatched key events.
+- **No viewer needed.** Media-panel thumbnails already carry the full-resolution blob URL; never click a thumbnail to "open" it.
+- **Sequential numbering after rename.** Browser files use the hash; the processor renames to `estebike_NNN_slug.jpg` keyed on the highest existing index in the destination month. Both groups merge into a single sequence (matches the legacy convention).
 
-The processor only moves files it kept. Delete any leftovers (videos, MP4s, files that failed to hash):
+## Backfill mode
 
-```bash
-rm -f ~/Downloads/estebike_*.jpg ~/Downloads/agonisti_*.jpg
-```
+Backfill is the same two-pass flow with two differences:
 
-## Important notes
+1. The Node-side filter step (between Pass 1 and Pass 2) skips the consecutive-known-streak abort, so every new hash gets queued.
+2. Optionally pass `--month YYYY-MM` to `pull.mjs` to deposit into the historical folder.
 
-- **Virtual scroll limitation**: WhatsApp Web only renders ~85 media items at once. A single pass may not capture all images. The backfill option handles this with multiple scroll passes.
-- **Blob URL lifetime**: Blob URLs are only valid during the current WhatsApp Web session. You cannot save URLs for later — download in the same session.
-- **Escape key**: Do NOT use `document.dispatchEvent(new KeyboardEvent('keydown', {key:'Escape'}))` to close viewers — it doesn't work in WhatsApp Web. Use the MCP `press_key` tool instead, or avoid opening the viewer entirely (download blobs directly from the media panel).
-- **Deduplication**: Always deduplicate by MD5 hash against `known_hashes` in `pull-state.json`, not by filename or blob URL. Never remove entries from `known_hashes`.
-- **Deleted images**: If a user deletes an image file from the gallery, its hash stays in `known_hashes`. This is intentional — it prevents re-downloading rejected images. The gallery page auto-excludes missing files since it scans the filesystem.
-- **No viewer needed**: The blob URLs in the media panel thumbnails already contain full-resolution images. There is no need to click thumbnails to open a viewer.
+WhatsApp will progressively fetch older blobs as you scroll, so backfill may take 5–10 minutes per group.
