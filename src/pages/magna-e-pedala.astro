@@ -8,6 +8,7 @@ import Card from '../components/ui/Card.astro';
 import CardBody from '../components/ui/CardBody.astro';
 import PhotoLightbox from '../components/ui/PhotoLightbox.astro';
 import { url } from '../utils/base';
+import { sponsors } from '../data/sponsors';
 
 const fs = await import('node:fs');
 const path = await import('node:path');
@@ -17,17 +18,24 @@ const rawPhotos: string[] = fs.existsSync(photosPath)
   ? JSON.parse(fs.readFileSync(photosPath, 'utf-8'))
   : [];
 
-// Resolve descriptions (reuse the gallery descriptions file for alt text)
-const descriptionsPath = path.resolve(
-  'scripts/whatsapp-gallery/descriptions.json'
-);
-const descriptions: Record<string, string> = fs.existsSync(descriptionsPath)
-  ? JSON.parse(fs.readFileSync(descriptionsPath, 'utf-8'))
-  : {};
+// Derive the uploader name from the WhatsApp filename:
+// `estebike_<num>_<Uploader>[CaptionCamelCase|_caption].jpg`
+// — falls back to no name when the segment is a phone number.
+function uploaderFromFilename(filename: string): string | null {
+  const m = filename.match(/^estebike_\d+_(.+)\.jpg$/i);
+  if (!m) return null;
+  const firstSeg = m[1].split('_')[0];
+  if (/^\d+$/.test(firstSeg)) return null;
+  const nameMatch = firstSeg.match(/^[A-Z][a-z]+/);
+  return nameMatch ? nameMatch[0] : firstSeg;
+}
 
 const eventPhotos = rawPhotos.map((p) => {
   const filename = p.split('/').pop() || '';
-  const alt = descriptions[filename] || 'Foto Magna & Pedala 2026';
+  const uploader = uploaderFromFilename(filename);
+  const alt = uploader
+    ? `${uploader} - Magna & Pedala 2026`
+    : 'Magna & Pedala 2026';
   return { src: url(p), alt };
 });
 
@@ -190,14 +198,23 @@ const routes = [
         <p>Senza il loro supporto il Magna & Pedala non sarebbe possibile.</p>
       </div>
 
-      {
-        /* TODO: aggiungere logo / lista sponsor 2026 e ringraziamento volontari */
-      }
       <p class="thanks-note text-center">
         Un grazie speciale a tutti i volontari che hanno presidiato i ristori e
         i bivi, alla <strong>Comune di Este</strong>, agli enti del territorio e
         a tutti gli sponsor che hanno sostenuto questa edizione speciale.
       </p>
+
+      <ul class="sponsor-links">
+        {
+          sponsors.map((s) => (
+            <li>
+              <a href={s.url} target="_blank" rel="noopener noreferrer">
+                {s.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -388,5 +405,26 @@ const routes = [
     color: var(--color-gray-700);
     font-size: var(--text-lg);
     line-height: var(--leading-relaxed);
+  }
+
+  .sponsor-links {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) auto 0;
+    max-width: 720px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2) var(--space-5);
+  }
+
+  .sponsor-links a {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+    text-decoration: none;
+  }
+
+  .sponsor-links a:hover {
+    text-decoration: underline;
   }
 </style>
