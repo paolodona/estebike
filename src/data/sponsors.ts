@@ -23,15 +23,13 @@ export interface Sponsor {
  */
 export const sponsors: Sponsor[] = [
   {
-    name: 'Ristorante Leon d\'Oro',
+    name: "Ristorante Leon d'Oro",
     logo: '/images/sponsors/leon-doro.jpg',
     logoBg: '#c8c3b8',
     url: 'https://www.leondoroeste.it',
     description:
       'Albergo ristorante storico di Este, sede sociale di EsteBike e punto di ritrovo per la cena settimanale del martedì.',
-    discounts: [
-      { description: '10% sul menù alla carta per i soci' },
-    ],
+    discounts: [{ description: '10% sul menù alla carta per i soci' }],
   },
   {
     name: 'Ride X-Treme',

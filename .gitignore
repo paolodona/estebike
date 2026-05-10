@@ -37,3 +37,8 @@ nul
 # WhatsApp gallery temp files
 scripts/whatsapp-gallery/.tmp-import/
 scripts/whatsapp-gallery/downloads/
+scripts/whatsapp-gallery/duplicates*.html
+scripts/whatsapp-gallery/duplicates*.txt
+
+# Local scratch
+.tmp-screenshots/

@@ -34,56 +34,62 @@ import { sponsors } from '../data/sponsors';
   <section class="section">
     <div class="container">
       <div class="sponsors-grid">
-        {sponsors.map((sponsor) => (
-          <article class="sponsor-card animate-on-scroll">
-            <div
-              class={`sponsor-card__logo${sponsor.logoBg ? ' sponsor-card__logo--custom' : ''}`}
-              style={sponsor.logoBg ? `background-color: ${sponsor.logoBg}` : undefined}
-            >
-              <img
-                src={url(sponsor.logo)}
-                alt={`Logo ${sponsor.name}`}
-                loading="lazy"
-                width="200"
-                height="100"
-              />
-            </div>
-
-            <div class="sponsor-card__body">
-              <h3 class="sponsor-card__name">{sponsor.name}</h3>
-              <p class="sponsor-card__desc">{sponsor.description}</p>
-
-              {sponsor.discounts.length > 0 && (
-                <div class="sponsor-card__discounts">
-                  <h4>
-                    <Icon name="tag" size={16} />
-                    Sconti per i soci
-                  </h4>
-                  <ul>
-                    {sponsor.discounts.map((d) => (
-                      <li>
-                        <Icon name="check" size={14} />
-                        <span>{d.description}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            <div class="sponsor-card__footer">
-              <a
-                href={sponsor.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="sponsor-link"
+        {
+          sponsors.map((sponsor) => (
+            <article class="sponsor-card animate-on-scroll">
+              <div
+                class={`sponsor-card__logo${sponsor.logoBg ? ' sponsor-card__logo--custom' : ''}`}
+                style={
+                  sponsor.logoBg
+                    ? `background-color: ${sponsor.logoBg}`
+                    : undefined
+                }
               >
-                Visita il sito
-                <Icon name="external-link" size={14} />
-              </a>
-            </div>
-          </article>
-        ))}
+                <img
+                  src={url(sponsor.logo)}
+                  alt={`Logo ${sponsor.name}`}
+                  loading="lazy"
+                  width="200"
+                  height="100"
+                />
+              </div>
+
+              <div class="sponsor-card__body">
+                <h3 class="sponsor-card__name">{sponsor.name}</h3>
+                <p class="sponsor-card__desc">{sponsor.description}</p>
+
+                {sponsor.discounts.length > 0 && (
+                  <div class="sponsor-card__discounts">
+                    <h4>
+                      <Icon name="tag" size={16} />
+                      Sconti per i soci
+                    </h4>
+                    <ul>
+                      {sponsor.discounts.map((d) => (
+                        <li>
+                          <Icon name="check" size={14} />
+                          <span>{d.description}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              <div class="sponsor-card__footer">
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsor-link"
+                >
+                  Visita il sito
+                  <Icon name="external-link" size={14} />
+                </a>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
