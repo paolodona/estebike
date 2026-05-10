@@ -79,7 +79,7 @@ for (const rel of lines) {
 
   // Hash the file before deleting
   const buf = fs.readFileSync(abs);
-  const hash = '\\' + crypto.createHash('md5').update(buf).digest('hex');
+  const hash = crypto.createHash('md5').update(buf).digest('hex');
 
   if (knownHashes.has(hash)) {
     alreadyHashed++;

@@ -716,13 +716,29 @@ const ssrSections =
       background-color 0.15s;
   }
 
-  .gallery-edit-mode .photo-item--selected::after {
+  .gallery-edit-mode .photo-item--tagged-delete::after {
     border-color: var(--color-primary);
     background-color: rgba(196, 30, 58, 0.3);
   }
 
-  .gallery-edit-mode .photo-item--selected::before {
+  .gallery-edit-mode .photo-item--tagged-delete::before {
     content: '\2717'; /* ✗ */
+    background: var(--color-primary);
+  }
+
+  .gallery-edit-mode .photo-item--tagged-magna-2026::after {
+    border-color: var(--color-accent);
+    background-color: rgba(247, 208, 0, 0.3);
+  }
+
+  .gallery-edit-mode .photo-item--tagged-magna-2026::before {
+    content: '\2605'; /* ★ */
+    background: var(--color-accent);
+    color: var(--color-charcoal);
+  }
+
+  .gallery-edit-mode .photo-item--tagged-delete::before,
+  .gallery-edit-mode .photo-item--tagged-magna-2026::before {
     position: absolute;
     top: 6px;
     right: 6px;
@@ -732,12 +748,41 @@ const ssrSections =
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-primary);
     color: white;
     border-radius: 50%;
     font-size: 14px;
     font-weight: 700;
     pointer-events: none;
+  }
+
+  /* Tag chip selector */
+  .edit-toolbar__tags {
+    display: flex;
+    gap: var(--space-1);
+    margin-right: var(--space-2);
+  }
+
+  .edit-toolbar__tag {
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: var(--text-xs);
+    transition: all 0.15s;
+  }
+
+  .edit-toolbar__tag:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .edit-toolbar__tag--active {
+    background: white;
+    color: var(--color-charcoal);
+    border-color: white;
+    font-weight: 600;
   }
 
   .edit-toolbar {
@@ -1034,38 +1079,96 @@ const ssrSections =
   );
 
   // ---- Edit Mode (?edit=true) ----
-  // Allows clicking thumbnails to select images for deletion.
+  // Multi-tag selection: switch between tags to mark images for different
+  // outputs (delete list, Magna & Pedala 2026 featured photos, ...).
   const editMode = new URLSearchParams(window.location.search).has('edit');
-  const selectedPaths = new Set<string>();
+
+  type TagId = 'delete' | 'magna-2026';
+
+  interface TagSpec {
+    id: TagId;
+    label: string;
+    selected: Set<string>;
+    /** Convert raw <img src> to the value stored / exported. */
+    toExportPath: (src: string) => string;
+    /** Filename for the download button. */
+    downloadName: string;
+    /** How to format the exported list. */
+    format: 'lines' | 'json-array';
+  }
+
+  function stripBase(src: string): string {
+    const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+    let rel = src;
+    if (base && rel.startsWith(base)) rel = rel.slice(base.length);
+    if (!rel.startsWith('/')) rel = '/' + rel;
+    return rel;
+  }
+
+  const tags: Record<TagId, TagSpec> = {
+    delete: {
+      id: 'delete',
+      label: 'Elimina',
+      selected: new Set<string>(),
+      toExportPath: (src) => 'public' + stripBase(src),
+      downloadName: 'gallery-delete-list.txt',
+      format: 'lines',
+    },
+    'magna-2026': {
+      id: 'magna-2026',
+      label: 'Magna 2026',
+      selected: new Set<string>(),
+      toExportPath: (src) => stripBase(src),
+      downloadName: 'magna-2026-photos.json',
+      format: 'json-array',
+    },
+  };
+  let activeTag: TagId = 'delete';
 
   if (editMode) {
     document.body.classList.add('gallery-edit-mode');
 
-    // Floating toolbar
     const toolbar = document.createElement('div');
     toolbar.className = 'edit-toolbar';
     toolbar.innerHTML = `
+      <div class="edit-toolbar__tags" role="tablist" aria-label="Tag attivo">
+        ${Object.values(tags)
+          .map(
+            (t) =>
+              `<button class="edit-toolbar__tag" data-edit-tag="${t.id}" role="tab">${t.label}</button>`
+          )
+          .join('')}
+      </div>
       <span class="edit-toolbar__count">0 selezionate</span>
-      <button class="edit-toolbar__btn" data-edit-copy>Copia lista</button>
-      <button class="edit-toolbar__btn" data-edit-download>Scarica .txt</button>
+      <button class="edit-toolbar__btn" data-edit-copy>Copia</button>
+      <button class="edit-toolbar__btn" data-edit-download>Scarica</button>
       <button class="edit-toolbar__btn edit-toolbar__btn--clear" data-edit-clear>Reset</button>
     `;
     document.body.appendChild(toolbar);
     const countEl = toolbar.querySelector('.edit-toolbar__count')!;
 
     function updateCount() {
-      countEl.textContent = `${selectedPaths.size} selezionate`;
+      countEl.textContent = `${tags[activeTag].selected.size} selezionate (${tags[activeTag].label})`;
     }
 
-    // Convert image src URL to relative filesystem path (public/images/gallery/...)
-    function srcToPath(src: string): string {
-      // Strip base URL prefix and leading slash to get path relative to public/
-      const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-      let rel = src;
-      if (base && rel.startsWith(base)) rel = rel.slice(base.length);
-      if (rel.startsWith('/')) rel = rel.slice(1);
-      return 'public/' + rel;
+    function setActiveTag(id: TagId) {
+      activeTag = id;
+      toolbar.querySelectorAll('[data-edit-tag]').forEach((b) => {
+        b.classList.toggle(
+          'edit-toolbar__tag--active',
+          b.getAttribute('data-edit-tag') === id
+        );
+      });
+      document.body.setAttribute('data-active-tag', id);
+      updateCount();
     }
+
+    toolbar.querySelectorAll('[data-edit-tag]').forEach((b) => {
+      b.addEventListener('click', () => {
+        setActiveTag(b.getAttribute('data-edit-tag') as TagId);
+      });
+    });
+    setActiveTag('delete');
 
     function toggleSelection(btn: Element) {
       const src =
@@ -1073,18 +1176,19 @@ const ssrSections =
         btn.querySelector('img')?.getAttribute('src') ||
         '';
       if (!src) return;
-      const p = srcToPath(src);
-      if (selectedPaths.has(p)) {
-        selectedPaths.delete(p);
-        btn.classList.remove('photo-item--selected');
+      const tag = tags[activeTag];
+      const p = tag.toExportPath(src);
+      const selectedClass = `photo-item--tagged-${tag.id}`;
+      if (tag.selected.has(p)) {
+        tag.selected.delete(p);
+        btn.classList.remove(selectedClass);
       } else {
-        selectedPaths.add(p);
-        btn.classList.add('photo-item--selected');
+        tag.selected.add(p);
+        btn.classList.add(selectedClass);
       }
       updateCount();
     }
 
-    // Intercept clicks on photo items in edit mode (prevent lightbox)
     document.addEventListener(
       'click',
       (e) => {
@@ -1095,15 +1199,19 @@ const ssrSections =
         toggleSelection(btn);
       },
       true
-    ); // capture phase to beat lightbox handlers
+    );
 
-    function getList() {
-      return [...selectedPaths].sort().join('\n');
+    function formatList(tag: TagSpec): string {
+      const items = [...tag.selected].sort();
+      if (tag.format === 'json-array') {
+        return JSON.stringify(items, null, 2) + '\n';
+      }
+      return items.join('\n');
     }
 
     toolbar.querySelector('[data-edit-copy]')!.addEventListener('click', () => {
-      const text = getList();
-      if (!text) return;
+      const text = formatList(tags[activeTag]);
+      if (!text.trim() || tags[activeTag].selected.size === 0) return;
       navigator.clipboard.writeText(text).then(() => {
         countEl.textContent = 'Copiato!';
         setTimeout(updateCount, 1500);
@@ -1113,12 +1221,15 @@ const ssrSections =
     toolbar
       .querySelector('[data-edit-download]')!
       .addEventListener('click', () => {
-        const text = getList();
-        if (!text) return;
-        const blob = new Blob([text], { type: 'text/plain' });
+        const tag = tags[activeTag];
+        if (tag.selected.size === 0) return;
+        const text = formatList(tag);
+        const mime =
+          tag.format === 'json-array' ? 'application/json' : 'text/plain';
+        const blob = new Blob([text], { type: mime });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = 'gallery-delete-list.txt';
+        a.download = tag.downloadName;
         a.click();
         URL.revokeObjectURL(a.href);
       });
@@ -1126,14 +1237,15 @@ const ssrSections =
     toolbar
       .querySelector('[data-edit-clear]')!
       .addEventListener('click', () => {
-        selectedPaths.clear();
+        const tag = tags[activeTag];
+        tag.selected.clear();
         document
-          .querySelectorAll('.photo-item--selected')
-          .forEach((el) => el.classList.remove('photo-item--selected'));
+          .querySelectorAll(`.photo-item--tagged-${tag.id}`)
+          .forEach((el) => el.classList.remove(`photo-item--tagged-${tag.id}`));
         updateCount();
       });
 
-    // Also need to expand all lazy sections so user can select everything
+    // Expand all lazy sections so the user can select everything
     lazySections.forEach((s) => expandSection(s));
   }
 

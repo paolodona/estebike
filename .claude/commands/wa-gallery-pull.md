@@ -192,122 +192,28 @@ async (blobMap, startIndex) => {
 3. Collect any NEW blob URLs not in the first pass
 4. Download the new ones
 
-### 6. Move files from Downloads to gallery
+### 6. Process downloads (dedupe + move + describe + update state)
 
-After the browser downloads complete (wait 5-10 seconds):
+After both groups have been downloaded (browser writes to `~/Downloads/`), run the post-download processor. It hashes each file, skips duplicates against `pull-state.json` `known_hashes` (and intra-batch dupes from cross-group sharing), renames the kept files using the next sequential index in the target month folder, moves them into `public/images/gallery/YYYY/MM/`, generates Italian alt-text in `descriptions.json`, and updates `pull-state.json` (last_pull, total_downloaded, known_hashes, months_with_images, per-group counts).
 
 ```bash
-# Compute MD5 hashes of newly downloaded files
-cd ~/Downloads
-for f in estebike_*.jpg; do [[ "$f" == *"("* ]] && continue; md5sum "$f"; done
+# Default: deposit into the current month
+node scripts/whatsapp-gallery/process-downloads.mjs
+
+# Specify a different month (backfill)
+node scripts/whatsapp-gallery/process-downloads.mjs --month 2026-03
+
+# Preview without writing
+node scripts/whatsapp-gallery/process-downloads.mjs --dry-run
 ```
 
-For each downloaded file:
+The script prints a JSON summary: `seen`, `moved`, `groupCounts`, `skipped` (`knownDup` + `crossDup`), `censored`, and a `sample` of moved files with descriptions.
 
-1. Compute its MD5 hash
-2. Check if the hash exists in `pull-state.json`'s `known_hashes` array
-3. **If hash is known → DELETE the downloaded file** (it was either already in the gallery or was intentionally removed by the user — either way, skip it)
-4. **If hash is new → move to gallery** and add hash to `known_hashes`
+**Folder structure** (auto-created by the script): `public/images/gallery/{year}/{month}/estebike_NNN_sender.jpg`. The gallery page auto-scans this directory tree — no need to edit `galleria.astro`.
 
-Move unique new files to `public/images/gallery/YYYY/MM/` based on their month, renumbering sequentially from the current max index + 1 within that month folder.
+**Description quality:** the script falls back to `"{Sender} - uscita in bici"` (or `"Foto dal gruppo EsteBike"` for phone-number senders) when no caption is captured in the filename tail. If the user wants richer descriptions, follow up with a vision pass over the new files: read each image and overwrite its entry in `descriptions.json` with a concise Italian description (max ~80 chars, no emoji, profanity censored to `***`).
 
-**Folder structure**: `public/images/gallery/{year}/{month}/estebike_NNN_sender.jpg`
-
-- Example: `public/images/gallery/2026/03/estebike_046_Gloria.jpg`
-- The gallery page auto-scans this directory structure — no need to edit `galleria.astro` for new images.
-
-### 7. Determine month for new images
-
-The media panel organizes images by month with headers (MARCH, FEBRUARY, JANUARY, etc.). Map new images to months using:
-
-- **Position in the media panel**: Images at the top are newest (current month)
-- **If only a few new images**: They're likely all from the current month
-- **For backfill**: Use the snapshot data from the media panel to map positions to month headers
-
-Month name mapping for Italian gallery labels:
-
-- JANUARY → Gennaio
-- FEBRUARY → Febbraio
-- MARCH → Marzo
-- APRIL → Aprile
-- MAY → Maggio
-- etc.
-
-### 8. Generate Italian descriptions and update descriptions.json
-
-For each new image, generate an Italian alt-text description and store it in `scripts/whatsapp-gallery/descriptions.json`. This file maps filenames to descriptions and is read by `galleria.astro` at build time.
-
-**Description sources (in priority order):**
-
-1. **WhatsApp message caption** — the text attached to the image in the chat. Extract from the listitem `aria-label`:
-   - Label format: `" Image from {Sender}{OptionalCaption}"`
-   - The caption is the text after the sender name (if any)
-   - Example: `" Image from GloriaBel panorama dai colli"` → caption is "Bel panorama dai colli"
-   - Example: `" Image from Nicola"` → no caption
-
-2. **AI-generated description** — if no caption, look at the image (use Claude's vision via `Read` tool on the image file) and write a brief Italian description (max 10 words) describing what's in the photo. Focus on: what activity, where, who (if identifiable by jersey/kit).
-
-3. **Fallback** — if neither is available, use: `"{SenderName} - uscita in bici"` or `"Foto dal gruppo EsteBike"` for unknown senders.
-
-**Language and content rules:**
-
-- ALL descriptions MUST be in Italian
-- Replace any profanity/vulgar words with `***`. Common Italian profanity to catch:
-  `cazzo`, `minchia`, `merda`, `stronzo/a`, `vaffanculo`, `coglione`, `porca/porco` (when used as expletive), `madonna` (when used as expletive), `dio` (when used as expletive, e.g. "dio \*\*\*"), `azz` (euphemism)
-- Also check for English profanity: `fuck`, `shit`, `damn`, `ass`, `bitch`, `hell` (when used as expletive)
-- Keep descriptions concise: max 80 characters
-- Use sentence case, no trailing period
-- No emoji in descriptions
-
-**Update process:**
-
-```python
-import json
-
-# Read existing descriptions
-desc_path = 'scripts/whatsapp-gallery/descriptions.json'
-descriptions = json.load(open(desc_path))
-
-# For each new image file, add entry
-# Key = filename (e.g., "estebike_046_Gloria.jpg")
-# Value = Italian description string
-descriptions["estebike_046_Gloria.jpg"] = "Bel panorama dai Colli Euganei"
-
-# Remove the _comment key if present before saving, then re-add
-descriptions.pop('_comment', None)
-descriptions = {"_comment": "Maps image filename to Italian alt text. Auto-generated by /wa-gallery-pull.", **descriptions}
-
-json.dump(descriptions, open(desc_path, 'w'), indent=2, ensure_ascii=False)
-```
-
-### 9. Gallery page auto-updates
-
-The gallery page (`src/pages/galleria.astro`) auto-scans `public/images/gallery/YYYY/MM/` at build time. **No manual editing needed** — just placing files in the right folder is enough. The page:
-
-- Reads `scripts/whatsapp-gallery/descriptions.json` for alt text (if entry exists for a filename)
-- Falls back to generating alt text from the sender name in the filename
-- Generates month sections from folder names (e.g., `2026/03` → "Marzo 2026")
-- Sections sorted newest-first
-- All alt text is in Italian
-
-### 10. Update pull state
-
-Update `scripts/whatsapp-gallery/pull-state.json`:
-
-- Set top-level `last_pull` to current ISO timestamp
-- Update `total_downloaded` with new total count (across both groups)
-- Add new hashes to `known_hashes` (never remove existing ones)
-- Update `months_with_images` with new month counts
-- Update the `groups` object with per-group `last_pull` and `total_downloaded`:
-  ```json
-  "groups": {
-    "Estebike": { "last_pull": "2026-04-01T...", "total_downloaded": 65 },
-    "AGONISTI TEAM Estebike": { "last_pull": "2026-04-01T...", "total_downloaded": 12 }
-  }
-  ```
-  Update each group's entry only after successfully processing that group.
-
-### 11. Verify
+### 7. Verify
 
 Run `npx astro build 2>&1 | tail -5` to ensure the site builds without errors.
 
@@ -321,12 +227,12 @@ Report to the user:
 - Any profanity that was censored
 - Any errors or skipped items
 
-### 12. Clean up Downloads
+### 8. Clean up Downloads
 
-After successful copy and verification:
+The processor only moves files it kept. Delete any leftovers (videos, MP4s, files that failed to hash):
 
 ```bash
-rm ~/Downloads/estebike_*.jpg
+rm -f ~/Downloads/estebike_*.jpg ~/Downloads/agonisti_*.jpg
 ```
 
 ## Important notes
