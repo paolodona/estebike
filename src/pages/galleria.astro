@@ -33,6 +33,13 @@ const descriptions: Record<string, string> = fs.existsSync(descriptionsPath)
   ? JSON.parse(fs.readFileSync(descriptionsPath, 'utf-8'))
   : {};
 
+// Pre-existing Magna 2026 selection — used by ?edit mode to pre-tag photos
+// already in the list, so re-exporting won't lose previous selections.
+const magna2026Path = path.resolve('src/data/magna-2026-photos.json');
+const magna2026Preselected: string[] = fs.existsSync(magna2026Path)
+  ? JSON.parse(fs.readFileSync(magna2026Path, 'utf-8'))
+  : [];
+
 function filenameToAlt(filename: string): string {
   // Check descriptions.json first
   if (descriptions[filename]) return descriptions[filename];
@@ -302,6 +309,12 @@ const ssrSections =
       </nav>
     </div>
   </section>
+
+  <script
+    type="application/json"
+    id="magna-2026-preselected"
+    set:html={JSON.stringify(magna2026Preselected)}
+  />
 
   <!-- Lightbox Modal -->
   <div
@@ -716,29 +729,35 @@ const ssrSections =
       background-color 0.15s;
   }
 
-  .gallery-edit-mode .photo-item--tagged-delete::after {
+  .gallery-edit-mode[data-active-tag='delete']
+    .photo-item--tagged-delete::after {
     border-color: var(--color-primary);
     background-color: rgba(196, 30, 58, 0.3);
   }
 
-  .gallery-edit-mode .photo-item--tagged-delete::before {
+  .gallery-edit-mode[data-active-tag='delete']
+    .photo-item--tagged-delete::before {
     content: '\2717'; /* ✗ */
     background: var(--color-primary);
   }
 
-  .gallery-edit-mode .photo-item--tagged-magna-2026::after {
+  .gallery-edit-mode[data-active-tag='magna-2026']
+    .photo-item--tagged-magna-2026::after {
     border-color: var(--color-accent);
     background-color: rgba(247, 208, 0, 0.3);
   }
 
-  .gallery-edit-mode .photo-item--tagged-magna-2026::before {
+  .gallery-edit-mode[data-active-tag='magna-2026']
+    .photo-item--tagged-magna-2026::before {
     content: '\2605'; /* ★ */
     background: var(--color-accent);
     color: var(--color-charcoal);
   }
 
-  .gallery-edit-mode .photo-item--tagged-delete::before,
-  .gallery-edit-mode .photo-item--tagged-magna-2026::before {
+  .gallery-edit-mode[data-active-tag='delete']
+    .photo-item--tagged-delete::before,
+  .gallery-edit-mode[data-active-tag='magna-2026']
+    .photo-item--tagged-magna-2026::before {
     position: absolute;
     top: 6px;
     right: 6px;
@@ -1247,6 +1266,33 @@ const ssrSections =
 
     // Expand all lazy sections so the user can select everything
     lazySections.forEach((s) => expandSection(s));
+
+    // Pre-select images already in src/data/magna-2026-photos.json so
+    // re-exporting from the toolbar produces a complete list (no manual merge).
+    const preselectedEl = document.getElementById('magna-2026-preselected');
+    if (preselectedEl?.textContent) {
+      try {
+        const preselected: string[] = JSON.parse(preselectedEl.textContent);
+        const magnaTag = tags['magna-2026'];
+        const selectedClass = `photo-item--tagged-${magnaTag.id}`;
+        const preselectedSet = new Set(preselected);
+        document.querySelectorAll('.photo-item').forEach((btn) => {
+          const src =
+            btn.getAttribute('data-src') ||
+            btn.querySelector('img')?.getAttribute('src') ||
+            '';
+          if (!src) return;
+          const p = magnaTag.toExportPath(src);
+          if (preselectedSet.has(p)) {
+            magnaTag.selected.add(p);
+            btn.classList.add(selectedClass);
+          }
+        });
+        updateCount();
+      } catch {
+        /* ignore malformed json */
+      }
+    }
   }
 
   // ---- Date Slider (Google Photos-style vertical scrubber) ----
