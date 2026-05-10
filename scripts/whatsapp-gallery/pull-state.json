@@ -1,6 +1,6 @@
 {
-  "last_pull": "2026-05-10T15:28:11Z",
-  "total_downloaded": 3702,
+  "last_pull": "2026-05-10T18:16:57Z",
+  "total_downloaded": 3714,
   "known_hashes": [
     "0028ab13ed087e3255a0e1a46df635e5",
     "0028bae501b8c74606b028eb32394fd1",
@@ -3809,7 +3809,19 @@
     "c17a2d0717850306eb13a5e7ae61d189",
     "094528227931a83930b902d20c46c6e6",
     "9e6321c139f06effd7723a09446d3c4f",
-    "44a65419539d3924a8655e5246d04fa2"
+    "44a65419539d3924a8655e5246d04fa2",
+    "01572abbf0a372532082d7f167b81190",
+    "0722a2c9cd6d55c77d9857d6fa025d0d",
+    "1857063a661c2d29de7657c6a892a5cc",
+    "2a13639d2953cb2f689acee5d5af2096",
+    "590240c4ecdbadc79fddf4cdb7b4eafd",
+    "99592af2cabd30006b8f290370476cab",
+    "b79f638abdb74b5a7a6a0f5f4201391a",
+    "bb5f9301bc453c861704a2beb4be4a93",
+    "d0d2e6546444ce017263bc3f63417904",
+    "ea38f2a851bd76192bc5fde42def1642",
+    "eb9ad4817608f8d993a876a82c6c2a43",
+    "f294df069a53198dca2c173936ca9188"
   ],
   "months_with_images": {
     "2026-01": 47,
@@ -3863,15 +3875,15 @@
     "2025-11": 91,
     "2025-12": 62,
     "2026-04": 11,
-    "2026-05": 155
+    "2026-05": 167
   },
   "groups": {
     "Estebike": {
-      "last_pull": "2026-05-10T15:28:11Z",
-      "total_downloaded": 218
+      "last_pull": "2026-05-10T18:16:57Z",
+      "total_downloaded": 230
     },
     "AGONISTI TEAM Estebike": {
-      "last_pull": "2026-05-10T15:28:11Z",
+      "last_pull": "2026-05-10T18:16:57Z",
       "total_downloaded": 33
     }
   },

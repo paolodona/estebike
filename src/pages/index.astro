@@ -16,6 +16,54 @@ const latestPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
+// Build-time random selection from the most recent 200 gallery photos.
+// Refreshed on every deploy so the homepage feels fresh without client JS.
+const fs = await import('node:fs');
+const path = await import('node:path');
+
+const galleryRoot = path.resolve('public/images/gallery');
+const descriptionsPath = path.resolve(
+  'scripts/whatsapp-gallery/descriptions.json'
+);
+const descriptions: Record<string, string> = fs.existsSync(descriptionsPath)
+  ? JSON.parse(fs.readFileSync(descriptionsPath, 'utf-8'))
+  : {};
+
+const recentImages: { src: string; alt: string }[] = [];
+if (fs.existsSync(galleryRoot)) {
+  const years = fs
+    .readdirSync(galleryRoot)
+    .filter((d: string) => /^\d{4}$/.test(d))
+    .sort()
+    .reverse();
+  for (const year of years) {
+    const months = fs
+      .readdirSync(path.join(galleryRoot, year))
+      .filter((d: string) => /^\d{2}$/.test(d))
+      .sort()
+      .reverse();
+    for (const month of months) {
+      const files = fs
+        .readdirSync(path.join(galleryRoot, year, month))
+        .filter((f: string) => /\.(jpg|jpeg|webp|png)$/i.test(f))
+        .sort()
+        .reverse();
+      for (const f of files) {
+        recentImages.push({
+          src: url(`/images/gallery/${year}/${month}/${f}`),
+          alt: descriptions[f] || 'Foto EsteBike',
+        });
+        if (recentImages.length >= 200) break;
+      }
+      if (recentImages.length >= 200) break;
+    }
+    if (recentImages.length >= 200) break;
+  }
+}
+
+const shuffled = [...recentImages].sort(() => Math.random() - 0.5);
+const galleryPreview = shuffled.slice(0, 6);
+
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('it-IT', {
     day: 'numeric',
@@ -106,54 +154,19 @@ const formatDate = (date: Date) => {
       </div>
 
       <div class="gallery-mosaic animate-on-scroll">
-        <a
-          href={url('/galleria')}
-          class="gallery-mosaic__item gallery-mosaic__item--tall"
-        >
-          <img
-            src={url('/images/about-preview.jpg')}
-            alt="Ciclisti in gruppo"
-            loading="lazy"
-          />
-        </a>
-        <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img
-            src={url('/images/blog/2018/05/magnaepedala.jpg')}
-            alt="Magna e Pedala 2018"
-            loading="lazy"
-          />
-        </a>
-        <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img
-            src={url('/images/about-team.jpg')}
-            alt="Team EsteBike"
-            loading="lazy"
-          />
-        </a>
-        <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img
-            src={url('/images/blog/2017/02/team-agonisti-2017.jpg')}
-            alt="Team agonisti 2017"
-            loading="lazy"
-          />
-        </a>
-        <a
-          href={url('/galleria')}
-          class="gallery-mosaic__item gallery-mosaic__item--tall"
-        >
-          <img
-            src={url('/images/about-team.jpg')}
-            alt="Team EsteBike"
-            loading="lazy"
-          />
-        </a>
-        <a href={url('/galleria')} class="gallery-mosaic__item">
-          <img
-            src={url('/images/blog/2015/04/FOTO-ESTEBIKE-001b.jpg')}
-            alt="Gruppo EsteBike"
-            loading="lazy"
-          />
-        </a>
+        {
+          galleryPreview.map((img, i) => (
+            <a
+              href={url('/galleria')}
+              class:list={[
+                'gallery-mosaic__item',
+                (i === 0 || i === 4) && 'gallery-mosaic__item--tall',
+              ]}
+            >
+              <img src={img.src} alt={img.alt} loading="lazy" />
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
