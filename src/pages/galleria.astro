@@ -75,20 +75,32 @@ if (fs.existsSync(galleryPath)) {
     .reverse();
   for (const year of years) {
     const yearPath = path.join(galleryPath, year);
+    // Directories: "MM" (standard month) or "MM-slug" (trip/event override).
+    // String-desc sort places "MM-slug" between "MM+1" and "MM" — i.e. a trip
+    // in late May/early June sits between Giugno and Maggio.
     const months = fs
       .readdirSync(yearPath)
-      .filter((d: string) => /^\d{2}$/.test(d))
+      .filter((d: string) => /^\d{2}(-[a-z0-9-]+)?$/.test(d))
       .sort()
       .reverse();
+    const tripLabels: Record<string, string> = {
+      dublino: 'EsteBike a Dublino',
+    };
     for (const month of months) {
+      const m = month.match(/^(\d{2})(?:-(.+))?$/)!;
+      const monthNum = m[1];
+      const slug = m[2];
       const monthPath = path.join(yearPath, month);
       const files = fs
         .readdirSync(monthPath)
         .filter((f: string) => /\.(jpg|jpeg|webp|png)$/i.test(f))
         .sort();
       if (files.length === 0) continue;
+      const label = slug
+        ? `${tripLabels[slug] || slug} ${year}`
+        : `${monthNames[monthNum] || monthNum} ${year}`;
       whatsappGallery.push({
-        month: `${monthNames[month] || month} ${year}`,
+        month: label,
         id: `${year}-${month}`,
         images: files.map((f: string) => ({
           src: url(`/images/gallery/${year}/${month}/${f}`),
