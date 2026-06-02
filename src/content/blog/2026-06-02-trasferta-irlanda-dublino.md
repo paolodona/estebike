@@ -9,7 +9,7 @@ tags:
   - dublino
   - viaggi in bici
 image: '/images/gallery/2026/05-dublino/dublin-2026-20260530-p2229.jpg'
-excerpt: "Dieci giallorossi in trasferta in Irlanda dal 29 maggio al 1° giugno 2026: dalla costa sud di Dun Laoghaire al Sally Gap nei monti del Wicklow, fino a Howth, Malahide e il rooftop del Guinness Storehouse. Cronaca di un weekend lungo tra pedalate, pinte e — sorpresa — un meteo decisamente clemente."
+excerpt: 'Dieci giallorossi in trasferta in Irlanda dal 29 maggio al 1° giugno 2026: dalla costa sud di Dun Laoghaire al Sally Gap nei monti del Wicklow, fino a Howth, Malahide e il rooftop del Guinness Storehouse. Cronaca di un weekend lungo tra pedalate, pinte e — sorpresa — un meteo decisamente clemente.'
 ---
 
 Dieci giallorossi, quattro giorni, un'isola verde da scoprire in sella. Dal **29 maggio al 1° giugno 2026** una delegazione EsteBike è volata a **Dublino** per una trasferta che mancava da troppo tempo nel calendario del club: scoprire l'**Irlanda in bicicletta**, tra costa, montagne e — perché no — qualche pub. E con il meteo siamo stati pure fortunati: qualche scroscio veloce, ma per il resto cielo per lo più clemente.
@@ -40,7 +40,13 @@ Da lì la strada sale: **Killiney Hill**, una salita breve ma intensa che regala
 
 E qui inizia il pezzo forte di giornata: la **Military Road** verso il **Sally Gap**, la storica strada militare costruita dagli inglesi nell'800 per controllare le **Wicklow Mountains**. Brughiere a perdita d'occhio, laghi di torba, pecore e silenzio. Una salita lunga, regolare, da assaporare metro dopo metro.
 
+![Sulla Military Road tra le foreste delle Wicklow Mountains](/images/gallery/2026/05-dublino/dublin-2026-20260530-w0021.jpg)
+
+![In quota tra le brughiere, sotto un cielo finalmente azzurro](/images/gallery/2026/05-dublino/dublin-2026-20260530-w0029.jpg)
+
 ![Selfie di gruppo al Sally Gap](/images/gallery/2026/05-dublino/dublin-2026-20260530-p5216.jpg)
+
+![Panorama sulle vallate delle Wicklow Mountains dal Sally Gap](/images/gallery/2026/05-dublino/dublin-2026-20260530-w0022.jpg)
 
 Scollinato il Sally Gap, picchiata verso **Glencullen** per il pranzo meritatissimo al **Johnny Fox's**, il pub più alto d'Irlanda. Ribs, fish & chips e qualche ben dosata bevanda locale: la formula vincente.
 
@@ -73,6 +79,8 @@ Rientro anticipato in hotel, doccia e poi tappa obbligata da turisti: il **Guinn
 ![Pinta perfetta al Gravity Bar del Guinness Storehouse](/images/gallery/2026/05-dublino/dublin-2026-20260531-p3240.jpg)
 
 Per la cronaca: una pinta. O due. O quattro. Non ricordiamo bene. 😄
+
+![Il Liffey e l'Ha'penny Bridge al tramonto](/images/gallery/2026/05-dublino/dublin-2026-20260531-w0005.jpg)
 
 ## Lunedì 1° giugno — Bank Holiday Monday a piedi
 
