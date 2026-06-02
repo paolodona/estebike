@@ -52,7 +52,8 @@ const {
         </div>
         <div class="route-stat">
           <Icon name="mountain" size={28} />
-          <span class="route-stat__value">{elevationGain}<small> m</small></span>
+          <span class="route-stat__value">{elevationGain}<small> m</small></span
+          >
           <span class="route-stat__label">Dislivello</span>
         </div>
       </div>
@@ -78,7 +79,9 @@ const {
         >
           <span class="route-link__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.599h4.172L10.463 0l-7 13.828h4.169" />
+              <path
+                d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.599h4.172L10.463 0l-7 13.828h4.169"
+              ></path>
             </svg>
           </span>
           <span>Apri su Strava</span>
@@ -94,8 +97,14 @@ const {
         >
           <span class="route-link__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
-              <circle cx="12" cy="12" r="4" />
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"></circle>
+              <circle cx="12" cy="12" r="4"></circle>
             </svg>
           </span>
           <span>Apri su Komoot</span>
@@ -163,8 +172,8 @@ const {
 
       <p class="route-note">
         <Icon name="bike" size={16} />
-        Buon divertimento e attenzione al traffico — rispetta sempre il codice
-        della strada.
+        Buon divertimento e attenzione al traffico — rispetta sempre il codice della
+        strada.
       </p>
 
       <div class="route-share">
@@ -178,8 +187,10 @@ const {
           <Icon name="share" size={18} />
           <span>Condividi questa pagina</span>
         </button>
-        <span class="route-share__feedback" data-share-feedback aria-live="polite"
-        ></span>
+        <span
+          class="route-share__feedback"
+          data-share-feedback
+          aria-live="polite"></span>
       </div>
 
       <div class="route-back">

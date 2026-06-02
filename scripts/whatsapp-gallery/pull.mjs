@@ -73,7 +73,10 @@ function runBuild() {
     encoding: 'utf8',
     shell: process.platform === 'win32',
   });
-  return { ok: r.status === 0, tail: (r.stdout || '').split('\n').slice(-6).join('\n') };
+  return {
+    ok: r.status === 0,
+    tail: (r.stdout || '').split('\n').slice(-6).join('\n'),
+  };
 }
 
 const result = runProcessor();
@@ -85,13 +88,15 @@ console.log('');
 console.log('=== Pull summary ===');
 console.log(`  Files seen:         ${result.seen}`);
 console.log(
-  `  New images:         ${result.moved}  (estebike: ${result.groupCounts.estebike}, agonisti: ${result.groupCounts.agonisti})`,
+  `  New images:         ${result.moved}  (estebike: ${result.groupCounts.estebike}, agonisti: ${result.groupCounts.agonisti})`
 );
 console.log(`  Known duplicates:   ${result.skipped.knownDup}`);
 console.log(`  Cross-group dupes:  ${result.skipped.crossDup}`);
 console.log(`  Profanity censored: ${result.censored}`);
 if (result.hashMismatchCount > 0) {
-  console.log(`  ! Hash mismatches:  ${result.hashMismatchCount} (filename hash != bytes hash; check downloads)`);
+  console.log(
+    `  ! Hash mismatches:  ${result.hashMismatchCount} (filename hash != bytes hash; check downloads)`
+  );
 }
 if (stale.length > 0) {
   console.log(`  Leftovers cleaned:  ${stale.length}`);
@@ -100,7 +105,9 @@ if (state) {
   console.log(`  Gallery total:      ${state.total_downloaded}`);
   if (monthArg || result.month) {
     const m = monthArg || result.month;
-    console.log(`  ${m} folder:        ${state.months_with_images?.[m] ?? '?'}`);
+    console.log(
+      `  ${m} folder:        ${state.months_with_images?.[m] ?? '?'}`
+    );
   }
 }
 if (result.sample.length > 0) {

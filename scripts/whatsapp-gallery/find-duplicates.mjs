@@ -35,7 +35,10 @@ function arg(name, fallback) {
 
 const THRESHOLD = Number(arg('--threshold', 5));
 const DIR = path.resolve(ROOT, arg('--dir', 'public/images/gallery'));
-const OUT = path.resolve(ROOT, arg('--out', 'scripts/whatsapp-gallery/duplicates.txt'));
+const OUT = path.resolve(
+  ROOT,
+  arg('--out', 'scripts/whatsapp-gallery/duplicates.txt')
+);
 const REVIEW_HTML = process.argv.includes('--review-html');
 const EXACT_ONLY = process.argv.includes('--include-exact');
 
@@ -80,7 +83,10 @@ function hamming(a, b) {
 }
 
 function sha256(file) {
-  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+  return crypto
+    .createHash('sha256')
+    .update(fs.readFileSync(file))
+    .digest('hex');
 }
 
 const files = walk(DIR).sort();
@@ -106,7 +112,9 @@ for (const file of files) {
     try {
       h = await dhash(file);
     } catch (e) {
-      console.warn(`  ! dhash failed ${path.relative(ROOT, file)}: ${e.message}`);
+      console.warn(
+        `  ! dhash failed ${path.relative(ROOT, file)}: ${e.message}`
+      );
     }
   }
   meta.push({
@@ -181,7 +189,8 @@ for (const g of dupGroups) {
     });
   const [keep, ...drop] = sorted;
   groupsForReview.push({ keep, drop });
-  for (const d of drop) toDelete.push(path.relative(ROOT, d.file).replace(/\\/g, '/'));
+  for (const d of drop)
+    toDelete.push(path.relative(ROOT, d.file).replace(/\\/g, '/'));
 }
 
 fs.writeFileSync(OUT, toDelete.join('\n') + (toDelete.length ? '\n' : ''));
