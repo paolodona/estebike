@@ -1,6 +1,6 @@
 {
-  "last_pull": "2026-06-30T10:10:40Z",
-  "total_downloaded": 3774,
+  "last_pull": "2026-06-30T15:24:06Z",
+  "total_downloaded": 3780,
   "known_hashes": [
     "0028ab13ed087e3255a0e1a46df635e5",
     "0028bae501b8c74606b028eb32394fd1",
@@ -3881,7 +3881,13 @@
     "ffc8093488e3c920a8606aaeb911218f",
     "ffd42d272ca5477dbae4436ba859fc5a",
     "ffe1d005ff94f4aecdb600e34d902e38",
-    "fffe2783e0a261e83000056b777e759a"
+    "fffe2783e0a261e83000056b777e759a",
+    "449d5ae857ed1ee3f83157ec260d14aa",
+    "858c3a0c76eac2d6f179246948ce5c3d",
+    "a50cf29dc781e4966bd3cb2ea34612c4",
+    "c6ab5faf4f31c79b1f465a32c8068862",
+    "c893d06149476b6d94ff90dda98cba7d",
+    "ceb8e53875adfd846e98829e79dcc2a7"
   ],
   "months_with_images": {
     "2026-01": 47,
@@ -3936,15 +3942,15 @@
     "2025-12": 62,
     "2026-04": 11,
     "2026-05": 167,
-    "2026-06": 60
+    "2026-06": 66
   },
   "groups": {
     "Estebike": {
-      "last_pull": "2026-06-30T10:10:40Z",
-      "total_downloaded": 275
+      "last_pull": "2026-06-30T15:24:06Z",
+      "total_downloaded": 281
     },
     "AGONISTI TEAM Estebike": {
-      "last_pull": "2026-06-30T10:10:40Z",
+      "last_pull": "2026-06-30T15:24:06Z",
       "total_downloaded": 48
     }
   },
