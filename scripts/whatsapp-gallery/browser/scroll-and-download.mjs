@@ -85,18 +85,25 @@ export function toScript({
     return s || 'unknown';
   }
 
-  // Layout-independent: find the tallest scrollable div inside the media dialog.
-  // (The old version required left > 1000, which broke on narrow windows.)
+  // Find the media panel's scroll container. Layout-independent: the panel can
+  // render as a modal dialog OR as a right-hand side panel, and the scrollable
+  // element is sometimes an ANCESTOR of div[role="dialog"] (the dialog holds the
+  // list items but doesn't scroll itself). So we scan all divs and prefer the
+  // scrollable one that wraps the dialog; failing that, the right-most scrollable
+  // div (the media panel always sits on the right). The old version required
+  // left > 1000 (broke on narrow windows); restricting to dialog descendants
+  // (a later attempt) broke the side-panel layout — this handles both.
   function findScroller() {
     const dialog = document.querySelector('div[role="dialog"]');
-    const root = dialog || document.body;
     let best = null;
-    for (const d of root.querySelectorAll('div')) {
+    for (const d of document.querySelectorAll('div')) {
       if (d.scrollHeight > d.clientHeight + 200 && d.clientHeight > 200) {
-        if (!best || d.scrollHeight > best.scrollHeight) best = d;
+        const wrapsDialog = dialog && d.contains(dialog);
+        const score = (wrapsDialog ? 1e7 : 0) + d.getBoundingClientRect().left;
+        if (!best || score > best.score) best = { el: d, score };
       }
     }
-    return best;
+    return best ? best.el : null;
   }
 
   function captureNew(seenBlobs) {
