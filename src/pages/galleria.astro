@@ -85,6 +85,9 @@ if (fs.existsSync(galleryPath)) {
       .reverse();
     const tripLabels: Record<string, string> = {
       dublino: 'EsteBike a Dublino',
+      grappa: 'Monte Grappa Bike Day',
+      asiago: 'Fuoriporta sull’Altopiano di Asiago',
+      leondoro: 'Cena d’estate al Leon d’oro',
     };
     for (const month of months) {
       const m = month.match(/^(\d{2})(?:-(.+))?$/)!;
@@ -183,14 +186,24 @@ const legacyGalleries = [
   },
 ];
 
-// Bundle small month sections (<=4 photos) with adjacent section in the same year
+// Bundle small month sections (<=4 photos) with adjacent section in the same year.
+// Trip/event sections ("YYYY-MM-slug") are never bundled: they carry their own
+// title, so merging would either lose it or mislabel a plain month.
+const isEventSection = (id: string) => /^\d{4}-\d{2}-.+/.test(id);
+
 function bundleSmallSections(sections: typeof whatsappGallery) {
   const bundled: typeof whatsappGallery = [];
   for (const section of sections) {
     const prev = bundled[bundled.length - 1];
     const curYear = section.id.split('-')[0];
     const prevYear = prev?.id.split('-')[0];
-    if (prev && prevYear === curYear && section.images.length <= 4) {
+    if (
+      prev &&
+      prevYear === curYear &&
+      section.images.length <= 4 &&
+      !isEventSection(section.id) &&
+      !isEventSection(prev.id)
+    ) {
       // Merge into previous section within same year
       const prevMonth =
         prev.month.match(/^(\S+?)(?:-\S+)?\s+/)?.[1] || prev.month;
