@@ -9,8 +9,8 @@
  *     sequence (a plain .click() is silently swallowed by WhatsApp Web)
  *   - Validates the conversation header text contains the expected name
  *
- * Inject by reading this file, calling toScript({ groupName: '...' }) and
- * passing the resulting string to evaluate_script.
+ * The returned source is a function declaration, ready to pass as the
+ * `function` argument of evaluate_script (make-scripts.mjs writes it to disk).
  */
 export function toScript({ groupName, query, headerMatch }) {
   // groupName: exact span[title] to click in the search results
@@ -19,8 +19,7 @@ export function toScript({ groupName, query, headerMatch }) {
   //              after the switch (defaults to groupName)
   const q = query ?? groupName;
   const hm = headerMatch ?? groupName;
-  return `
-(async () => {
+  return `async () => {
   const groupName = ${JSON.stringify(groupName)};
   const query = ${JSON.stringify(q)};
   const headerMatch = ${JSON.stringify(hm)};
@@ -86,6 +85,6 @@ export function toScript({ groupName, query, headerMatch }) {
   }
   const h = document.querySelector('header[data-testid="conversation-header"]');
   return { ok: false, error: 'header-mismatch', header: (h?.textContent || '').substring(0, 80) };
-})()
+}
 `;
 }

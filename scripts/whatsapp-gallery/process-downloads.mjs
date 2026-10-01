@@ -5,9 +5,12 @@
  * Scans ~/Downloads for files produced by the WhatsApp media-panel blob
  * downloads. Two naming patterns are supported:
  *
- *   - new (preferred): `wapull_{group}_{md5}_{slug}.jpg`
+ *   - new (preferred): `wapull_{group}_{md5}_m{YYYY-MM}_{slug}.jpg`
  *     The hash is in the filename so reruns are idempotent. We still
- *     re-hash the file content as defense in depth.
+ *     re-hash the file content as defense in depth. The `m{YYYY-MM}` part is
+ *     the media-panel month section the image sat under; it picks the
+ *     destination folder, so one pull can span several months. Older
+ *     downloads without it (`wapull_{group}_{md5}_{slug}.jpg`) still parse.
  *
  *   - legacy:         `estebike_{NNN}_{slug}.jpg` / `agonisti_{NNN}_{slug}.jpg`
  *     Kept for backward compatibility with the pre-2026-05 sequential flow.
@@ -16,9 +19,11 @@
  *   1. Hashes the bytes with MD5.
  *   2. Skips if hash is in pull-state.json `known_hashes` (deletes download).
  *   3. Skips intra-batch duplicates (cross-group reposts).
- *   4. Renames the kept files using the next sequential index in the target
+ *   4. Renames the kept files using the next sequential index in their
  *      month folder, preserving the sender/caption tail.
- *   5. Moves them to `public/images/gallery/YYYY/MM/`.
+ *   5. Moves them to `public/images/gallery/YYYY/MM/` — the month from the
+ *      filename, or `--month` when given (which overrides every file), or the
+ *      current month when neither is known.
  *   6. Generates an Italian alt-text entry in `descriptions.json`.
  *   7. Updates `pull-state.json`: `last_pull`, `total_downloaded`,
  *      `known_hashes`, `months_with_images`, and per-group counts.
@@ -26,7 +31,7 @@
  * Usage:
  *   node scripts/whatsapp-gallery/process-downloads.mjs [--month YYYY-MM] [--dry-run]
  *
- * Defaults to the current month. Run from the repo root.
+ * Run from the repo root.
  */
 import fs from 'node:fs';
 import crypto from 'node:crypto';
@@ -46,15 +51,16 @@ function arg(name, fallback) {
 const dryRun = process.argv.includes('--dry-run');
 const now = new Date();
 const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-const month = arg('--month', defaultMonth);
-const [year, mon] = month.split('-');
-const DEST_DIR = path.join(ROOT, 'public/images/gallery', year, mon);
+const monthOverride = arg('--month');
+const destDir = (month) => {
+  const [year, mon] = month.split('-');
+  return path.join(ROOT, 'public/images/gallery', year, mon);
+};
 
 if (!fs.existsSync(STATE_PATH)) {
   console.error(`pull-state.json not found at ${STATE_PATH}`);
   process.exit(1);
 }
-if (!dryRun) fs.mkdirSync(DEST_DIR, { recursive: true });
 
 const state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8'));
 const known = new Set(state.known_hashes);
@@ -66,10 +72,11 @@ const desc = fs.existsSync(DESC_PATH)
     };
 
 // Match either:
-//   wapull_<group>_<32-hex-md5>_<slug>.jpg     (new)
-//   <group>_<digits>_<slug>.jpg                (legacy)
+//   wapull_<group>_<32-hex-md5>_[m<YYYY-MM>_]<slug>.jpg     (new)
+//   <group>_<digits>_<slug>.jpg                             (legacy)
 // where <group> is estebike or agonisti.
-const NEW_RE = /^wapull_(estebike|agonisti)_([0-9a-f]{32})_(.+)\.jpg$/i;
+const NEW_RE =
+  /^wapull_(estebike|agonisti)_([0-9a-f]{32})_(?:m(\d{4}-\d{2})_)?(.+)\.jpg$/i;
 const LEGACY_RE = /^(estebike|agonisti)_\d+_(.+)\.jpg$/i;
 
 function classify(filename) {
@@ -80,7 +87,8 @@ function classify(filename) {
       kind: 'new',
       group: nm[1].toLowerCase(),
       hashInName: nm[2].toLowerCase(),
-      tail: nm[3],
+      month: nm[3] || null,
+      tail: nm[4],
     };
   const lm = filename.match(LEGACY_RE);
   if (lm) return { kind: 'legacy', group: lm[1].toLowerCase(), tail: lm[2] };
@@ -92,12 +100,20 @@ const files = fs
   .filter((f) => classify(f) !== null)
   .sort();
 
-let maxIdx = 0;
-if (fs.existsSync(DEST_DIR)) {
-  for (const f of fs.readdirSync(DEST_DIR)) {
-    const m = f.match(/^estebike_(\d+)_/);
-    if (m) maxIdx = Math.max(maxIdx, parseInt(m[1], 10));
+// Highest estebike_NNN index per destination month, read lazily.
+const maxIdx = {};
+function nextIndex(month) {
+  if (maxIdx[month] === undefined) {
+    maxIdx[month] = 0;
+    const dir = destDir(month);
+    if (fs.existsSync(dir)) {
+      for (const f of fs.readdirSync(dir)) {
+        const m = f.match(/^estebike_(\d+)_/);
+        if (m) maxIdx[month] = Math.max(maxIdx[month], parseInt(m[1], 10));
+      }
+    }
   }
+  return ++maxIdx[month];
 }
 
 const PROFANITY =
@@ -130,6 +146,7 @@ const moved = [];
 const skipped = { knownDup: 0, crossDup: 0 };
 const newHashes = [];
 const groupCounts = { estebike: 0, agonisti: 0 };
+const monthCounts = {};
 let censored = 0;
 
 let hashMismatchCount = 0;
@@ -155,21 +172,27 @@ for (const f of files) {
   seen.add(hash);
   newHashes.push(hash);
   groupCounts[meta.group]++;
-  maxIdx++;
-  const newName = `estebike_${String(maxIdx).padStart(3, '0')}_${meta.tail}.jpg`;
-  if (!dryRun) fs.renameSync(path.join(DL, f), path.join(DEST_DIR, newName));
+  const month = monthOverride || meta.month || defaultMonth;
+  monthCounts[month] = (monthCounts[month] || 0) + 1;
+  const newName = `estebike_${String(nextIndex(month)).padStart(3, '0')}_${meta.tail}.jpg`;
+  if (!dryRun) {
+    fs.mkdirSync(destDir(month), { recursive: true });
+    fs.renameSync(path.join(DL, f), path.join(destDir(month), newName));
+  }
   const description = generateDescription(newName);
   if (description.includes('***')) censored++;
   if (!desc[newName]) desc[newName] = description;
-  moved.push({ from: f, to: newName, hash, description });
+  moved.push({ from: f, to: newName, month, hash, description });
 }
 
 if (!dryRun && moved.length > 0) {
   state.known_hashes.push(...newHashes);
   state.total_downloaded += moved.length;
   state.last_pull = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
-  state.months_with_images[month] =
-    (state.months_with_images[month] || 0) + moved.length;
+  for (const [month, n] of Object.entries(monthCounts)) {
+    state.months_with_images[month] =
+      (state.months_with_images[month] || 0) + n;
+  }
   if (state.groups?.['Estebike']) {
     state.groups['Estebike'].last_pull = state.last_pull;
     state.groups['Estebike'].total_downloaded += groupCounts.estebike;
@@ -191,15 +214,16 @@ console.log(
   JSON.stringify(
     {
       dryRun,
-      month,
-      destDir: path.relative(ROOT, DEST_DIR),
+      monthCounts,
       seen: files.length,
       moved: moved.length,
       groupCounts,
       skipped,
       censored,
       hashMismatchCount,
-      sample: moved.slice(0, 5).map((x) => ({ to: x.to, desc: x.description })),
+      sample: moved
+        .slice(0, 5)
+        .map((x) => ({ to: `${x.month}/${x.to}`, desc: x.description })),
     },
     null,
     2

@@ -103,10 +103,9 @@ if (stale.length > 0) {
 }
 if (state) {
   console.log(`  Gallery total:      ${state.total_downloaded}`);
-  if (monthArg || result.month) {
-    const m = monthArg || result.month;
+  for (const [m, n] of Object.entries(result.monthCounts)) {
     console.log(
-      `  ${m} folder:        ${state.months_with_images?.[m] ?? '?'}`
+      `  ${m}:            +${n} (folder now ${state.months_with_images?.[m] ?? '?'})`
     );
   }
 }

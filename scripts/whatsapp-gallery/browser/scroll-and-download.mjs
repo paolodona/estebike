@@ -38,9 +38,14 @@
  *     reachedCap,         // true if we stopped because downloaded === maxDownloads
  *     aborted,            // true if a known-streak triggered an early stop
  *     finalStreak,        // length of the trailing consecutive-known streak
+ *     notLoaded,          // image items with no blob yet (WA download arrow) at the end of the scroll
  *     scrollHeight,       // for diagnostics
  *     downloadedHashes,   // hashes downloaded this call
  *   }
+ *
+ * Returns { ok: false, error: 'no-init' } when window.__waKnown is missing —
+ * WhatsApp Web reloaded and wiped the run state. Re-inject init.js (regenerate
+ * it first so it picks up the wapull_* files already in ~/Downloads) and retry.
  */
 import { MD5_SOURCE } from './md5.mjs';
 
@@ -66,15 +71,16 @@ export function toScript({
     throttleMs,
     burstPauseMs,
   });
-  return `
-(async () => {
+  return `async () => {
   ${MD5_SOURCE}
   const cfg = ${cfg};
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-  // Shared run state (set by init-state.mjs). Default to empty sets so the
-  // script still runs if init was skipped (the Node processor dedups anyway).
-  const known = window.__waKnown instanceof Set ? window.__waKnown : new Set();
+  // Shared run state (set by init-state.mjs). If it is missing, WhatsApp Web
+  // reloaded since init — bail out so the orchestrator re-seeds it instead of
+  // silently re-downloading everything with empty sets.
+  if (!(window.__waKnown instanceof Set)) return { ok: false, error: 'no-init' };
+  const known = window.__waKnown;
   if (!(window.__waDownloaded instanceof Set)) window.__waDownloaded = new Set();
   const done = window.__waDownloaded;
 
@@ -83,6 +89,18 @@ export function toScript({
     const raw = m ? m[1] : 'unknown';
     const s = raw.replace(/[^a-zA-Z0-9 ]/g, '').trim().replace(/\\s+/g, '_').substring(0, 30);
     return s || 'unknown';
+  }
+
+  // Media panel = the dialog holding the most list items. Promo popovers
+  // ("New: Calling on web") are also div[role="dialog"] and come first in the
+  // DOM, so querySelector('div[role="dialog"]') alone can pick the wrong one.
+  function findMediaDialog() {
+    let best = null, bestN = -1;
+    for (const d of document.querySelectorAll('div[role="dialog"]')) {
+      const n = d.querySelectorAll('[role="listitem"]').length;
+      if (n > bestN) { best = d; bestN = n; }
+    }
+    return best;
   }
 
   // Find the media panel's scroll container. Layout-independent: the panel can
@@ -94,7 +112,7 @@ export function toScript({
   // left > 1000 (broke on narrow windows); restricting to dialog descendants
   // (a later attempt) broke the side-panel layout — this handles both.
   function findScroller() {
-    const dialog = document.querySelector('div[role="dialog"]');
+    const dialog = findMediaDialog();
     let best = null;
     for (const d of document.querySelectorAll('div')) {
       if (d.scrollHeight > d.clientHeight + 200 && d.clientHeight > 200) {
@@ -106,11 +124,32 @@ export function toScript({
     return best ? best.el : null;
   }
 
+  // Month section header ("September", "August 2025") -> "YYYY-MM". Headers
+  // without a year are the current year; anything else ("This week") is the
+  // current month.
+  const MONTHS = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+  function sectionMonth(text) {
+    const now = new Date();
+    const m = (text || '').trim().toLowerCase().match(/^([a-z]+)(?: (\\d{4}))?$/);
+    const idx = m ? MONTHS.indexOf(m[1]) : -1;
+    if (idx === -1) return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+    return (m[2] || now.getFullYear()) + '-' + String(idx + 1).padStart(2, '0');
+  }
+
   function captureNew(seenBlobs) {
-    const dialog = document.querySelector('div[role="dialog"]');
+    const dialog = findMediaDialog();
     if (!dialog) return [];
     const out = [];
-    for (const li of dialog.querySelectorAll('[role="listitem"]')) {
+    let header = null;
+    const walker = document.createTreeWalker(dialog, NodeFilter.SHOW_ELEMENT);
+    while (walker.nextNode()) {
+      const li = walker.currentNode;
+      if (li.children.length === 0 && !li.closest('[role="listitem"]') &&
+          new RegExp('^(' + MONTHS.join('|') + ')( \\\\d{4})?$', 'i').test(li.textContent.trim())) {
+        header = li.textContent;
+        continue;
+      }
+      if (li.getAttribute('role') !== 'listitem') continue;
       const label = li.getAttribute('aria-label') || '';
       if (!label.includes('Image')) continue;
       let blob = null;
@@ -119,18 +158,18 @@ export function toScript({
         const m = bg && bg.match(/url\\("(blob:[^"]+)"\\)/);
         if (m) { blob = m[1]; break; }
       }
-      if (blob && !seenBlobs.has(blob)) out.push({ blob, label: label.substring(0, 120) });
+      if (blob && !seenBlobs.has(blob)) out.push({ blob, label: label.substring(0, 120), month: sectionMonth(header) });
     }
     return out;
   }
 
-  async function downloadBlob(blobUrl, hash, label) {
+  async function downloadBlob(blobUrl, hash, label, month) {
     const resp = await fetch(blobUrl);
     const blob = await resp.blob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'wapull_' + cfg.group + '_' + hash + '_' + senderFromLabel(label) + '.jpg';
+    a.download = 'wapull_' + cfg.group + '_' + hash + '_m' + month + '_' + senderFromLabel(label) + '.jpg';
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
@@ -151,7 +190,7 @@ export function toScript({
 
   // Process one freshly-captured slice. Returns true to stop scrolling.
   async function processCaptured(captured) {
-    for (const { blob, label } of captured) {
+    for (const { blob, label, month } of captured) {
       seenBlobs.add(blob);
       let hash;
       try {
@@ -172,7 +211,7 @@ export function toScript({
       }
       // New image — download it now, while the blob URL is still valid.
       try {
-        await downloadBlob(blob, hash, label);
+        await downloadBlob(blob, hash, label, month);
         done.add(hash);
         downloadedHashes.push(hash);
         streak = 0;
@@ -200,6 +239,12 @@ export function toScript({
     }
   }
 
+  let notLoaded = 0;
+  for (const li of findMediaDialog()?.querySelectorAll('[role="listitem"]') || []) {
+    if (!(li.getAttribute('aria-label') || '').includes('Image')) continue;
+    if (![...li.querySelectorAll('div')].some(dv => /blob:/.test(getComputedStyle(dv).backgroundImage))) notLoaded++;
+  }
+
   return {
     ok: true,
     scanned,
@@ -210,9 +255,10 @@ export function toScript({
     reachedCap,
     aborted,
     finalStreak: streak,
+    notLoaded,
     scrollHeight: scroller.scrollHeight,
     downloadedHashes,
   };
-})()
+}
 `;
 }
